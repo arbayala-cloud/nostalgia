@@ -474,7 +474,7 @@ function nnGuide(o){const e=v=>String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':
    const n=pos[k]<0?Q[k][0]:at(k),m=pos[k]<0?Q[k][1%Q[k].length]:nx(k);
    r.innerHTML='<span class="gch"><b>'+c.num+'</b>'+e(c.name)+'</span><span class="gnow">'+e(o.label(n))+'</span><span class="gnext">'+e(o.label(m))+'</span>';r.onclick=()=>tune(k);G.appendChild(r);});}
  function stop(){if(pl&&pl.destroy){try{pl.destroy()}catch(x){}}pl=null;o.scr.querySelectorAll('iframe,#'+o.p+'yt').forEach(f=>f.remove());o.card.hidden=false;o.scr.classList.remove('on');}
- function flash(){o.ov.textContent='CH '+CH[ci].num;o.scr.classList.remove('flip');void o.scr.offsetWidth;o.scr.classList.add('flip');clearTimeout(ovT);ovT=setTimeout(()=>o.scr.classList.remove('flip'),900);}
+ function flash(){window.nnStatic&&nnStatic();o.ov.textContent='CH '+CH[ci].num;o.scr.classList.remove('flip');void o.scr.offsetWidth;o.scr.classList.add('flip');clearTimeout(ovT);ovT=setTimeout(()=>o.scr.classList.remove('flip'),900);}
  function play(x){cur=x;o.card.hidden=true;o.scr.classList.add('on');o.l1.textContent='CH '+CH[ci].num;o.l2.textContent=o.label(x);o.l3.textContent=o.sub(x);
   const nw=$('now');nw.innerHTML='';const b=document.createElement('b');b.textContent='CH '+CH[ci].num+' · Now: '+o.label(x);nw.append(b,' · '+o.sub(x));grid();
   if(pl&&pl.loadVideoById){pl.loadVideoById(x.yt);return;}
@@ -605,5 +605,9 @@ addEventListener('pointermove',e=>{const n=performance.now();if(n-lt<28)return;l
 addEventListener('pointerdown',e=>spawn(e.clientX,e.clientY,12),{passive:true});
 addEventListener('touchmove',e=>{const n=performance.now();if(n-lt<28)return;lt=n;const t=e.touches[0];if(t)spawn(t.clientX,t.clientY,4);},{passive:true});
 window.nnGlitter=()=>({n:P.length,on});})();</script>
+<script>
+window.nnStatic=(function(){let A;return function(){try{A=A||new (window.AudioContext||window.webkitAudioContext)();if(A.state==='suspended')A.resume();const d=.55,n=A.sampleRate*d,b=A.createBuffer(1,n,A.sampleRate),c=b.getChannelData(0);for(let i=0;i<n;i++)c[i]=(Math.random()*2-1)*(0.6+0.4*Math.random());const s=A.createBufferSource();s.buffer=b;const f=A.createBiquadFilter();f.type='bandpass';f.frequency.value=2600;f.Q.value=.5;const g=A.createGain(),t=A.currentTime;g.gain.setValueAtTime(0,t);g.gain.linearRampToValueAtTime(.22,t+.02);g.gain.setValueAtTime(.22,t+d-.18);g.gain.linearRampToValueAtTime(0,t+d);s.connect(f).connect(g).connect(A.destination);s.start()}catch(e){}}})();
+document.addEventListener('click',e=>{const b=e.target.closest('#play,#tplay,#rw,#ff,#trw,#tff');if(b)nnStatic()},true);
+</script>
 </body>
 </html>
