@@ -108,6 +108,17 @@ animation:neonflick 6s infinite}
 <style>#song h2{font-size:9px;padding:3px 6px}#song .in{padding:6px}#song .tv{zoom:.7}#song button{font-size:10px;padding:3px 6px}#song .in>*{max-width:100%}</style>
 <style>#song{max-width:340px}#song .songrow{display:flex;align-items:center;justify-content:center;gap:10px}#song .tv{margin:0;flex:none}#song .deck{display:flex;flex-direction:column;gap:6px;margin:0;align-items:stretch}#song .deck button{width:auto;min-width:70px}#song .links{display:flex;flex-direction:column;gap:2px;margin:4px 0 0;font-size:10px;text-align:center}#song .links{font-size:0}#song .links a{font-size:10px}</style>
 <style>.top{justify-content:center;text-align:center}</style>
+<style>
+.top{position:relative;overflow:hidden}
+.spark{position:absolute;width:3px;height:3px;background:#fff;border-radius:50%;box-shadow:0 0 6px 2px #ff7be0;animation:tw 1.6s infinite ease-in-out;pointer-events:none}
+.spark:nth-child(odd){background:#ffd6f5;box-shadow:0 0 6px 2px #fff}
+@keyframes tw{0%,100%{opacity:0;transform:scale(.3)}50%{opacity:1;transform:scale(1.4)}}
+#song{border:3px solid transparent;background:linear-gradient(#fff,#fff) padding-box,
+linear-gradient(115deg,#ff4fd8,#fff,#b4b4ff,#ffd6f5,#ff4fd8,#fff,#c0c0c0,#ff4fd8) border-box;background-size:100% 100%,300% 300%;animation:glit 4s linear infinite}
+@keyframes glit{to{background-position:0 0,300% 0}}
+#song h2{background:#222 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20'%3E%3Ccircle cx='5' cy='5' r='.8' fill='%23ff9ee9'/%3E%3Ccircle cx='25' cy='14' r='.7' fill='%23fff'/%3E%3Ccircle cx='34' cy='4' r='.6' fill='%23ffd6f5'/%3E%3Ccircle cx='15' cy='16' r='.5' fill='%23fff'/%3E%3C/svg%3E");animation:hs 3s linear infinite}
+@keyframes hs{to{background-position:40px 0}}
+</style>
 </head>
 <body>
 <header class="top"><span class="logo neon">Nostalgic Nook</span>
@@ -165,5 +176,6 @@ tog.onclick=()=>{const show=all.hidden;all.hidden=!show;tog.textContent=show?'Hi
   if(show&&!all.childNodes.length)s.forEach((song,i)=>all.appendChild(row(song,'#'+(i+1))));};
 });
 </script>
+<script>(function(){var h=document.querySelector('.top');for(var i=0;i<26;i++){var e=document.createElement('i');e.className='spark';e.style.left=Math.random()*100+'%';e.style.top=Math.random()*100+'%';e.style.animationDelay=(Math.random()*1.6)+'s';e.style.animationDuration=(1.2+Math.random()*1.4)+'s';h.appendChild(e)}})();</script>
 </body>
 </html>
