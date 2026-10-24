@@ -226,11 +226,20 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 .cc span{display:block;font-size:11px;line-height:1.35}
 .cc i{position:absolute;top:6px;right:7px;font-style:normal;font-size:11px}
 </style>
+<style>
+#wwe{max-width:520px}#wwe .tv{zoom:.75}#toons{max-width:520px}
+.pick{display:flex;gap:6px;margin:10px 0 4px}
+.pick select{flex:1;min-width:0;appearance:none;-webkit-appearance:none;background:#111 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23fff' stroke-width='2'/%3E%3C/svg%3E") no-repeat right 12px center;color:#fff;border:2px solid var(--n);box-shadow:0 0 8px var(--n);border-radius:22px;padding:10px 32px 10px 14px;font:bold 14px Verdana,sans-serif;cursor:pointer;text-overflow:ellipsis}
+.pick select option,.pick select optgroup{background:#fff;color:#000}
+.surp{flex:none;background:#fff;color:#000;border:2px solid #111;border-radius:22px;padding:8px 12px;font:bold 12px Verdana,sans-serif;cursor:pointer;box-shadow:0 0 8px var(--n),2px 2px 0 #111}
+.surp:active{transform:translateY(1px)}
+@media(max-width:420px){.pick select{font-size:13px}.surp{padding:8px 9px;font-size:11px}}
+</style>
 </head>
 <body>
 <header class="top"><button class="hb" id="hb" aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><span class="logo neon">Nostalgic Nook</span>
 </header>
-<div class="dov" id="dov" hidden></div><aside class="drawer" id="drawer" aria-hidden="true"><div class="dhead"><span class="dlogo">Nostalgic Nook</span><button id="dx" aria-label="Close menu">✕</button></div><nav class="menu" id="menu"><a href="#home" data-v="home"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg><span>Home</span></a><a href="#onthisday" data-v="onthisday"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>On This Day</span></a><a href="#tv" data-v="tv"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 3l4 4 4-4"/></svg><span>TV Show of the Day</span></a><a href="#cartoons" data-v="cartoons"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="7"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M9.5 15.5c1.5 1.3 3.5 1.3 5 0"/><circle cx="10" cy="12" r=".6" fill="currentColor"/><circle cx="14" cy="12" r=".6" fill="currentColor"/></svg><span>Cartoon Corner</span></a><a href="#photos" data-v="photos"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span>Photos</span></a><a href="#memories" data-v="memories"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg><span>Memories</span></a></nav></aside>
+<div class="dov" id="dov" hidden></div><aside class="drawer" id="drawer" aria-hidden="true"><div class="dhead"><span class="dlogo">Nostalgic Nook</span><button id="dx" aria-label="Close menu">✕</button></div><nav class="menu" id="menu"><a href="#home" data-v="home"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg><span>Home</span></a><a href="#onthisday" data-v="onthisday"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>On This Day</span></a><a href="#tv" data-v="tv"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 3l4 4 4-4"/></svg><span>TV Show of the Day</span></a><a href="#cartoons" data-v="cartoons"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="7"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M9.5 15.5c1.5 1.3 3.5 1.3 5 0"/><circle cx="10" cy="12" r=".6" fill="currentColor"/><circle cx="14" cy="12" r=".6" fill="currentColor"/></svg><span>Cartoon Corner</span></a><a href="#wwe" data-v="wwe"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 4h10v4a5 5 0 0 1-10 0z"/><path d="M7 6H4a3 3 0 0 0 3 4M17 6h3a3 3 0 0 1-3 4"/><path d="M12 13v4M8 21h8M9 17h6v4H9z"/></svg><span>WWE Classics</span></a><a href="#photos" data-v="photos"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span>Photos</span></a><a href="#memories" data-v="memories"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg><span>Memories</span></a></nav></aside>
 <div class="wrap">
 <main>
 <section class="view" id="v-home"><div class="box" id="song"><h2>Now Playing · Song of the Day</h2><div class="in"><div class="songrow">
@@ -261,11 +270,15 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 <div class="ctop"><div class="tv"><div class="ant"><i></i><i></i></div>
 <div class="cab"><div class="bez"><button class="scr" id="cscr" aria-label="Play cartoon intro"><span class="card" id="ccard"><small id="cnet">SATURDAY MORNING</small><b id="ctt">Pick a cartoon!</b><span id="cyr">Tap any card below</span><em>▶ PRESS PLAY</em></span></button></div>
 <div class="side"><span class="knob"></span><span class="knob sm"></span><span class="grill"></span></div></div><div class="feet"><i></i><i></i></div></div>
-<p class="cinfo" id="cinfo">Grab a bowl of cereal and pick a show. 🥣</p></div>
-<input id="cq" type="search" placeholder="Search cartoons…" aria-label="Search cartoons">
-<div class="chips" id="cnets"></div><div class="chips" id="cdec"></div>
-<p class="ccount" id="ccount"></p>
-<div class="cgrid" id="cgrid"></div></div></div></section>
+</div><p class="cinfo" id="cinfo">Grab a bowl of cereal and pick a show from the list below.</p>
+<div class="pick"><select id="csel" aria-label="Pick a cartoon"></select><button class="surp" id="csur">🎲 Surprise me</button></div></div></div></section>
+<section class="view" id="v-wwe" hidden><div class="box nbox" id="wwe"><h2>WWE Classics · 1990–2005</h2><div class="in">
+<div class="ctop"><div class="tv"><div class="ant"><i></i><i></i></div>
+<div class="cab"><div class="bez"><button class="scr" id="wscr" aria-label="Play clip"><span class="card" id="wcard"><small id="wgrp">RING SIDE</small><b id="wtt">Pick a clip!</b><span id="wsub">Classic entrances &amp; moments</span><em>▶ PRESS PLAY</em></span></button></div>
+<div class="side"><span class="knob"></span><span class="knob sm"></span><span class="grill"></span></div></div><div class="feet"><i></i><i></i></div></div></div>
+<div class="pick"><select id="wsel" aria-label="Pick a wrestling clip"></select><button class="surp" id="wsur">🎲 Surprise me</button></div>
+<p class="cinfo" id="winfo">Entrances, promos, and iconic moments from the WWF/WWE golden years. Clips from YouTube (mostly the official WWE channels).</p>
+</div></div></section>
 <section class="view" id="v-photos" hidden><div class="box nbox" id="gal"><h2>Nostalgic Photo Gallery</h2><div class="in">
 <div class="pgrid" id="pgrid"></div>
 <p class="note pcred">Photos from Wikimedia Commons, resized. Credits are in each photo's caption. Tap a photo to see it big.</p></div></div></section>
@@ -321,7 +334,7 @@ tog.onclick=()=>{const show=all.hidden;all.hidden=!show;tog.textContent=show?'Hi
 <script>
 (function(){
 // router
-function route(){const v=(location.hash||'#home').slice(1);const ok=['home','onthisday','tv','cartoons','photos','memories'].includes(v)?v:'home';
+function route(){const v=(location.hash||'#home').slice(1);const ok=['home','onthisday','tv','cartoons','wwe','photos','memories'].includes(v)?v:'home';
  document.querySelectorAll('.view').forEach(e=>e.hidden=e.id!=='v-'+ok);document.querySelectorAll('.menu a').forEach(a=>a.classList.toggle('on',a.dataset.v===ok));
  document.querySelectorAll('.scr iframe').forEach(f=>{f.parentNode.querySelector('.card').hidden=false;f.parentNode.classList.remove('on');f.remove();});
  ['play','tplay'].forEach(i=>{const b=document.getElementById(i);if(b)b.textContent='▶ PLAY';});window.dispatchEvent(new Event('tvreset'));}
@@ -384,24 +397,24 @@ hb.onclick=op;dx.onclick=cl;dov.onclick=cl;document.querySelectorAll('#menu a').
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&drawer.classList.contains('open'))cl();});})();
 </script>
 <script>
-(function(){let C=[],net='All',dec='All',cur=null;const e=v=>String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
-const NETS=['All','Nickelodeon','Cartoon Network','Disney / ABC','Fox Kids','Kids\' WB','PBS Kids','Other'];
-const bucket=n=>/Nick/.test(n)?'Nickelodeon':/Cartoon Network|TBS/.test(n)?'Cartoon Network':/Disney|ABC/.test(n)?'Disney / ABC':/Fox/.test(n)?'Fox Kids':/WB/.test(n)?'Kids\' WB':/PBS/.test(n)?'PBS Kids':'Other';
-const start=y=>parseInt(y);const dk=y=>start(y)>=2000?'2000s':'90s';
-function chips(el,list,get,set){el.innerHTML='';list.forEach(v=>{const b=document.createElement('button');b.textContent=v==='All'?(el.id==='cdec'?'All years':'All networks'):v;b.className=get()===v?'on':'';b.onclick=()=>{set(v);chips(el,list,get,set);draw();};el.appendChild(b);});}
-function stop(){const f=cscr.querySelector('iframe');if(f)f.remove();ccard.hidden=false;cscr.classList.remove('on');}
-function play(){if(!cur||!cur.yt)return;ccard.hidden=true;cscr.classList.add('on');const f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+cur.yt+'?autoplay=1&rel=0&playsinline=1';f.title=cur.title;f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;cscr.appendChild(f);}
-function pick(x,go){stop();cur=x;ctt.textContent=x.title;cyr.textContent=x.years;cnet.textContent=x.network.toUpperCase();cinfo.innerHTML='<b>'+e(x.title)+'</b> ('+e(x.years)+', '+e(x.network)+') — '+e(x.desc)+(x.yt?'':' <i>(No intro video found.)</i>');
- document.querySelectorAll('.cc.on').forEach(c=>c.classList.remove('on'));if(go){document.getElementById('toons').scrollIntoView({behavior:'smooth'});if(x.yt)play();}}
-cscr.onclick=()=>{if(!cscr.querySelector('iframe'))play();};
-function draw(){const q=cq.value.trim().toLowerCase();const L=C.filter(x=>(net==='All'||bucket(x.network)===net)&&(dec==='All'||dk(x.years)===dec)&&(!q||(x.title+' '+x.desc+' '+x.network).toLowerCase().includes(q)));
- ccount.textContent=L.length+' cartoon'+(L.length===1?'':'s');cgrid.innerHTML='';
- L.forEach(x=>{const b=document.createElement('button');b.className='cc'+(cur===x?' on':'');b.innerHTML=(x.yt?'<i>▶</i>':'')+'<b>'+e(x.title)+'</b><small>'+e(x.years)+' · '+e(x.network)+'</small><span>'+e(x.desc)+'</span>';b.onclick=()=>{pick(x,true);b.classList.add('on');};cgrid.appendChild(b);});
- if(!L.length)cgrid.innerHTML='<p class="note">No cartoons match. Try another search!</p>';}
-cq.oninput=draw;
-fetch('cartoons.json?v=1').then(r=>r.json()).then(a=>{C=a.sort((p,q)=>p.title.replace(/^(The|A|Disney's) /,'').localeCompare(q.title.replace(/^(The|A|Disney's) /,'')));
- chips(cnets,NETS,()=>net,v=>net=v);chips(cdec,['All','90s','2000s'],()=>dec,v=>dec=v);draw();});
-window.addEventListener('hashchange',stop);})();
+function nnPicker(o){/* o: scr,card,l1,l2,l3,info,sel,sur,data,group,label,infoHtml,ph */
+ const e=v=>String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));let cur=null;
+ function stop(){const f=o.scr.querySelector('iframe');if(f)f.remove();o.card.hidden=false;o.scr.classList.remove('on');}
+ function play(){if(!cur||!cur.yt)return;o.card.hidden=true;o.scr.classList.add('on');const f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+cur.yt+'?autoplay=1&rel=0&playsinline=1';f.title=cur.title;f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;o.scr.appendChild(f);}
+ function pick(i){stop();cur=o.data[i];if(!cur)return;o.sel.value=i;const t=o.card3(cur);o.l1.textContent=t[0];o.l2.textContent=t[1];o.l3.textContent=t[2];o.info.innerHTML=o.infoHtml(cur,e);play();}
+ const groups={};o.data.forEach((x,i)=>{(groups[o.group(x)]=groups[o.group(x)]||[]).push(i)});
+ o.sel.innerHTML='<option value="" disabled selected>'+e(o.ph)+'</option>'+Object.keys(groups).sort((a,b)=>o.gorder?o.gorder(a,b):a.localeCompare(b)).map(g=>'<optgroup label="'+e(g)+'">'+groups[g].map(i=>'<option value="'+i+'">'+e(o.label(o.data[i]))+'</option>').join('')+'</optgroup>').join('');
+ o.sel.onchange=()=>pick(+o.sel.value);o.sur.onclick=()=>{let i;do{i=Math.floor(Math.random()*o.data.length)}while(o.data.length>1&&o.data[i]===cur);pick(i);};
+ o.scr.onclick=()=>{if(!o.scr.querySelector('iframe'))play();};window.addEventListener('hashchange',stop);}
+const NNsort=t=>t.replace(/^(The|A|Disney's) /,'');
+fetch('cartoons.json?v=1').then(r=>r.json()).then(a=>{a.sort((p,q)=>NNsort(p.title).localeCompare(NNsort(q.title)));
+ const bucket=n=>/Nick/.test(n)?'Nickelodeon':/Cartoon Network|TBS/.test(n)?'Cartoon Network':/Disney|ABC/.test(n)?'Disney / ABC':/Fox/.test(n)?'Fox Kids':/WB/.test(n)?"Kids' WB":/PBS/.test(n)?'PBS Kids':'Other (CBS, NBC, syndication…)';
+ nnPicker({scr:cscr,card:ccard,l1:cnet,l2:ctt,l3:cyr,info:cinfo,sel:csel,sur:csur,data:a,group:x=>bucket(x.network),label:x=>x.title+' ('+x.years+')',ph:'📺 Pick a cartoon ('+a.length+')…',
+  gorder:(p,q)=>p.startsWith('Other')?1:q.startsWith('Other')?-1:p.localeCompare(q),card3:x=>[x.network.toUpperCase(),x.title,x.years],
+  infoHtml:(x,e)=>'<b>'+e(x.title)+'</b> ('+e(x.years)+', '+e(x.network)+') — '+e(x.desc)});});
+fetch('wwe.json?v=1').then(r=>r.json()).then(a=>{
+ nnPicker({scr:wscr,card:wcard,l1:wgrp,l2:wtt,l3:wsub,info:winfo,sel:wsel,sur:wsur,data:a,group:x=>x.group,label:x=>x.title,ph:'🤼 Pick a classic clip ('+a.length+')…',
+  card3:x=>[x.group.toUpperCase(),x.title,'WWF / WWE'],infoHtml:(x,e)=>'<b>'+e(x.group)+'</b> — '+e(x.title)});});
 </script>
 </body>
 </html>
