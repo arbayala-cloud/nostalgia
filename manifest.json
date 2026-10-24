@@ -1,2 +1,2 @@
-{"name":"Nostalgic Nook","short_name":"Nostalgic Nook","start_url":"./","scope":"./","display":"standalone","background_color":"#2b0a6b","theme_color":"#2b0a6b",
-"icons":[{"src":"icons/cat-192.png","sizes":"192x192","type":"image/png","purpose":"any"},{"src":"icons/cat-512.png","sizes":"512x512","type":"image/png","purpose":"any"},{"src":"icons/cat-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}]}
+{"name":"Nostalgic Nook","short_name":"Nostalgic Nook","start_url":"./","scope":"./","display":"standalone","background_color":"#7a12b8","theme_color":"#7a12b8",
+"icons":[{"src":"icons/nn-192.png","sizes":"192x192","type":"image/png","purpose":"any"},{"src":"icons/nn-512.png","sizes":"512x512","type":"image/png","purpose":"any"},{"src":"icons/nn-512.png","sizes":"512x512","type":"image/png","purpose":"maskable"}]}
