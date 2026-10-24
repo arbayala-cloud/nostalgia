@@ -327,7 +327,7 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 <div class="side"><span class="knob"></span><span class="knob sm"></span><span class="grill"></span></div></div><div class="feet"><i></i><i></i></div></div>
 </div>
 <div class="guide" id="cguide" role="listbox" aria-label="TV guide"></div><div class="gctl"><button id="cdn" aria-label="Channel down">▼ CH</button><button id="cnext" aria-label="Next show">Next ⏭</button><button id="csur">🎲 Surprise</button><button id="cup" aria-label="Channel up">CH ▲</button></div><p class="cnow" id="cnow">Tap a channel in the guide to tune in 📺</p></div></div></section>
-<section class="view" id="v-wwe" hidden><div class="box nbox" id="wwe"><h2>WWF · WCW · WWE Classics · 1990–2005</h2><div class="in">
+<section class="view" id="v-wwe" hidden><div class="box nbox" id="wwe"><h2>WWF · WCW · ECW · WWE Classics · 1990–2005</h2><div class="in">
 <div class="ctop"><div class="tv"><div class="ant"><i></i><i></i></div>
 <div class="cab"><div class="bez"><button class="scr" id="wscr" aria-label="Play clip"><span class="chov" id="wchov"></span><span class="card" id="wcard"><small id="wgrp">RING SIDE</small><b id="wtt">Pick a clip!</b><span id="wsub">Classic entrances &amp; moments</span><em>▶ PRESS PLAY</em></span></button></div>
 <div class="side"><span class="knob"></span><span class="knob sm"></span><span class="grill"></span></div></div><div class="feet"><i></i><i></i></div></div></div>
@@ -491,8 +491,8 @@ fetch('cartoons.json?v=3').then(r=>r.json()).then(a=>{a=a.filter(x=>x.yt);const 
  const chOf=x=>D.findIndex(c=>c[2](x.network));
  nnGuide({p:'c',view:'v-cartoons',title:'CARTOONS',scr:cscr,card:ccard,ov:chov,l1:cnet,l2:ctt,l3:cyr,label:x=>x.title,sub:x=>x.years+(x.kind==='Episode'?' · episode':' · theme song'),
   channels:D.map((c,k)=>({num:c[0],name:c[1],items:a.filter(x=>chOf(x)===k)}))});});
-fetch('wrestling.json?v=1').then(r=>r.json()).then(d=>{const a=d.clips;const N=Object.entries(d.num).sort((p,q)=>p[1]-q[1]);
- nnGuide({p:'w',view:'v-wwe',title:'WWF · WCW · WWE',scr:wscr,card:wcard,ov:wchov,l1:wgrp,l2:wtt,l3:wsub,label:x=>x.title,sub:x=>x.ch,
+fetch('wrestling.json?v=2').then(r=>r.json()).then(d=>{const a=d.clips;const N=Object.entries(d.num).sort((p,q)=>p[1]-q[1]);
+ nnGuide({p:'w',view:'v-wwe',title:'WWF · WCW · ECW · WWE',scr:wscr,card:wcard,ov:wchov,l1:wgrp,l2:wtt,l3:wsub,label:x=>x.title,sub:x=>x.ch,
   channels:N.map(([n,num])=>({num,name:n,items:a.filter(x=>x.ch===n)})).filter(c=>c.items.length)});});
 </script>
 <script>
