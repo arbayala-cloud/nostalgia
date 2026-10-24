@@ -137,7 +137,7 @@ cnt.textContent=off?(off<0?'⏪ '+(-off)+' day'+(off<-1?'s':'')+' back':'⏩ '+o
 yt.href='https://www.youtube.com/results?search_query='+q;sp.href='https://open.spotify.com/search/'+q;
 tt.textContent='';spin(false);if(ready&&x.yt)pl.cueVideoById(x.yt);play.disabled=!(ready&&x.yt);}
 function stopMain(){if(ready)pl.pauseVideo();spin(false);}
-play.onclick=()=>{if(!ready||!x.yt)return;stopRows();vid.classList.remove('show');pl.playVideo();setTimeout(()=>{const st_=pl.getPlayerState();if(st_!==1&&st_!==3){vid.classList.add('show');cnt.textContent='Tap the video once to start the tape';}},2500);};
+play.onclick=()=>{if(!ready||!x.yt)return;stopRows();vid.classList.remove('show');pl.playVideo();setTimeout(()=>{const st_=pl.getPlayerState();if(st_===-1||st_===5){vid.classList.add('show');cnt.textContent='Tap the video once to start the tape';}},5000);};
 pz.onclick=()=>{stopMain();};
 rw.onclick=()=>{off--;load();};ff.onclick=()=>{off++;load();};
 load();
