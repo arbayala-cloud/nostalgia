@@ -135,7 +135,7 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 .menu{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;padding:10px 8px 2px}
 .menu a{font:bold 12px Verdana,sans-serif;color:#fff;background:#111;text-decoration:none;padding:7px 12px;border:2px solid var(--n);border-radius:20px;box-shadow:0 0 8px var(--n);text-shadow:0 0 6px var(--n)}
 .menu a.on{background:var(--n);color:#000;text-shadow:none}
-@media(max-width:420px){.menu{gap:5px}.menu a{font-size:10px;padding:5px 7px}}
+@media(max-width:420px){.menu{gap:4px;padding-left:4px;padding-right:4px}.menu a{font-size:9.5px;padding:5px 6px;letter-spacing:-.2px}}
 .view[hidden]{display:none}
 .nbox{max-width:340px;margin-left:auto;margin-right:auto;border:3px solid var(--n);box-shadow:0 0 12px var(--n)}
 .nbox h2{color:#fff;text-shadow:0 0 6px var(--n),0 0 12px var(--n);font-size:9px;padding:3px 6px}
@@ -176,11 +176,23 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 .lbn,.lbx{position:absolute;background:#111;color:#fff;border:2px solid var(--n);box-shadow:0 0 8px var(--n);border-radius:50%;width:42px;height:42px;font:24px/1 Verdana,sans-serif;cursor:pointer}
 .lbx{top:12px;right:12px;font-size:18px}.lbp{left:8px}.lbnx{right:8px}
 </style>
+<style>
+#otd{max-width:520px}
+.otdh{display:flex;align-items:center;justify-content:space-between;gap:8px;text-align:center}
+.otdh b{display:block;font:22px/1.1 "PM",Verdana,sans-serif}.otdh small{letter-spacing:.2em;text-transform:uppercase;font-size:10px;color:#666}
+.otdh button,#otoday{background:#111;color:#fff;border:2px solid var(--n);box-shadow:0 0 8px var(--n);border-radius:50%;width:38px;height:38px;font:22px/1 Verdana;cursor:pointer;flex:none}
+#otoday{display:block;margin:8px auto 0;border-radius:16px;width:auto;height:auto;padding:4px 12px;font:bold 11px Verdana}
+#otoday[hidden]{display:none}
+.tl{list-style:none;margin:14px 0 0;padding:0 0 0 18px;border-left:3px dotted #bbb}
+.tl li{position:relative;margin:0 0 14px;padding-left:10px}
+.tl .yb{position:absolute;left:-40px;top:-1px;background:#111;color:#fff;font:bold 11px "Courier New",monospace;padding:2px 5px;border-radius:10px;border:2px solid var(--n);box-shadow:0 0 6px var(--n)}
+.tl p{margin:0 0 0 18px;font-size:13px;line-height:1.45}.tl p a{font-size:11px;color:#555;white-space:nowrap}
+</style>
 </head>
 <body>
 <header class="top"><span class="logo neon">Nostalgic Nook</span>
 </header>
-<nav class="menu" id="menu"><a href="#home" data-v="home">★ Home</a><a href="#tv" data-v="tv">📺 TV Show of the Day</a><a href="#photos" data-v="photos">📷 Photos</a><a href="#memories" data-v="memories">✎ Memories</a></nav>
+<nav class="menu" id="menu"><a href="#home" data-v="home">★ Home</a><a href="#onthisday" data-v="onthisday">📅 On This Day</a><a href="#tv" data-v="tv">📺 TV Show of the Day</a><a href="#photos" data-v="photos">📷 Photos</a><a href="#memories" data-v="memories">✎ Memories</a></nav>
 <div class="wrap">
 <main>
 <section class="view" id="v-home"><div class="box" id="song"><h2>Now Playing · Song of the Day</h2><div class="in"><div class="songrow">
@@ -196,6 +208,11 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 <button id="tog" aria-expanded="false">Show all songs</button>
 <div id="all" hidden></div>
 </div></div>
+<section class="view" id="v-onthisday" hidden><div class="box nbox" id="otd"><h2>On This Day · 1990–2005</h2><div class="in">
+<div class="otdh"><button id="op" aria-label="Previous day">‹</button><div><b id="odate"></b><small>Back in the Day</small></div><button id="on" aria-label="Next day">›</button></div>
+<button id="otoday" hidden>↺ Back to today</button>
+<ol class="tl" id="olist"></ol>
+<p class="note pcred">Source: <a href="https://en.wikipedia.org/wiki/Wikipedia:Selected_anniversaries" target="_blank" rel="noopener">Wikipedia</a> (CC BY-SA)</p></div></div></section>
 <section class="view" id="v-tv" hidden><div class="box nbox" id="show"><h2>Now Showing · TV Show of the Day</h2><div class="in"><div class="songrow">
 <div class="tv"><div class="ant"><i></i><i></i></div>
 <div class="cab"><div class="bez"><button class="scr" id="tscr" aria-label="Play TV show intro"><span class="card" id="tcard"><small id="tch">CH 1 · TODAY</small><b id="tst">Loading…</b><span id="tsa"></span><em>▶ PRESS PLAY</em></span></button></div>
@@ -257,7 +274,7 @@ tog.onclick=()=>{const show=all.hidden;all.hidden=!show;tog.textContent=show?'Hi
 <script>
 (function(){
 // router
-function route(){const v=(location.hash||'#home').slice(1);const ok=['home','tv','photos','memories'].includes(v)?v:'home';
+function route(){const v=(location.hash||'#home').slice(1);const ok=['home','onthisday','tv','photos','memories'].includes(v)?v:'home';
  document.querySelectorAll('.view').forEach(e=>e.hidden=e.id!=='v-'+ok);document.querySelectorAll('.menu a').forEach(a=>a.classList.toggle('on',a.dataset.v===ok));
  document.querySelectorAll('.scr iframe').forEach(f=>{f.parentNode.querySelector('.card').hidden=false;f.parentNode.classList.remove('on');f.remove();});
  ['play','tplay'].forEach(i=>{const b=document.getElementById(i);if(b)b.textContent='▶ PLAY';});window.dispatchEvent(new Event('tvreset'));}
@@ -303,6 +320,15 @@ lbx.onclick=close;lbp.onclick=()=>go(-1);lbnx.onclick=()=>go(1);lb.onclick=ev=>{
 document.addEventListener('keydown',ev=>{if(lb.hidden)return;if(ev.key==='Escape')close();if(ev.key==='ArrowLeft')go(-1);if(ev.key==='ArrowRight')go(1);});
 let sx=null;lb.addEventListener('touchstart',ev=>{sx=ev.touches[0].clientX},{passive:true});lb.addEventListener('touchend',ev=>{if(sx==null)return;const dx=ev.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)go(dx<0?1:-1);sx=null;});
 window.addEventListener('hashchange',close);})();
+</script>
+<script>
+(function(){let D=null,off=0;const M=['January','February','March','April','May','June','July','August','September','October','November','December'];
+const e=v=>String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function draw(){const t=new Date();t.setHours(12);t.setDate(t.getDate()+off);const k=String(t.getMonth()+1).padStart(2,'0')+'-'+String(t.getDate()).padStart(2,'0');
+ odate.textContent=M[t.getMonth()]+' '+t.getDate();otoday.hidden=!off;const L=(D[k]||[]).slice().sort((a,b)=>a.y-b.y);let last=0;
+ olist.innerHTML=L.length?L.map(o=>{const s='<li>'+(o.y!==last?'<span class="yb">'+o.y+'</span>':'')+'<p>'+e(o.t)+' <a href="'+e(o.u)+'" target="_blank" rel="noopener">Read more →</a></p></li>';last=o.y;return s}).join(''):'<li><p>No 1990–2005 events listed for this date. Try another day!</p></li>';}
+fetch('onthisday.json?v=1').then(r=>r.json()).then(j=>{D=j;draw();});
+op.onclick=()=>{off--;D&&draw()};on.onclick=()=>{off++;D&&draw()};otoday.onclick=()=>{off=0;D&&draw()};})();
 </script>
 </body>
 </html>
