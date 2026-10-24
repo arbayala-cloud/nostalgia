@@ -205,11 +205,32 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 .drawer .menu a.on svg{color:var(--n);filter:drop-shadow(0 0 3px var(--n))}
 @media(prefers-reduced-motion:reduce){.drawer,.dov{transition:none}}
 </style>
+<style>
+#toons{max-width:760px}
+.ctop{display:flex;flex-direction:column;align-items:center}
+#toons .tv{zoom:.75}
+.cinfo{text-align:center;font-size:12px;margin:6px 8px 10px;max-width:420px}
+#cq{width:100%;padding:8px 12px;border:2px solid var(--n);border-radius:20px;font:13px Verdana,sans-serif;box-shadow:0 0 6px var(--n);outline:none}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin:8px 0 0;justify-content:center}
+.chips button{background:#111;color:#fff;border:1px solid #444;border-radius:14px;padding:4px 10px;font:11px Verdana,sans-serif;cursor:pointer}
+.chips button.on{border-color:var(--n);box-shadow:0 0 6px var(--n);background:var(--n);color:#000;font-weight:bold}
+.ccount{text-align:center;font-size:10px;color:#666;margin:8px 0 4px}
+.cgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+@media(max-width:420px){.cgrid{grid-template-columns:repeat(2,1fr);gap:8px}}
+.cc{position:relative;text-align:left;background:#fff;border:2px solid #111;border-radius:10px;padding:8px 9px;cursor:pointer;box-shadow:3px 3px 0 #111;font:inherit;color:#000;transition:transform .12s,box-shadow .12s}
+.cc:nth-child(4n+1){background:#fff8d6}.cc:nth-child(4n+2){background:#e4f6ff}.cc:nth-child(4n+3){background:#ffe6f4}.cc:nth-child(4n){background:#e9ffe2}
+.cc:hover,.cc:focus,.cc.on{transform:translateY(-2px);box-shadow:0 0 10px var(--n),3px 3px 0 #111;outline:none}
+.cc.on{border-color:var(--n)}
+.cc b{display:block;font:14px/1.15 "PM",Verdana,sans-serif;padding-right:12px}
+.cc small{display:block;font-size:10px;color:#555;margin:2px 0 4px}
+.cc span{display:block;font-size:11px;line-height:1.35}
+.cc i{position:absolute;top:6px;right:7px;font-style:normal;font-size:11px}
+</style>
 </head>
 <body>
 <header class="top"><button class="hb" id="hb" aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><span class="logo neon">Nostalgic Nook</span>
 </header>
-<div class="dov" id="dov" hidden></div><aside class="drawer" id="drawer" aria-hidden="true"><div class="dhead"><span class="dlogo">Nostalgic Nook</span><button id="dx" aria-label="Close menu">✕</button></div><nav class="menu" id="menu"><a href="#home" data-v="home"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg><span>Home</span></a><a href="#onthisday" data-v="onthisday"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>On This Day</span></a><a href="#tv" data-v="tv"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 3l4 4 4-4"/></svg><span>TV Show of the Day</span></a><a href="#photos" data-v="photos"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span>Photos</span></a><a href="#memories" data-v="memories"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg><span>Memories</span></a></nav></aside>
+<div class="dov" id="dov" hidden></div><aside class="drawer" id="drawer" aria-hidden="true"><div class="dhead"><span class="dlogo">Nostalgic Nook</span><button id="dx" aria-label="Close menu">✕</button></div><nav class="menu" id="menu"><a href="#home" data-v="home"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l9-7 9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg><span>Home</span></a><a href="#onthisday" data-v="onthisday"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="2"/><path d="M3 10h18M8 3v4M16 3v4"/></svg><span>On This Day</span></a><a href="#tv" data-v="tv"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 3l4 4 4-4"/></svg><span>TV Show of the Day</span></a><a href="#cartoons" data-v="cartoons"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="13" r="7"/><circle cx="6" cy="6" r="3"/><circle cx="18" cy="6" r="3"/><path d="M9.5 15.5c1.5 1.3 3.5 1.3 5 0"/><circle cx="10" cy="12" r=".6" fill="currentColor"/><circle cx="14" cy="12" r=".6" fill="currentColor"/></svg><span>Cartoon Corner</span></a><a href="#photos" data-v="photos"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6" width="18" height="14" rx="2"/><circle cx="12" cy="13" r="3.5"/><path d="M8 6l1.5-2h5L16 6"/></svg><span>Photos</span></a><a href="#memories" data-v="memories"><svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13 7l4 4"/></svg><span>Memories</span></a></nav></aside>
 <div class="wrap">
 <main>
 <section class="view" id="v-home"><div class="box" id="song"><h2>Now Playing · Song of the Day</h2><div class="in"><div class="songrow">
@@ -236,6 +257,15 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 <div class="side"><span class="knob"></span><span class="knob sm"></span><span class="grill"></span></div></div><div class="feet"><i></i><i></i></div></div>
 <div class="deck"><button id="trw" aria-label="Previous day's show">◀ CH</button><button id="tplay">▶ PLAY</button><button id="tff" aria-label="Next day's show">CH ▶</button></div></div>
 <p class="sdesc" id="tdesc"></p></div></div></section>
+<section class="view" id="v-cartoons" hidden><div class="box nbox" id="toons"><h2>Cartoon Corner · 1990–2005</h2><div class="in">
+<div class="ctop"><div class="tv"><div class="ant"><i></i><i></i></div>
+<div class="cab"><div class="bez"><button class="scr" id="cscr" aria-label="Play cartoon intro"><span class="card" id="ccard"><small id="cnet">SATURDAY MORNING</small><b id="ctt">Pick a cartoon!</b><span id="cyr">Tap any card below</span><em>▶ PRESS PLAY</em></span></button></div>
+<div class="side"><span class="knob"></span><span class="knob sm"></span><span class="grill"></span></div></div><div class="feet"><i></i><i></i></div></div>
+<p class="cinfo" id="cinfo">Grab a bowl of cereal and pick a show. 🥣</p></div>
+<input id="cq" type="search" placeholder="Search cartoons…" aria-label="Search cartoons">
+<div class="chips" id="cnets"></div><div class="chips" id="cdec"></div>
+<p class="ccount" id="ccount"></p>
+<div class="cgrid" id="cgrid"></div></div></div></section>
 <section class="view" id="v-photos" hidden><div class="box nbox" id="gal"><h2>Nostalgic Photo Gallery</h2><div class="in">
 <div class="pgrid" id="pgrid"></div>
 <p class="note pcred">Photos from Wikimedia Commons, resized. Credits are in each photo's caption. Tap a photo to see it big.</p></div></div></section>
@@ -291,7 +321,7 @@ tog.onclick=()=>{const show=all.hidden;all.hidden=!show;tog.textContent=show?'Hi
 <script>
 (function(){
 // router
-function route(){const v=(location.hash||'#home').slice(1);const ok=['home','onthisday','tv','photos','memories'].includes(v)?v:'home';
+function route(){const v=(location.hash||'#home').slice(1);const ok=['home','onthisday','tv','cartoons','photos','memories'].includes(v)?v:'home';
  document.querySelectorAll('.view').forEach(e=>e.hidden=e.id!=='v-'+ok);document.querySelectorAll('.menu a').forEach(a=>a.classList.toggle('on',a.dataset.v===ok));
  document.querySelectorAll('.scr iframe').forEach(f=>{f.parentNode.querySelector('.card').hidden=false;f.parentNode.classList.remove('on');f.remove();});
  ['play','tplay'].forEach(i=>{const b=document.getElementById(i);if(b)b.textContent='▶ PLAY';});window.dispatchEvent(new Event('tvreset'));}
@@ -352,6 +382,26 @@ op.onclick=()=>{off--;D&&draw()};on.onclick=()=>{off++;D&&draw()};otoday.onclick
 function cl(){dov.classList.remove('show');drawer.classList.remove('open');drawer.setAttribute('aria-hidden','true');hb.setAttribute('aria-expanded','false');setTimeout(()=>{if(!drawer.classList.contains('open'))dov.hidden=true},280);}
 hb.onclick=op;dx.onclick=cl;dov.onclick=cl;document.querySelectorAll('#menu a').forEach(a=>a.addEventListener('click',cl));
 document.addEventListener('keydown',e=>{if(e.key==='Escape'&&drawer.classList.contains('open'))cl();});})();
+</script>
+<script>
+(function(){let C=[],net='All',dec='All',cur=null;const e=v=>String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const NETS=['All','Nickelodeon','Cartoon Network','Disney / ABC','Fox Kids','Kids\' WB','PBS Kids','Other'];
+const bucket=n=>/Nick/.test(n)?'Nickelodeon':/Cartoon Network|TBS/.test(n)?'Cartoon Network':/Disney|ABC/.test(n)?'Disney / ABC':/Fox/.test(n)?'Fox Kids':/WB/.test(n)?'Kids\' WB':/PBS/.test(n)?'PBS Kids':'Other';
+const start=y=>parseInt(y);const dk=y=>start(y)>=2000?'2000s':'90s';
+function chips(el,list,get,set){el.innerHTML='';list.forEach(v=>{const b=document.createElement('button');b.textContent=v==='All'?(el.id==='cdec'?'All years':'All networks'):v;b.className=get()===v?'on':'';b.onclick=()=>{set(v);chips(el,list,get,set);draw();};el.appendChild(b);});}
+function stop(){const f=cscr.querySelector('iframe');if(f)f.remove();ccard.hidden=false;cscr.classList.remove('on');}
+function play(){if(!cur||!cur.yt)return;ccard.hidden=true;cscr.classList.add('on');const f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+cur.yt+'?autoplay=1&rel=0&playsinline=1';f.title=cur.title;f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;cscr.appendChild(f);}
+function pick(x,go){stop();cur=x;ctt.textContent=x.title;cyr.textContent=x.years;cnet.textContent=x.network.toUpperCase();cinfo.innerHTML='<b>'+e(x.title)+'</b> ('+e(x.years)+', '+e(x.network)+') — '+e(x.desc)+(x.yt?'':' <i>(No intro video found.)</i>');
+ document.querySelectorAll('.cc.on').forEach(c=>c.classList.remove('on'));if(go){document.getElementById('toons').scrollIntoView({behavior:'smooth'});if(x.yt)play();}}
+cscr.onclick=()=>{if(!cscr.querySelector('iframe'))play();};
+function draw(){const q=cq.value.trim().toLowerCase();const L=C.filter(x=>(net==='All'||bucket(x.network)===net)&&(dec==='All'||dk(x.years)===dec)&&(!q||(x.title+' '+x.desc+' '+x.network).toLowerCase().includes(q)));
+ ccount.textContent=L.length+' cartoon'+(L.length===1?'':'s');cgrid.innerHTML='';
+ L.forEach(x=>{const b=document.createElement('button');b.className='cc'+(cur===x?' on':'');b.innerHTML=(x.yt?'<i>▶</i>':'')+'<b>'+e(x.title)+'</b><small>'+e(x.years)+' · '+e(x.network)+'</small><span>'+e(x.desc)+'</span>';b.onclick=()=>{pick(x,true);b.classList.add('on');};cgrid.appendChild(b);});
+ if(!L.length)cgrid.innerHTML='<p class="note">No cartoons match. Try another search!</p>';}
+cq.oninput=draw;
+fetch('cartoons.json?v=1').then(r=>r.json()).then(a=>{C=a.sort((p,q)=>p.title.replace(/^(The|A|Disney's) /,'').localeCompare(q.title.replace(/^(The|A|Disney's) /,'')));
+ chips(cnets,NETS,()=>net,v=>net=v);chips(cdec,['All','90s','2000s'],()=>dec,v=>dec=v);draw();});
+window.addEventListener('hashchange',stop);})();
 </script>
 </body>
 </html>
