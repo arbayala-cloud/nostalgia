@@ -664,7 +664,7 @@ let built=false;function init(){if(built||$('v-toybox').hidden||!M.clientWidth)r
 addEventListener('hashchange',()=>setTimeout(init,50));init();cnt();
 window.nnToy=()=>({n:st.n,toys:M.querySelectorAll('.toy').length});})();</script>
 <div id="instbox" hidden style="position:fixed;left:50%;bottom:18px;transform:translateX(-50%);z-index:99999;max-width:330px;width:calc(100% - 32px);background:#fff;color:#000;border:3px solid #000;border-radius:10px;box-shadow:4px 4px 0 var(--n);padding:12px 14px;font:13px/1.45 Verdana,sans-serif"><b>Add Nostalgic Nook to your Home Screen</b><p id="insttx" style="margin:6px 0 8px"></p><button id="instx" type="button" style="font:bold 12px Verdana;border:1px solid #000;border-bottom-width:3px;border-radius:5px;padding:4px 10px;background:#eee;cursor:pointer">OK</button></div>
-<script>(()=>{if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('sw.js').catch(()=>{}));
+<script>(()=>{if('serviceWorker' in navigator)addEventListener('load',()=>navigator.serviceWorker.register('/nostalgia/sw.js',{scope:'/nostalgia/'}).catch(()=>{}));
 let dp=null;const b=document.getElementById('inst'),box=document.getElementById('instbox'),tx=document.getElementById('insttx');
 addEventListener('beforeinstallprompt',e=>{e.preventDefault();dp=e});
 const sa=matchMedia('(display-mode: standalone)').matches||navigator.standalone;if(sa&&b)b.hidden=true;
