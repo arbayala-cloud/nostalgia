@@ -342,6 +342,13 @@ url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' hei
 .shake{animation:ymshake .5s}@keyframes ymshake{0%,100%{transform:none}10%,50%,90%{transform:translate(-8px,3px)}30%,70%{transform:translate(8px,-3px)}}
 .ymnote{position:static!important;display:block;clear:both;margin:24px 8px 12px!important;padding:0;text-align:center;font-size:11px;line-height:1.5}.ymwrap{display:flow-root;padding-bottom:4px}.ymwin{margin-bottom:0}
 </style>
+<style id="glittitle">
+.logo.neon.gl{position:relative;color:transparent!important;-webkit-text-fill-color:transparent;background-color:#ff4fc8;background-size:48px 48px;-webkit-background-clip:text;background-clip:text;-webkit-text-stroke:.4px #ffe3f7;text-shadow:none!important;filter:drop-shadow(0 0 3px #ff2bd6) drop-shadow(0 0 10px #ff2bd6)}
+.logo.neon.gl .gs{position:absolute;width:16px;height:16px;pointer-events:none;-webkit-text-fill-color:initial;background:none;animation:gtw 1.6s ease-in-out infinite;opacity:0}
+.logo.neon.gl .gs::before{content:"";position:absolute;inset:0;background:#fff;clip-path:polygon(50% 0,60% 40%,100% 50%,60% 60%,50% 100%,40% 60%,0 50%,40% 40%);filter:drop-shadow(0 0 3px #ffb3ec)}
+@keyframes gtw{0%,100%{opacity:0;transform:scale(.2) rotate(0)}50%{opacity:1;transform:scale(1) rotate(45deg)}}
+@media (prefers-reduced-motion:reduce){.logo.neon.gl .gs{display:none}}
+</style>
 </head>
 <body>
 <header class="top"><button class="hb" id="hb" aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><span class="logo neon">Nostalgic Nook</span>
@@ -718,5 +725,16 @@ if(b)b.onclick=async()=>{const dv=document.getElementById('dov');dv&&dv.click();
  else say('Open your browser menu (⋮) and choose "Install app" or "Add to Home screen".')};
 window.nnInst=()=>({sw:!!navigator.serviceWorker&&!!navigator.serviceWorker.controller,dp:!!dp,ios});})();</script>
 <script src="messenger.js?v=1"></script>
+<script>(()=>{const L=document.querySelector('.logo.neon');if(!L)return;
+const C=['#ff2bd6','#ff6fd8','#ffb3ec','#ffffff','#e0e0f0','#c0c0d0','#ff9ee6','#b388ff','#8ff0ff','#fff0a0','#ff4fa0'];
+const fr=[];for(let f=0;f<4;f++){const c=document.createElement('canvas');c.width=c.height=48;const x=c.getContext('2d');x.fillStyle='#e8259f';x.fillRect(0,0,48,48);
+ for(let i=0;i<140;i++){const s=Math.random()<.6?2:3;x.fillStyle=C[Math.random()*C.length|0];x.globalAlpha=.55+Math.random()*.45;x.fillRect(Math.random()*48|0,Math.random()*48|0,s,s)}
+ x.globalAlpha=1;for(let i=0;i<6;i++){const a=Math.random()*46|0,b=Math.random()*46|0;x.fillStyle='#fff';x.fillRect(a,b,2,2)}
+ fr.push('url('+c.toDataURL()+')')}
+L.classList.add('gl');let k=0;const rm=matchMedia('(prefers-reduced-motion: reduce)').matches;L.style.backgroundImage=fr[0];
+if(!rm)setInterval(()=>{if(document.hidden)return;k=(k+1)%fr.length;L.style.backgroundImage=fr[k]},160);
+for(let i=0;i<5;i++){const s=document.createElement('span');s.className='gs';s.setAttribute('aria-hidden','true');const place=()=>{s.style.left=(8+Math.random()*84)+'%';s.style.top=(5+Math.random()*70)+'%';const z=10+Math.random()*10;s.style.width=s.style.height=z+'px'};
+ place();s.style.animationDelay=(i*.33)+'s';s.addEventListener('animationiteration',place);L.appendChild(s)}
+window.nnGT=()=>({gl:L.classList.contains('gl'),stars:L.querySelectorAll('.gs').length,txt:L.textContent});})();</script>
 </body>
 </html>
