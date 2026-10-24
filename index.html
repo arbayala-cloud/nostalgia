@@ -275,22 +275,25 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 .drow .sw.on{outline:2px solid #fff;outline-offset:-5px}
 </style>
 <style>
-.guide{margin:10px 0 6px;background:#0a1a6b;border:3px solid #000;box-shadow:0 0 10px var(--n);font:bold 11px/1.2 "Courier New",monospace;color:#fff;overflow:hidden;border-radius:4px}
-.grow{display:grid;grid-template-columns:34% 1fr 1fr;width:100%;border:0;border-top:2px solid #000;background:none;color:inherit;font:inherit;text-align:left;padding:0;cursor:pointer}
-.grow>span{padding:6px 6px;border-left:2px solid #000;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;background:#1d3aa8}
-.grow>span:first-child{border-left:0;background:#0f2580;color:#ffe94d;display:flex;gap:6px;align-items:center}
-.grow .gch b{display:inline-block;min-width:22px;text-align:center;background:#000;color:#fff;padding:1px 3px;border-radius:2px}
-.grow .gnext{color:#c9d6ff}
-.ghead{cursor:default;border-top:0}.ghead>span{background:#000!important;color:#ffe94d!important;font-size:12px;letter-spacing:.06em}
-.grow.on>span{background:color-mix(in srgb,var(--n) 45%,#1d3aa8);color:#fff;text-shadow:0 0 4px #000}.grow.on>span:first-child{box-shadow:inset 4px 0 0 var(--n)}
-.grow:not(.ghead):hover>span{filter:brightness(1.25)}
-@media(max-width:480px){.grow{grid-template-columns:42% 1fr}.gnext{display:none}}
+.guide{margin:10px 0 6px;background:#2a0a5e;border:3px solid #000;box-shadow:4px 4px 0 #ff2bd6,0 0 10px var(--n);font:bold 11px/1 "Courier New",monospace;color:#fff;overflow:hidden;border-radius:6px}
+.guide::before{content:"";display:block;height:12px;border-bottom:2px solid #000;background:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='12'%3E%3Crect width='48' height='12' fill='%2300c2c7'/%3E%3Cpath d='M0 8q6-8 12 0t12 0 12 0 12 0' fill='none' stroke='%23ff2bd6' stroke-width='2.5'/%3E%3Ccircle cx='6' cy='3' r='1.6' fill='%23ffe600'/%3E%3Crect x='28' y='2' width='3' height='3' fill='%237cff3a' transform='rotate(30 29 3)'/%3E%3Cpath d='M40 2l2 3h-4z' fill='%23fff'/%3E%3C/svg%3E") repeat-x}
+.grow{display:grid;grid-template-columns:190px minmax(0,1fr) minmax(0,1fr);height:34px;width:100%;margin:0;border:0;border-top:2px solid #000;background:none;color:inherit;font:inherit;padding:0;cursor:pointer;align-items:stretch}
+.grow>span{display:flex;align-items:center;justify-content:center;min-width:0;padding:0 8px;border-left:2px solid #000;background:#5b1fa6;text-align:center}
+.grow>span:nth-child(3){background:#007f86}
+.grow>span:not(.gch){display:block;line-height:34px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.grow .gch{border-left:0;background:#1a0640;color:#ffe600;justify-content:flex-start;gap:7px}
+.grow .gch i{font-style:normal;flex:1;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;text-align:center}
+.grow .gch b{flex:none;width:26px;text-align:center;background:#7cff3a;color:#000;padding:2px 0;border-radius:3px;border:1px solid #000}
+.ghead{cursor:default;border-top:0}.ghead>span{background:#000!important;color:#7cff3a!important;font-size:11px;letter-spacing:.05em}.ghead .gch i{color:#ffe600}
+.grow.on>span{background:#ff2bd6!important;color:#fff;text-shadow:1px 1px 0 #000}.grow.on .gch{box-shadow:inset 5px 0 0 #ffe600}.grow.on .gch b{background:#ffe600}
+.grow:not(.ghead):hover>span{filter:brightness(1.2)}
+@media(max-width:480px){.grow{grid-template-columns:118px minmax(0,1fr);height:32px}.grow>span:not(.gch){line-height:32px}.gnext{display:none!important}.grow>span{padding:0 6px}.guide{font-size:10px}}
 .gctl{display:flex;justify-content:center;gap:5px;flex-wrap:wrap}
 .gctl button{background:linear-gradient(#fafafa,#cfcfcf);border:1px solid #000;border-bottom-width:3px;border-radius:4px;font:bold 11px Verdana,sans-serif;padding:5px 9px;cursor:pointer;color:#000}
 .gctl button:active{border-bottom-width:1px;transform:translateY(2px)}
 .gyt{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:1}
 </style>
-<style>.grow{text-align:center!important}.grow>span{text-align:center!important;display:flex!important;align-items:center;justify-content:center}.grow>span:first-child{justify-content:center!important}</style>
+
 </head>
 <body>
 <header class="top"><button class="hb" id="hb" aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><span class="logo neon">Nostalgic Nook</span>
@@ -469,10 +472,10 @@ function nnGuide(o){const e=v=>String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':
  CH.forEach((c,k)=>{Q[k]=shuf(c.items);pos[k]=-1;});
  const at=k=>Q[k][(pos[k]+Q[k].length)%Q[k].length],nx=k=>Q[k][(pos[k]+1)%Q[k].length];
  function slot(off){const d=new Date();d.setMinutes(d.getMinutes()<30?0:30,0,0);d.setMinutes(d.getMinutes()+off*30);return d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}).replace(/\s?[AP]M/i,'')}
- function grid(){const G=$('guide');G.innerHTML='<div class="grow ghead"><span class="gch">'+e(o.title)+'</span><span class="gnow">'+slot(0)+'</span><span class="gnext">'+slot(1)+'</span></div>';
+ function grid(){const G=$('guide');G.innerHTML='<div class="grow ghead"><span class="gch"><i>'+e(o.title)+'</i></span><span class="gnow">'+slot(0)+'</span><span class="gnext">'+slot(1)+'</span></div>';
   CH.forEach((c,k)=>{const r=document.createElement('button');r.className='grow'+(k===ci?' on':'');r.setAttribute('role','option');r.setAttribute('aria-selected',k===ci);
    const n=pos[k]<0?Q[k][0]:at(k),m=pos[k]<0?Q[k][1%Q[k].length]:nx(k);
-   r.innerHTML='<span class="gch"><b>'+c.num+'</b>'+e(c.name)+'</span><span class="gnow">'+e(o.label(n))+'</span><span class="gnext">'+e(o.label(m))+'</span>';r.onclick=()=>tune(k);G.appendChild(r);});}
+   r.innerHTML='<span class="gch"><b>'+c.num+'</b><i>'+e(c.name)+'</i></span><span class="gnow">'+e(o.label(n))+'</span><span class="gnext">'+e(o.label(m))+'</span>';r.onclick=()=>tune(k);G.appendChild(r);});}
  function stop(){if(pl&&pl.destroy){try{pl.destroy()}catch(x){}}pl=null;o.scr.querySelectorAll('iframe,#'+o.p+'yt').forEach(f=>f.remove());o.card.hidden=false;o.scr.classList.remove('on');}
  function flash(){window.nnStatic&&nnStatic();o.ov.textContent='CH '+CH[ci].num;o.scr.classList.remove('flip');void o.scr.offsetWidth;o.scr.classList.add('flip');clearTimeout(ovT);ovT=setTimeout(()=>o.scr.classList.remove('flip'),900);}
  function play(x){cur=x;o.card.hidden=true;o.scr.classList.add('on');o.l1.textContent='CH '+CH[ci].num;o.l2.textContent=o.label(x);o.l3.textContent=o.sub(x);
