@@ -235,6 +235,24 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 .surp:active{transform:translateY(1px)}
 @media(max-width:420px){.pick select{font-size:13px}.surp{padding:8px 9px;font-size:11px}}
 </style>
+<style>
+.chrow{display:grid;grid-template-columns:repeat(7,1fr);gap:4px;margin:10px 0 4px}
+@media(max-width:520px){.chrow{grid-template-columns:repeat(4,1fr)}}
+.chrow button{background:#111;color:#ccc;border:1px solid #444;border-radius:8px;padding:5px 2px;cursor:pointer;font:10px/1.15 Verdana,sans-serif;display:flex;flex-direction:column;align-items:center;gap:1px;min-height:44px;justify-content:center}
+.chrow button b{font:bold 15px "Courier New",monospace;color:#fff}
+.chrow button.on{border:2px solid var(--n);box-shadow:0 0 8px var(--n);color:#fff}.chrow button.on b{color:var(--n);text-shadow:0 0 6px var(--n)}
+.chctl{display:flex;align-items:center;justify-content:center;gap:8px;margin-top:6px}
+.chctl button{background:linear-gradient(#fafafa,#cfcfcf);border:1px solid #000;border-bottom-width:3px;border-radius:4px;font:bold 11px Verdana,sans-serif;padding:5px 10px;cursor:pointer}
+.chctl span{font:bold 12px "Courier New",monospace;min-width:120px;text-align:center}
+.clist{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin-top:8px}
+.ci{background:#fff;border:1px solid #111;border-radius:16px;padding:5px 10px;font:12px Verdana,sans-serif;cursor:pointer;color:#000;box-shadow:2px 2px 0 #111}
+.ci small{color:#777;font-size:9px;margin-left:5px}
+.ci.on,.ci:hover{border-color:var(--n);box-shadow:0 0 8px var(--n)}
+.chov{position:absolute;top:8%;right:8%;z-index:3;font:bold 20px "Courier New",monospace;color:#3f3;text-shadow:0 0 6px #3f3;opacity:0;pointer-events:none}
+.scr.flip .chov{opacity:1}
+.scr.flip:after{content:"";position:absolute;inset:0;z-index:2;background:#888 repeating-radial-gradient(circle at 40% 60%,#fff 0 1px,#333 1px 3px);animation:fz .5s steps(4) forwards;pointer-events:none}
+@keyframes fz{0%{opacity:1;background-position:0 0}50%{opacity:1;background-position:5px 3px}100%{opacity:0;background-position:-3px 6px}}
+</style>
 </head>
 <body>
 <header class="top"><button class="hb" id="hb" aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><span class="logo neon">Nostalgic Nook</span>
@@ -268,10 +286,10 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 <p class="sdesc" id="tdesc"></p></div></div></section>
 <section class="view" id="v-cartoons" hidden><div class="box nbox" id="toons"><h2>Cartoon Corner · 1990–2005</h2><div class="in">
 <div class="ctop"><div class="tv"><div class="ant"><i></i><i></i></div>
-<div class="cab"><div class="bez"><button class="scr" id="cscr" aria-label="Play cartoon intro"><span class="card" id="ccard"><small id="cnet">SATURDAY MORNING</small><b id="ctt">Pick a cartoon!</b><span id="cyr">Tap any card below</span><em>▶ PRESS PLAY</em></span></button></div>
+<div class="cab"><div class="bez"><button class="scr" id="cscr" aria-label="Play cartoon intro"><span class="chov" id="chov"></span><span class="card" id="ccard"><small id="cnet">SATURDAY MORNING</small><b id="ctt">Pick a cartoon!</b><span id="cyr">Tap any card below</span><em>▶ PRESS PLAY</em></span></button></div>
 <div class="side"><span class="knob"></span><span class="knob sm"></span><span class="grill"></span></div></div><div class="feet"><i></i><i></i></div></div>
-</div><p class="cinfo" id="cinfo">Grab a bowl of cereal and pick a show from the list below.</p>
-<div class="pick"><select id="csel" aria-label="Pick a cartoon"></select><button class="surp" id="csur">🎲 Surprise me</button></div></div></div></section>
+</div>
+<div class="chrow" id="chrow" role="tablist" aria-label="Channels"></div><div class="chctl"><button id="chdn" aria-label="Channel down">▼ CH</button><span id="chname"></span><button id="chup" aria-label="Channel up">CH ▲</button></div><button class="surp" id="csur" style="display:block;margin:6px auto 0">🎲 Surprise me</button><p class="cinfo" id="cinfo">Pick a channel, then tap a cartoon. 🥣</p><div class="clist" id="clist"></div></div></div></section>
 <section class="view" id="v-wwe" hidden><div class="box nbox" id="wwe"><h2>WWE Classics · 1990–2005</h2><div class="in">
 <div class="ctop"><div class="tv"><div class="ant"><i></i><i></i></div>
 <div class="cab"><div class="bez"><button class="scr" id="wscr" aria-label="Play clip"><span class="card" id="wcard"><small id="wgrp">RING SIDE</small><b id="wtt">Pick a clip!</b><span id="wsub">Classic entrances &amp; moments</span><em>▶ PRESS PLAY</em></span></button></div>
@@ -407,11 +425,22 @@ function nnPicker(o){/* o: scr,card,l1,l2,l3,info,sel,sur,data,group,label,infoH
  o.sel.onchange=()=>pick(+o.sel.value);o.sur.onclick=()=>{let i;do{i=Math.floor(Math.random()*o.data.length)}while(o.data.length>1&&o.data[i]===cur);pick(i);};
  o.scr.onclick=()=>{if(!o.scr.querySelector('iframe'))play();};window.addEventListener('hashchange',stop);}
 const NNsort=t=>t.replace(/^(The|A|Disney's) /,'');
-fetch('cartoons.json?v=1').then(r=>r.json()).then(a=>{a.sort((p,q)=>NNsort(p.title).localeCompare(NNsort(q.title)));
- const bucket=n=>/Nick/.test(n)?'Nickelodeon':/Cartoon Network|TBS/.test(n)?'Cartoon Network':/Disney|ABC/.test(n)?'Disney / ABC':/Fox/.test(n)?'Fox Kids':/WB/.test(n)?"Kids' WB":/PBS/.test(n)?'PBS Kids':'Other (CBS, NBC, syndication…)';
- nnPicker({scr:cscr,card:ccard,l1:cnet,l2:ctt,l3:cyr,info:cinfo,sel:csel,sur:csur,data:a,group:x=>bucket(x.network),label:x=>x.title+' ('+x.years+')',ph:'📺 Pick a cartoon ('+a.length+')…',
-  gorder:(p,q)=>p.startsWith('Other')?1:q.startsWith('Other')?-1:p.localeCompare(q),card3:x=>[x.network.toUpperCase(),x.title,x.years],
-  infoHtml:(x,e)=>'<b>'+e(x.title)+'</b> ('+e(x.years)+', '+e(x.network)+') — '+e(x.desc)});});
+(function(){const CH=[[3,'Nickelodeon',n=>/Nick/.test(n)],[5,'Cartoon Network',n=>/Cartoon Network|TBS/.test(n)],[7,'Disney',n=>/Disney|ABC/.test(n)],[9,'Fox Kids',n=>/Fox/.test(n)],[11,"Kids' WB",n=>/WB/.test(n)],[13,'PBS Kids',n=>/PBS/.test(n)],[15,'Saturday AM',n=>true]];
+ const e=v=>String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));let A=[],ci=0,cur=null,ovT;
+ const chOf=x=>CH.findIndex(c=>c[2](x.network));
+ function stop(){const f=cscr.querySelector('iframe');if(f)f.remove();ccard.hidden=false;cscr.classList.remove('on');}
+ function flash(){chov.textContent='CH '+CH[ci][0];cscr.classList.remove('flip');void cscr.offsetWidth;cscr.classList.add('flip');clearTimeout(ovT);ovT=setTimeout(()=>cscr.classList.remove('flip'),900);}
+ function play(){if(!cur||!cur.yt)return;ccard.hidden=true;cscr.classList.add('on');const f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+cur.yt+'?autoplay=1&rel=0&playsinline=1';f.title=cur.title;f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;cscr.appendChild(f);}
+ function tune(i,keep){ci=(i+CH.length)%CH.length;stop();if(!keep){cur=null;cnet.textContent='CH '+CH[ci][0]+' · '+CH[ci][1].toUpperCase();ctt.textContent=CH[ci][1];cyr.textContent='Tap a cartoon below';cinfo.textContent='Now tuned to CH '+CH[ci][0]+' — '+CH[ci][1]+'. Tap a cartoon!';}
+  flash();chname.textContent='CH '+CH[ci][0]+' · '+CH[ci][1];document.querySelectorAll('#chrow button').forEach((b,k)=>{b.classList.toggle('on',k===ci);b.setAttribute('aria-selected',k===ci)});
+  const L=A.filter(x=>chOf(x)===ci);clist.innerHTML='';L.forEach(x=>{const b=document.createElement('button');b.className='ci'+(x===cur?' on':'');b.innerHTML=e(x.title)+'<small>'+e(x.years)+'</small>';b.onclick=()=>{show(x);document.querySelectorAll('.ci.on').forEach(z=>z.classList.remove('on'));b.classList.add('on');};clist.appendChild(b);});}
+ function show(x){stop();cur=x;cnet.textContent='CH '+CH[ci][0]+' · '+x.network.toUpperCase();ctt.textContent=x.title;cyr.textContent=x.years;cinfo.innerHTML='<b>'+e(x.title)+'</b> ('+e(x.years)+', '+e(x.network)+') — '+e(x.desc)+(x.yt?'':' <i>(No intro video found.)</i>');document.getElementById('toons').scrollIntoView({behavior:'smooth',block:'start'});play();}
+ cscr.onclick=()=>{if(cur&&!cscr.querySelector('iframe'))play();};
+ chup.onclick=()=>tune(ci+1);chdn.onclick=()=>tune(ci-1);
+ csur.onclick=()=>{let x;do{x=A[Math.floor(Math.random()*A.length)]}while(x===cur||!x.yt);const k=chOf(x);ci=k;tune(k,true);show(x);document.querySelectorAll('.ci').forEach(b=>b.classList.toggle('on',b.firstChild.textContent===x.title));};
+ window.addEventListener('hashchange',stop);
+ fetch('cartoons.json?v=2').then(r=>r.json()).then(a=>{A=a.sort((p,q)=>NNsort(p.title).localeCompare(NNsort(q.title)));
+  CH.forEach((c,k)=>{const b=document.createElement('button');b.setAttribute('role','tab');b.innerHTML='<b>'+c[0]+'</b><span>'+e(c[1])+'</span>';b.onclick=()=>tune(k);chrow.appendChild(b);});tune(0);});})();
 fetch('wwe.json?v=1').then(r=>r.json()).then(a=>{
  nnPicker({scr:wscr,card:wcard,l1:wgrp,l2:wtt,l3:wsub,info:winfo,sel:wsel,sur:wsur,data:a,group:x=>x.group,label:x=>x.title,ph:'🤼 Pick a classic clip ('+a.length+')…',
   card3:x=>[x.group.toUpperCase(),x.title,'WWF / WWE'],infoHtml:(x,e)=>'<b>'+e(x.group)+'</b> — '+e(x.title)});});
