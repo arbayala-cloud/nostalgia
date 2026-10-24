@@ -35,8 +35,6 @@ table.info td:first-child{background:#eee;width:40%;font-weight:bold}
 #song .a{margin:0 0 6px}
 #playOLD{margin-top:6px;background:#fff;color:#000;border:1px solid #000;padding:6px 18px;font:bold 12px Verdana,sans-serif;letter-spacing:.15em;cursor:pointer}
 #play:hover,#play:focus{background:#000;color:#fff}
-#vid{margin-top:8px;width:100%;aspect-ratio:16/9;display:none}
-#vid iframe{width:100%;height:100%;border:1px solid #000}
 .links{font-size:11px;margin:8px 0 0}
 .links a{margin:0 6px}
 .friends{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center;font-size:10px}
@@ -62,42 +60,42 @@ footer{text-align:center;font-size:10px;color:#555;padding:10px 0 20px}
 #tog:hover{background:#000;color:#fff}
 #all{margin-top:8px}
 
-.cas{position:relative;max-width:420px;margin:4px auto 0;aspect-ratio:1.6;background:linear-gradient(#2b2b2b,#141414);border-radius:14px;border:2px solid #000;box-shadow:0 3px 0 #999;padding:5.5% 6% 0}
-.cas .scr{position:absolute;width:11px;height:11px;border-radius:50%;background:radial-gradient(#ccc,#666);box-shadow:inset 0 0 0 1px #333}
-.cas .scr:after{content:"";position:absolute;left:2px;right:2px;top:5px;height:1px;background:#333;transform:rotate(35deg)}
-.s1{top:6px;left:6px}.s2{top:6px;right:6px}.s3{bottom:6px;left:6px}.s4{bottom:6px;right:6px}
-.lab{background:#f4f1e8;border-radius:6px;height:72%;position:relative;padding:5px 10px;border-top:9px solid #fff;background-image:repeating-linear-gradient(#f4f1e8 0 17px,#cfd6e0 17px 18px)}
-.lab .side{position:absolute;left:8px;top:-9px;font:bold 9px Verdana;line-height:9px;color:#000}
-.lab .hw{font:bold clamp(14px,4.4vw,19px)/1.1 "Comic Sans MS","Bradley Hand","Segoe Print",cursive;color:#1a2a6c;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin:0;text-align:left}
-.lab .hw2{font:clamp(11px,3.4vw,14px)/1.3 "Comic Sans MS","Bradley Hand","Segoe Print",cursive;color:#1a2a6c;margin:2px 0 0;text-align:left}
-.win{position:absolute;left:24%;right:24%;top:46%;height:23%;background:#111;border-radius:30px;border:2px solid #555;display:flex;align-items:center;justify-content:space-between;padding:0 6%}
-.win .tape{position:absolute;left:30%;right:30%;top:22%;bottom:22%;background:rgba(80,60,40,.45);border-radius:3px}
-.reel{position:relative;width:22%;aspect-ratio:1;border-radius:50%;background:#eee;border:3px solid #6b5640;z-index:1}
-.reel:before,.reel:after{content:"";position:absolute;inset:40% -2px;background:repeating-conic-gradient(#111 0 20deg,transparent 20deg 60deg);border-radius:50%}
-.reel i{position:absolute;inset:0;border-radius:50%;background:repeating-conic-gradient(#111 0 15deg,#eee 15deg 60deg);-webkit-mask:radial-gradient(circle,transparent 25%,#000 26% 55%,transparent 56%);mask:radial-gradient(circle,transparent 25%,#000 26% 55%,transparent 56%)}
-.reel:before,.reel:after{display:none}
-.spin .reel i{animation:rot 1.6s linear infinite}
-@keyframes rot{to{transform:rotate(-360deg)}}
-.trap{position:absolute;left:18%;right:18%;bottom:0;height:18%;background:#222;border:2px solid #000;border-bottom:0;clip-path:polygon(8% 0,92% 0,100% 100%,0 100%)}
-.trap b{position:absolute;top:35%;width:8px;height:8px;border-radius:50%;background:#000;box-shadow:0 0 0 2px #444}
-.deck{display:flex;justify-content:center;gap:6px;margin:12px 0 2px}
-.deck button{min-width:52px;height:38px;background:linear-gradient(#fafafa,#cfcfcf);border:1px solid #000;border-bottom-width:4px;border-radius:3px;font:bold 13px Verdana,sans-serif;cursor:pointer;color:#000}
-.deck button:active,.deck button.on{border-bottom-width:1px;transform:translateY(3px);background:#bbb}
-.deck button:disabled{opacity:.4;cursor:default}
-.deck small{display:block;font-size:8px;letter-spacing:.1em;font-weight:normal}
-#cnt{font:11px "Courier New",monospace;color:#555;margin:2px 0 0}
 
 @font-face{font-family:"PM";src:url(fonts/PermanentMarker.ttf) format("truetype");font-display:swap}
-.cas{max-width:300px!important;border-radius:11px}
-@media(max-width:500px){.cas{max-width:250px!important}.deck button{min-width:46px;height:34px}}
-.lab .hw{font:16px/1.1 "PM",Verdana,sans-serif;white-space:nowrap!important;color:#111!important;letter-spacing:.02em}
-.lab .hw2{font:13px/1.3 "PM",Verdana,sans-serif!important;color:#333!important}
-.lab{padding:3px 9px!important}
 
-#vid{display:block!important;position:fixed;left:0;bottom:0;width:1px!important;height:1px;overflow:hidden;opacity:.01;pointer-events:none;margin:0;aspect-ratio:auto}
-#vid.show{position:static;width:100%!important;max-width:300px;height:170px;opacity:1;pointer-events:auto;margin:6px auto 0}
-#vid.show iframe{width:100%;height:100%}
-#tt{font:bold 12px "Courier New",monospace;margin:0;min-height:15px}
+
+.tv{width:300px;max-width:100%;margin:6px auto 0;position:relative;padding-top:34px}
+.ant{position:absolute;top:0;left:50%;width:0;height:36px}
+.ant i{position:absolute;bottom:0;width:2px;height:44px;background:#555;transform-origin:bottom}
+.ant i:first-child{transform:rotate(-32deg)}.ant i:last-child{transform:rotate(30deg)}
+.ant:after{content:"";position:absolute;bottom:-4px;left:-14px;width:28px;height:10px;background:#333;border-radius:14px 14px 0 0}
+.cab{display:flex;gap:8px;background:linear-gradient(#6d6d6d,#3c3c3c);border:2px solid #111;border-radius:14px;padding:12px;box-shadow:inset 0 2px 0 #999,0 4px 0 #222}
+.bez{flex:1;background:#1a1a1a;border-radius:12px;padding:8px;box-shadow:inset 0 0 0 2px #000}
+.scr{position:relative;display:block;width:100%;aspect-ratio:4/3;border:0;padding:0;cursor:pointer;border-radius:18px/24px;overflow:hidden;color:#fff;
+ background:#222 repeating-radial-gradient(circle at 30% 40%,#777 0 1px,#222 1px 3px);animation:snow .25s steps(3) infinite}
+@keyframes snow{33%{background-position:3px 5px}66%{background-position:-4px 2px}}
+.scr:before{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:repeating-linear-gradient(transparent 0 2px,rgba(0,0,0,.25) 2px 3px),radial-gradient(ellipse at 28% 18%,rgba(255,255,255,.28),transparent 45%);border-radius:inherit;box-shadow:inset 0 0 22px rgba(0,0,0,.9)}
+.scr.on{animation:none;background:#000}.scr.on:before{background:radial-gradient(ellipse at 28% 18%,rgba(255,255,255,.12),transparent 40%)}
+.scr iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:1}
+.card{position:absolute;inset:14% 8%;z-index:1;background:rgba(0,0,0,.78);border:1px solid #fff;display:flex;flex-direction:column;justify-content:center;gap:3px;padding:4px 6px;font-family:"Courier New",monospace}
+.card[hidden]{display:none}
+.card small{font-size:10px;letter-spacing:.1em;color:#bbb}
+.card b{font:15px/1.1 "PM",Verdana,sans-serif}
+.card span{font-size:11px}
+.card em{font-style:normal;font-size:10px;letter-spacing:.12em;animation:b 1s steps(1) infinite}
+.side{width:46px;display:flex;flex-direction:column;align-items:center;gap:8px;padding-top:4px}
+.knob{width:30px;height:30px;border-radius:50%;background:conic-gradient(#ddd,#888,#ddd,#888,#ddd);border:2px solid #111;position:relative}
+.knob:after{content:"";position:absolute;left:50%;top:2px;width:2px;height:10px;background:#111;margin-left:-1px}
+.knob.sm{width:22px;height:22px}
+.grill{width:34px;flex:1;min-height:30px;background:repeating-linear-gradient(#222 0 2px,transparent 2px 5px)}
+#pw{width:24px;height:24px;border-radius:50%;border:2px solid #111;background:#ccc;font-size:12px;line-height:1;padding:0;cursor:pointer}
+.feet{display:flex;justify-content:space-between;padding:0 30px}.feet i{width:30px;height:6px;background:#222;border-radius:0 0 4px 4px}
+.deck{display:flex;justify-content:center;gap:6px;margin:10px 0 2px}
+.deck button{min-width:64px;height:32px;background:linear-gradient(#fafafa,#cfcfcf);border:1px solid #000;border-bottom-width:3px;border-radius:3px;font:bold 11px Verdana,sans-serif;cursor:pointer;color:#000}
+.deck button:active{border-bottom-width:1px;transform:translateY(2px)}
+.deck button:disabled{opacity:.4}
+@media(max-width:500px){.tv{width:260px}.side{width:38px}.knob{width:24px;height:24px}.card b{font-size:13px}}
+@media(prefers-reduced-motion:reduce){.scr{animation:none}}
 </style>
 </head>
 <body>
@@ -106,12 +104,11 @@ footer{text-align:center;font-size:10px;color:#555;padding:10px 0 20px}
 <div class="wrap">
 <main>
 <div class="box" id="song"><h2>Now Playing · Song of the Day</h2><div class="in">
-<div class="cas" id="cas"><span class="scr s1"></span><span class="scr s2"></span><span class="scr s3"></span><span class="scr s4"></span>
-<div class="lab"><span class="side">A</span><p class="hw" id="st">Loading…</p><p class="hw2" id="sa"></p></div>
-<div class="win"><span class="tape"></span><span class="reel"><i></i></span><span class="reel"><i></i></span></div>
-<div class="trap"><b style="left:10%"></b><b style="right:10%"></b></div></div>
-<div class="deck"><button id="rw" aria-label="Previous day's song">◀◀<small>REW</small></button><button id="play" aria-label="Play">▶<small>PLAY</small></button><button id="pz" aria-label="Pause">❚❚<small>PAUSE</small></button><button id="ff" aria-label="Next day's song">▶▶<small>FF</small></button></div>
-<p id="cnt"></p><p id="tt"></p><div id="vid" aria-hidden="true"></div>
+<div class="tv"><div class="ant"><i></i><i></i></div>
+<div class="cab"><div class="bez"><button class="scr" id="scr" aria-label="Play song of the day"><span class="card" id="card"><small id="ch">CH 1 · TODAY</small><b id="st">Loading…</b><span id="sa"></span><em>▶ PRESS PLAY</em></span></button></div>
+<div class="side"><span class="knob"></span><span class="knob sm"></span><span class="grill"></span>
+<button id="pw" aria-label="Play or stop">⏻</button></div></div><div class="feet"><i></i><i></i></div></div>
+<div class="deck"><button id="rw" aria-label="Previous day's song">◀ CH</button><button id="play" aria-label="Play">▶ PLAY</button><button id="ff" aria-label="Next day's song">CH ▶</button></div>
 <p class="links"><a id="yt" target="_blank" rel="noopener">Listen on YouTube</a>·<a id="sp" target="_blank" rel="noopener">Spotify</a></p>
 </div></div>
 <div class="box" id="archive"><h2>Song Archive</h2><div class="in">
@@ -123,22 +120,16 @@ footer{text-align:center;font-size:10px;color:#555;padding:10px 0 20px}
 <script>
 fetch('songs.json?v=5',{cache:'no-store'}).then(r=>r.json()).then(s=>{
 const d=new Date(),doy=Math.round((new Date(d.getFullYear(),d.getMonth(),d.getDate())-new Date(d.getFullYear(),0,0))/864e5);
-let off=0,x,pl=null,ready=false,tm=null;
-const spin=on=>{cas.classList.toggle('spin',on);play.classList.toggle('on',on);};
-const fmt=t=>{t=Math.max(0,Math.floor(t||0));return Math.floor(t/60)+':'+String(t%60).padStart(2,'0')};
-function tick(){if(ready&&pl.getCurrentTime){const c=pl.getCurrentTime(),d=pl.getDuration();tt.textContent=d?fmt(c)+' / '+fmt(d):'';}}
-const tag=document.createElement('script');tag.src='https://www.youtube.com/iframe_api';document.head.appendChild(tag);
-window.onYouTubeIframeAPIReady=()=>{vid.innerHTML='<div id="ytp"></div>';
- pl=new YT.Player('ytp',{host:'https://www.youtube-nocookie.com',width:200,height:120,videoId:x.yt||'',playerVars:{rel:0,playsinline:1,controls:0},
- events:{onReady:()=>{ready=true;window._pl=pl;play.disabled=!x.yt;},onStateChange:e=>{if(e.data===1)vid.classList.remove('show');spin(e.data===1||e.data===3);clearInterval(tm);if(e.data===1)tm=setInterval(tick,500);tick();}}});};
+let off=0,x,on=false;
 function load(){x=s[((doy-1+off)%s.length+s.length)%s.length];const q=encodeURIComponent(x.title+' '+x.artist);
-st.textContent=x.title;st.style.fontSize=x.title.length>24?'12px':x.title.length>16?'14px':'';sa.textContent=x.artist+' · '+x.year;
-cnt.textContent=off?(off<0?'⏪ '+(-off)+' day'+(off<-1?'s':'')+' back':'⏩ '+off+' day'+(off>1?'s':'')+' ahead'):'Today\'s tape';
-yt.href='https://www.youtube.com/results?search_query='+q;sp.href='https://open.spotify.com/search/'+q;
-tt.textContent='';spin(false);if(ready&&x.yt)pl.cueVideoById(x.yt);play.disabled=!(ready&&x.yt);}
-function stopMain(){if(ready)pl.pauseVideo();spin(false);}
-play.onclick=()=>{if(!ready||!x.yt)return;stopRows();vid.classList.remove('show');pl.playVideo();setTimeout(()=>{const st_=pl.getPlayerState();if(st_===-1||st_===5){vid.classList.add('show');cnt.textContent='Tap the video once to start the tape';}},5000);};
-pz.onclick=()=>{stopMain();};
+stopMain();st.textContent=x.title;sa.textContent=x.artist+' · '+x.year;
+ch.textContent=off?'CH '+(off<0?off:'+'+off)+' · '+(off<0?(-off)+' DAY'+(off<-1?'S':'')+' AGO':off+' DAY'+(off>1?'S':'')+' AHEAD'):'CH 1 · TODAY';
+yt.href='https://www.youtube.com/results?search_query='+q;sp.href='https://open.spotify.com/search/'+q;play.disabled=pw.disabled=!x.yt;}
+function stopMain(){const f=scr.querySelector('iframe');if(f)f.remove();card.hidden=false;scr.classList.remove('on');on=false;play.textContent='▶ PLAY';}
+function startMain(){if(!x.yt)return;stopRows();card.hidden=true;scr.classList.add('on');on=true;play.textContent='■ STOP';
+ const f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+x.yt+'?autoplay=1&rel=0&playsinline=1';f.title=x.title;f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;scr.appendChild(f);}
+scr.onclick=()=>{if(!on)startMain();};
+play.onclick=pw.onclick=()=>on?stopMain():startMain();
 rw.onclick=()=>{off--;load();};ff.onclick=()=>{off++;load();};
 load();
 const LAUNCH=new Date(2026,9,23),day=864e5;
