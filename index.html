@@ -135,7 +135,7 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 .menu{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;padding:10px 8px 2px}
 .menu a{font:bold 12px Verdana,sans-serif;color:#fff;background:#111;text-decoration:none;padding:7px 12px;border:2px solid var(--n);border-radius:20px;box-shadow:0 0 8px var(--n);text-shadow:0 0 6px var(--n)}
 .menu a.on{background:var(--n);color:#000;text-shadow:none}
-@media(max-width:420px){.menu a{font-size:11px;padding:6px 9px}}
+@media(max-width:420px){.menu{gap:5px}.menu a{font-size:10px;padding:5px 7px}}
 .view[hidden]{display:none}
 .nbox{max-width:340px;margin-left:auto;margin-right:auto;border:3px solid var(--n);box-shadow:0 0 12px var(--n)}
 .nbox h2{color:#fff;text-shadow:0 0 6px var(--n),0 0 12px var(--n);font-size:9px;padding:3px 6px}
@@ -155,11 +155,32 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 .mi small{color:#888;font-size:10px}
 .mi .act{float:right}.mi .act button{padding:2px 8px!important;font-size:10px!important;margin-left:4px}
 </style>
+<style>
+#gal{max-width:640px}
+.pgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(140px,1fr));gap:16px 12px;padding:6px 2px}
+@media(max-width:420px){.pgrid{grid-template-columns:repeat(2,1fr);gap:14px 10px}}
+.pol{background:#fff;border:1px solid #ddd;padding:7px 7px 6px;box-shadow:0 3px 8px rgba(0,0,0,.25);transform:rotate(var(--r));transition:transform .2s,box-shadow .2s;cursor:pointer;text-align:center;font:inherit;color:#000}
+.pol:hover,.pol:focus{transform:rotate(0) scale(1.05);box-shadow:0 0 14px var(--n),0 0 4px var(--n);z-index:1;position:relative;outline:none}
+.pol span.ph{display:block;aspect-ratio:1;background:#f2f2f2 center/cover no-repeat}
+.pol b{display:block;font:14px/1.2 "PM",Verdana,sans-serif;margin-top:6px}
+.pol small{display:block;font-size:10px;color:#666}
+.pol .cr{font-size:8px;color:#999;margin-top:3px;line-height:1.2}
+.pol .cr a{color:#999}
+.pcred{font-size:10px;text-align:center;margin-top:10px}
+.lb{position:fixed;inset:0;z-index:50;background:rgba(0,0,0,.9);display:flex;align-items:center;justify-content:center;touch-action:pan-y}
+.lb[hidden]{display:none}
+.lb figure{margin:0;background:#fff;padding:10px 10px 8px;max-width:92vw;box-shadow:0 0 22px var(--n);text-align:center}
+.lb img{display:block;max-width:calc(92vw - 20px);max-height:72vh;margin:auto}
+.lb figcaption b{display:block;font:20px "PM",Verdana,sans-serif;margin-top:6px}
+.lb figcaption small{font-size:10px;color:#666}.lb figcaption a{color:#666}
+.lbn,.lbx{position:absolute;background:#111;color:#fff;border:2px solid var(--n);box-shadow:0 0 8px var(--n);border-radius:50%;width:42px;height:42px;font:24px/1 Verdana,sans-serif;cursor:pointer}
+.lbx{top:12px;right:12px;font-size:18px}.lbp{left:8px}.lbnx{right:8px}
+</style>
 </head>
 <body>
 <header class="top"><span class="logo neon">Nostalgic Nook</span>
 </header>
-<nav class="menu" id="menu"><a href="#home" data-v="home">★ Home</a><a href="#tv" data-v="tv">📺 TV Show of the Day</a><a href="#memories" data-v="memories">✎ Memories</a></nav>
+<nav class="menu" id="menu"><a href="#home" data-v="home">★ Home</a><a href="#tv" data-v="tv">📺 TV Show of the Day</a><a href="#photos" data-v="photos">📷 Photos</a><a href="#memories" data-v="memories">✎ Memories</a></nav>
 <div class="wrap">
 <main>
 <section class="view" id="v-home"><div class="box" id="song"><h2>Now Playing · Song of the Day</h2><div class="in"><div class="songrow">
@@ -181,6 +202,11 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 <div class="side"><span class="knob"></span><span class="knob sm"></span><span class="grill"></span></div></div><div class="feet"><i></i><i></i></div></div>
 <div class="deck"><button id="trw" aria-label="Previous day's show">◀ CH</button><button id="tplay">▶ PLAY</button><button id="tff" aria-label="Next day's show">CH ▶</button></div></div>
 <p class="sdesc" id="tdesc"></p></div></div></section>
+<section class="view" id="v-photos" hidden><div class="box nbox" id="gal"><h2>Nostalgic Photo Gallery</h2><div class="in">
+<div class="pgrid" id="pgrid"></div>
+<p class="note pcred">Photos from Wikimedia Commons, resized. Credits are in each photo's caption. Tap a photo to see it big.</p></div></div></section>
+<div class="lb" id="lb" hidden role="dialog" aria-label="Photo viewer"><button class="lbx" id="lbx" aria-label="Close">✕</button><button class="lbn lbp" id="lbp" aria-label="Previous">‹</button>
+<figure><img id="lbi" alt=""><figcaption><b id="lbt"></b><small id="lbc"></small></figcaption></figure><button class="lbn lbnx" id="lbnx" aria-label="Next">›</button></div>
 <section class="view" id="v-memories" hidden><div class="box nbox" id="mem"><h2>My Memories · Private Journal</h2><div class="in">
 <form id="mf"><input id="mt" placeholder="Title (e.g. First Tamagotchi)" required maxlength="120"><input id="my" placeholder="Year (optional)" inputmode="numeric" maxlength="4">
 <textarea id="mx" placeholder="Write your throwback memory…" rows="4" required></textarea>
@@ -231,7 +257,7 @@ tog.onclick=()=>{const show=all.hidden;all.hidden=!show;tog.textContent=show?'Hi
 <script>
 (function(){
 // router
-function route(){const v=(location.hash||'#home').slice(1);const ok=['home','tv','memories'].includes(v)?v:'home';
+function route(){const v=(location.hash||'#home').slice(1);const ok=['home','tv','photos','memories'].includes(v)?v:'home';
  document.querySelectorAll('.view').forEach(e=>e.hidden=e.id!=='v-'+ok);document.querySelectorAll('.menu a').forEach(a=>a.classList.toggle('on',a.dataset.v===ok));
  document.querySelectorAll('.scr iframe').forEach(f=>{f.parentNode.querySelector('.card').hidden=false;f.parentNode.classList.remove('on');f.remove();});
  ['play','tplay'].forEach(i=>{const b=document.getElementById(i);if(b)b.textContent='▶ PLAY';});window.dispatchEvent(new Event('tvreset'));}
@@ -262,6 +288,21 @@ mexp.onclick=()=>{const b=new Blob([JSON.stringify(get(),null,1)],{type:'applica
 mimp.onchange=()=>{const f=mimp.files[0];if(!f)return;f.text().then(t=>{try{const inc=JSON.parse(t);if(!Array.isArray(inc))throw 0;const a=get(),ids=new Set(a.map(z=>z.id));
  inc.forEach(m=>{if(m&&m.title&&m.text&&!ids.has(m.id))a.push({id:m.id||Date.now().toString(36)+Math.random().toString(36).slice(2,6),title:String(m.title),year:String(m.year||''),text:String(m.text),created:m.created||Date.now()});});put(a);draw();alert('Memories imported!');}catch(e){alert('That file is not a memories backup.');}mimp.value='';});};
 draw();})();
+</script>
+<script>
+(function(){let P=[],i=0;const e=v=>String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const cred=x=>'Photo: '+e(x.author)+' · <a href="'+e(x.source)+'" target="_blank" rel="noopener">'+e(x.license)+', Wikimedia Commons</a>';
+fetch('photos.json?v=1',{cache:'no-store'}).then(r=>r.json()).then(a=>{P=a;a.forEach((x,k)=>{const d=document.createElement('div');d.className='pol';d.tabIndex=0;d.setAttribute('role','button');d.style.setProperty('--r',((k*37%7)-3)*1.1+'deg');
+ d.innerHTML='<span class="ph" style="background-image:url('+e(x.thumb)+')" role="img" aria-label="'+e(x.item)+'"></span><b>'+e(x.item)+'</b><small>'+e(x.year)+'</small><div class="cr">'+cred(x)+'</div>';
+ d.onclick=ev=>{if(ev.target.closest('a'))return;open(k)};d.onkeydown=ev=>{if(ev.key==='Enter')open(k)};pgrid.appendChild(d);});});
+function show(){const x=P[i];lbi.src=x.img;lbi.alt=x.item;lbt.textContent=x.item+' · '+x.year;lbc.innerHTML=cred(x);}
+function open(k){i=k;show();lb.hidden=false;document.body.style.overflow='hidden';}
+function close(){lb.hidden=true;document.body.style.overflow='';}
+const go=s=>{i=(i+s+P.length)%P.length;show();};
+lbx.onclick=close;lbp.onclick=()=>go(-1);lbnx.onclick=()=>go(1);lb.onclick=ev=>{if(ev.target===lb)close();};
+document.addEventListener('keydown',ev=>{if(lb.hidden)return;if(ev.key==='Escape')close();if(ev.key==='ArrowLeft')go(-1);if(ev.key==='ArrowRight')go(1);});
+let sx=null;lb.addEventListener('touchstart',ev=>{sx=ev.touches[0].clientX},{passive:true});lb.addEventListener('touchend',ev=>{if(sx==null)return;const dx=ev.changedTouches[0].clientX-sx;if(Math.abs(dx)>40)go(dx<0?1:-1);sx=null;});
+window.addEventListener('hashchange',close);})();
 </script>
 </body>
 </html>

@@ -1,0 +1,299 @@
+[
+ {
+  "item": "Game Boy",
+  "year": "1989",
+  "img": "images/game-boy.jpg",
+  "thumb": "images/thumbs/game-boy.jpg",
+  "author": "Evan-Amos",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Game-Boy-Original.jpg"
+ },
+ {
+  "item": "Tamagotchi",
+  "year": "1996",
+  "img": "images/tamagotchi.jpg",
+  "thumb": "images/thumbs/tamagotchi.jpg",
+  "author": "Tomasz Sienicki",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Tamagotchi_0124_ubt.jpeg"
+ },
+ {
+  "item": "Sony Walkman",
+  "year": "1979–90s",
+  "img": "images/sony-walkman.jpg",
+  "thumb": "images/thumbs/sony-walkman.jpg",
+  "author": "Binarysequence",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Original_Sony_Walkman_TPS-L2.JPG"
+ },
+ {
+  "item": "Discman",
+  "year": "1990s",
+  "img": "images/discman.jpg",
+  "thumb": "images/thumbs/discman.jpg",
+  "author": "Dillan Payne",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Sony_Discman_D-E206CK_(Top,_Closed).jpg"
+ },
+ {
+  "item": "CRT television",
+  "year": "1990s",
+  "img": "images/crt-television.jpg",
+  "thumb": "images/thumbs/crt-television.jpg",
+  "author": "Norfolk757man",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:19%22_Sylvania_CRT_television_with_Logitech_Harmony_remote.jpg"
+ },
+ {
+  "item": "VHS tapes",
+  "year": "1990s",
+  "img": "images/vhs-tapes.jpg",
+  "thumb": "images/thumbs/vhs-tapes.jpg",
+  "author": "Jacek Halicki",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:2023_Kaseta_VHS,_magnetofonowa_i_minikaseta.jpg"
+ },
+ {
+  "item": "Nintendo 64",
+  "year": "1996",
+  "img": "images/nintendo-64.jpg",
+  "thumb": "images/thumbs/nintendo-64.jpg",
+  "author": "Evan-Amos",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:N64-Console-Set.png"
+ },
+ {
+  "item": "PlayStation",
+  "year": "1994",
+  "img": "images/playstation.jpg",
+  "thumb": "images/thumbs/playstation.jpg",
+  "author": "Evan-Amos",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:PlayStation-SCPH-1000-with-Controller.jpg"
+ },
+ {
+  "item": "Polaroid camera",
+  "year": "1990s",
+  "img": "images/polaroid-camera.jpg",
+  "thumb": "images/thumbs/polaroid-camera.jpg",
+  "author": "Jacek Halicki",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:2023_Aparat_Polaroid_Land_Camera_Supercolor_1000_(5).jpg"
+ },
+ {
+  "item": "Beanie Babies",
+  "year": "1990s",
+  "img": "images/beanie-babies.jpg",
+  "thumb": "images/thumbs/beanie-babies.jpg",
+  "author": "daryl_mitchell from Saskatoon, Saskatchewan, Canada",
+  "license": "CC BY-SA 2.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Mom%27s_Beanies_(9120344523).jpg"
+ },
+ {
+  "item": "Nokia 3310",
+  "year": "2000",
+  "img": "images/nokia-3310.jpg",
+  "thumb": "images/thumbs/nokia-3310.jpg",
+  "author": "Multicherry",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Nokia_3310_grey_front_(tidied_and_enhanced).jpg"
+ },
+ {
+  "item": "Pager (beeper)",
+  "year": "1990s",
+  "img": "images/pager-beeper.jpg",
+  "thumb": "images/thumbs/pager-beeper.jpg",
+  "author": "Jorgebarrios",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Beeper_Motorola_Bravo_Express_-_CTC_Chile_-_2.jpg"
+ },
+ {
+  "item": "iMac G3",
+  "year": "1998",
+  "img": "images/imac-g3.jpg",
+  "thumb": "images/thumbs/imac-g3.jpg",
+  "author": "David Fuchs, after Rama",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:IMac_G3_Bondi_Blue,_three-quarters_view.png"
+ },
+ {
+  "item": "AOL CD",
+  "year": "1990s",
+  "img": "images/aol-cd.jpg",
+  "thumb": "images/thumbs/aol-cd.jpg",
+  "author": "Raimond Spekking",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:AOL_CD-ROM,_German,_650_hours_free_Internet-49221.jpg"
+ },
+ {
+  "item": "Dial-up modem",
+  "year": "1990s",
+  "img": "images/dial-up-modem.jpg",
+  "thumb": "images/thumbs/dial-up-modem.jpg",
+  "author": "Steve Elliott from UK",
+  "license": "CC BY-SA 2.0",
+  "source": "https://commons.wikimedia.org/wiki/File:U.S._Robotics_56K_Message_Modem_(cropped).jpg"
+ },
+ {
+  "item": "Super Nintendo",
+  "year": "1991",
+  "img": "images/super-nintendo.jpg",
+  "thumb": "images/thumbs/super-nintendo.jpg",
+  "author": "Evan-Amos",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Nintendo-Super-NES-Console-101-FL.jpg"
+ },
+ {
+  "item": "Sega Genesis",
+  "year": "1989",
+  "img": "images/sega-genesis.jpg",
+  "thumb": "images/thumbs/sega-genesis.jpg",
+  "author": "Evan-Amos",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Sega-Genesis-Mk2-6button.jpg"
+ },
+ {
+  "item": "Motorola Razr",
+  "year": "2004",
+  "img": "images/motorola-razr.jpg",
+  "thumb": "images/thumbs/motorola-razr.jpg",
+  "author": "Raimond Spekking",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Motorola_RAZR_V3-4901.jpg"
+ },
+ {
+  "item": "iPod shuffle",
+  "year": "2005",
+  "img": "images/ipod-shuffle.jpg",
+  "thumb": "images/thumbs/ipod-shuffle.jpg",
+  "author": "Kyro",
+  "license": "CC BY 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:IPod_shuffle_1G.png"
+ },
+ {
+  "item": "Yo-yo",
+  "year": "1990s",
+  "img": "images/yo-yo.jpg",
+  "thumb": "images/thumbs/yo-yo.jpg",
+  "author": "ANBARASU THIRAVIYAM",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Yo_yo_toy.jpg"
+ },
+ {
+  "item": "Rubik's Cube",
+  "year": "classic",
+  "img": "images/rubik-s-cube.jpg",
+  "thumb": "images/thumbs/rubik-s-cube.jpg",
+  "author": "Lars Karlsson (Keqs)",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Rubiks_cube_by_keqs.jpg"
+ },
+ {
+  "item": "Boombox",
+  "year": "1990s",
+  "img": "images/boombox.jpg",
+  "thumb": "images/thumbs/boombox.jpg",
+  "author": "Stephen Michael Barnett from Adelaide, Australia",
+  "license": "CC BY 2.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Sharp_GF-9494_(22W)_Ghetto_Blaster_(edited).jpg"
+ },
+ {
+  "item": "Lava lamp",
+  "year": "1990s",
+  "img": "images/lava-lamp.jpg",
+  "thumb": "images/thumbs/lava-lamp.jpg",
+  "author": "DMGualtieri",
+  "license": "CC BY-SA 4.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Lava_lamp_(yellow).jpg"
+ },
+ {
+  "item": "Virtual Boy",
+  "year": "1995",
+  "img": "images/virtual-boy.jpg",
+  "thumb": "images/thumbs/virtual-boy.jpg",
+  "author": "Evan-Amos",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Virtual-Boy-Set.jpg"
+ },
+ {
+  "item": "Bop It Extreme",
+  "year": "1998",
+  "img": "images/bop-it-extreme.jpg",
+  "thumb": "images/thumbs/bop-it-extreme.jpg",
+  "author": "ChessAndCookies",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Bop_it_Extreme.jpg"
+ },
+ {
+  "item": "MiniDisc Walkman",
+  "year": "1992",
+  "img": "images/minidisc-walkman.jpg",
+  "thumb": "images/thumbs/minidisc-walkman.jpg",
+  "author": "Evan-Amos",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Sony-MZ-N707-MD-Walkman.jpg"
+ },
+ {
+  "item": "Sega Dreamcast",
+  "year": "1999",
+  "img": "images/sega-dreamcast.jpg",
+  "thumb": "images/thumbs/sega-dreamcast.jpg",
+  "author": "Evan-Amos",
+  "license": "CC BY-SA 3.0",
+  "source": "https://commons.wikimedia.org/wiki/File:Dreamcast-Console-Set.jpg"
+ },
+ {
+  "item": "Nintendo GameCube",
+  "year": "2001",
+  "img": "images/nintendo-gamecube.jpg",
+  "thumb": "images/thumbs/nintendo-gamecube.jpg",
+  "author": "Evan-Amos",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:GameCube-Set.jpg"
+ },
+ {
+  "item": "Game Boy Color",
+  "year": "1998",
+  "img": "images/game-boy-color.jpg",
+  "thumb": "images/thumbs/game-boy-color.jpg",
+  "author": "Evan-Amos",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Game-Boy-Color-Purple.jpg"
+ },
+ {
+  "item": "Game Boy Pocket",
+  "year": "1996",
+  "img": "images/game-boy-pocket.jpg",
+  "thumb": "images/thumbs/game-boy-pocket.jpg",
+  "author": "Evan-Amos",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Game-Boy-Pocket-FL.jpg"
+ },
+ {
+  "item": "Game Boy Advance",
+  "year": "2001",
+  "img": "images/game-boy-advance.jpg",
+  "thumb": "images/thumbs/game-boy-advance.jpg",
+  "author": "Evan-Amos",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Nintendo-Game-Boy-Advance-Milky-Blue-FL.jpg"
+ },
+ {
+  "item": "PlayStation 2",
+  "year": "2000",
+  "img": "images/playstation-2.jpg",
+  "thumb": "images/thumbs/playstation-2.jpg",
+  "author": "Evan-Amos",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:PS2-Versions.jpg"
+ },
+ {
+  "item": "Xbox",
+  "year": "2001",
+  "img": "images/xbox.jpg",
+  "thumb": "images/thumbs/xbox.jpg",
+  "author": "Evan-Amos",
+  "license": "Public domain",
+  "source": "https://commons.wikimedia.org/wiki/File:Xbox-console.jpg"
+ }
+]
