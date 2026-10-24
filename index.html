@@ -131,13 +131,38 @@ linear-gradient(115deg,#ff4fd8,#fff,#b4b4ff,#ffd6f5,#ff4fd8,#fff,#c0c0c0,#ff4fd8
 .tv .cab{box-shadow:0 0 14px var(--n)}
 body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n) 18%,transparent),transparent 60%)}
 </style>
+<style>
+.menu{display:flex;justify-content:center;flex-wrap:wrap;gap:8px;padding:10px 8px 2px}
+.menu a{font:bold 12px Verdana,sans-serif;color:#fff;background:#111;text-decoration:none;padding:7px 12px;border:2px solid var(--n);border-radius:20px;box-shadow:0 0 8px var(--n);text-shadow:0 0 6px var(--n)}
+.menu a.on{background:var(--n);color:#000;text-shadow:none}
+@media(max-width:420px){.menu a{font-size:11px;padding:6px 9px}}
+.view[hidden]{display:none}
+.nbox{max-width:340px;margin-left:auto;margin-right:auto;border:3px solid var(--n);box-shadow:0 0 12px var(--n)}
+.nbox h2{color:#fff;text-shadow:0 0 6px var(--n),0 0 12px var(--n);font-size:9px;padding:3px 6px}
+#show .in{padding:6px}#show .songrow{display:flex;align-items:center;justify-content:center;gap:10px}#show .tv{zoom:.7;margin:0;flex:none}
+#show .deck{display:flex;flex-direction:column;gap:6px;margin:0}#show .deck button{min-width:70px;font-size:10px;padding:3px 6px;border-color:var(--n);box-shadow:0 0 6px var(--n),0 3px 0 #000}
+.sdesc{margin:8px 4px 2px;text-align:center;font-size:11px}
+#mem{max-width:460px;background:#fffaf0}
+#mf input,#mf textarea{width:100%;margin:0 0 6px;padding:7px;border:1px solid #999;border-radius:6px;font:13px Verdana,sans-serif;background:#fff}
+#mf #my{width:120px}
+.mbtns{display:flex;gap:6px;flex-wrap:wrap}
+#mem button,.btnlike{background:#111;color:#fff;border:2px solid var(--n);border-radius:16px;padding:5px 12px;font:bold 11px Verdana,sans-serif;cursor:pointer;box-shadow:0 0 6px var(--n)}
+.io{margin-top:10px;justify-content:center}
+.mnote{font-size:10px;margin:6px 0}
+.mi{background:#fff;border:1px dashed #bbb;border-radius:8px;padding:8px 10px;margin:8px 0}
+.mi h3{margin:0;font:17px "PM",Verdana,sans-serif}.mi .yr{color:#777;font-size:11px;margin-left:6px}
+.mi p{white-space:pre-wrap;margin:4px 0 6px;font-size:13px;line-height:1.5}
+.mi small{color:#888;font-size:10px}
+.mi .act{float:right}.mi .act button{padding:2px 8px!important;font-size:10px!important;margin-left:4px}
+</style>
 </head>
 <body>
 <header class="top"><span class="logo neon">Nostalgic Nook</span>
 </header>
+<nav class="menu" id="menu"><a href="#home" data-v="home">★ Home</a><a href="#tv" data-v="tv">📺 TV Show of the Day</a><a href="#memories" data-v="memories">✎ Memories</a></nav>
 <div class="wrap">
 <main>
-<div class="box" id="song"><h2>Now Playing · Song of the Day</h2><div class="in"><div class="songrow">
+<section class="view" id="v-home"><div class="box" id="song"><h2>Now Playing · Song of the Day</h2><div class="in"><div class="songrow">
 <div class="tv"><div class="ant"><i></i><i></i></div>
 <div class="cab"><div class="bez"><button class="scr" id="scr" aria-label="Play song of the day"><span class="card" id="card"><small id="ch">CH 1 · TODAY</small><b id="st">Loading…</b><span id="sa"></span><em>▶ PRESS PLAY</em></span></button></div>
 <div class="side"><span class="knob"></span><span class="knob sm"></span><span class="grill"></span>
@@ -145,11 +170,25 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 <div class="deck"><button id="rw" aria-label="Previous day's song">◀ CH</button><button id="play" aria-label="Play">▶ PLAY</button><button id="ff" aria-label="Next day's song">CH ▶</button>
 <p class="links"><a id="yt" target="_blank" rel="noopener">Listen on YouTube</a>·<a id="sp" target="_blank" rel="noopener">Spotify</a></p></div></div>
 </div></div>
-<div class="box" id="archive" style="display:none"><h2>Song Archive</h2><div class="in">
+</section><div class="box" id="archive" style="display:none"><h2>Song Archive</h2><div class="in">
 <div id="past"></div>
 <button id="tog" aria-expanded="false">Show all songs</button>
 <div id="all" hidden></div>
 </div></div>
+<section class="view" id="v-tv" hidden><div class="box nbox" id="show"><h2>Now Showing · TV Show of the Day</h2><div class="in"><div class="songrow">
+<div class="tv"><div class="ant"><i></i><i></i></div>
+<div class="cab"><div class="bez"><button class="scr" id="tscr" aria-label="Play TV show intro"><span class="card" id="tcard"><small id="tch">CH 1 · TODAY</small><b id="tst">Loading…</b><span id="tsa"></span><em>▶ PRESS PLAY</em></span></button></div>
+<div class="side"><span class="knob"></span><span class="knob sm"></span><span class="grill"></span></div></div><div class="feet"><i></i><i></i></div></div>
+<div class="deck"><button id="trw" aria-label="Previous day's show">◀ CH</button><button id="tplay">▶ PLAY</button><button id="tff" aria-label="Next day's show">CH ▶</button></div></div>
+<p class="sdesc" id="tdesc"></p></div></div></section>
+<section class="view" id="v-memories" hidden><div class="box nbox" id="mem"><h2>My Memories · Private Journal</h2><div class="in">
+<form id="mf"><input id="mt" placeholder="Title (e.g. First Tamagotchi)" required maxlength="120"><input id="my" placeholder="Year (optional)" inputmode="numeric" maxlength="4">
+<textarea id="mx" placeholder="Write your throwback memory…" rows="4" required></textarea>
+<div class="mbtns"><button type="submit" id="msave">Save memory</button><button type="button" id="mcancel" hidden>Cancel</button></div></form>
+<p class="note mnote">Saved only on this device. Use Export to keep a backup.</p>
+<div id="mlist"></div>
+<div class="mbtns io"><button id="mexp">⬇ Export</button><label class="btnlike">⬆ Import<input type="file" id="mimp" accept="application/json" hidden></label></div>
+</div></div></section>
 </main></div>
 <script>
 fetch('songs.json?v=5',{cache:'no-store'}).then(r=>r.json()).then(s=>{
@@ -162,8 +201,8 @@ yt.href='https://www.youtube.com/results?search_query='+q;sp.href='https://open.
 function stopMain(){const f=scr.querySelector('iframe');if(f)f.remove();card.hidden=false;scr.classList.remove('on');on=false;play.textContent='▶ PLAY';}
 function startMain(){if(!x.yt)return;stopRows();card.hidden=true;scr.classList.add('on');on=true;play.textContent='■ STOP';
  const f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+x.yt+'?autoplay=1&rel=0&playsinline=1';f.title=x.title;f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;scr.appendChild(f);}
-scr.onclick=()=>{if(!on)startMain();};
-play.onclick=pw.onclick=()=>on?stopMain():startMain();
+scr.onclick=()=>{if(!scr.querySelector('iframe'))startMain();};
+play.onclick=pw.onclick=()=>scr.querySelector('iframe')?stopMain():startMain();
 rw.onclick=()=>{off--;load();};ff.onclick=()=>{off++;load();};
 load();
 const LAUNCH=new Date(2026,9,23),day=864e5;
@@ -189,5 +228,40 @@ tog.onclick=()=>{const show=all.hidden;all.hidden=!show;tog.textContent=show?'Hi
 });
 </script>
 <script>(function(){var h=document.querySelector('.top');for(var i=0;i<26;i++){var e=document.createElement('i');e.className='spark';e.style.left=Math.random()*100+'%';e.style.top=Math.random()*100+'%';e.style.animationDelay=(Math.random()*1.6)+'s';e.style.animationDuration=(1.2+Math.random()*1.4)+'s';h.appendChild(e)}})();</script>
+<script>
+(function(){
+// router
+function route(){const v=(location.hash||'#home').slice(1);const ok=['home','tv','memories'].includes(v)?v:'home';
+ document.querySelectorAll('.view').forEach(e=>e.hidden=e.id!=='v-'+ok);document.querySelectorAll('.menu a').forEach(a=>a.classList.toggle('on',a.dataset.v===ok));
+ document.querySelectorAll('.scr iframe').forEach(f=>{f.parentNode.querySelector('.card').hidden=false;f.parentNode.classList.remove('on');f.remove();});
+ ['play','tplay'].forEach(i=>{const b=document.getElementById(i);if(b)b.textContent='▶ PLAY';});window.dispatchEvent(new Event('tvreset'));}
+window.addEventListener('hashchange',route);route();
+// TV show
+const d=new Date(),doy=Math.round((new Date(d.getFullYear(),d.getMonth(),d.getDate())-new Date(d.getFullYear(),0,0))/864e5);
+fetch('shows.json?v=1',{cache:'no-store'}).then(r=>r.json()).then(S=>{let off=0,x,on=false;
+ function stop(){const f=tscr.querySelector('iframe');if(f)f.remove();tcard.hidden=false;tscr.classList.remove('on');on=false;tplay.textContent='▶ PLAY';}
+ function start(){tcard.hidden=true;tscr.classList.add('on');on=true;tplay.textContent='■ STOP';const f=document.createElement('iframe');
+  f.src='https://www.youtube-nocookie.com/embed/'+x.yt+'?autoplay=1&rel=0&playsinline=1';f.title=x.title;f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;tscr.appendChild(f);}
+ function load(){x=S[((doy-1+off)%S.length+S.length)%S.length];stop();tst.textContent=x.title;tsa.textContent=x.network+' · '+x.years;tdesc.innerHTML='<b>'+x.title.replace(/[<>&]/g,'')+'</b> — '+x.desc.replace(/[<>&]/g,'');
+  tch.textContent=off?'CH '+(off<0?off:'+'+off)+' · '+(off<0?(-off)+' DAY'+(off<-1?'S':'')+' AGO':off+' DAY'+(off>1?'S':'')+' AHEAD'):'CH 1 · TODAY';}
+ window.addEventListener('tvreset',()=>{on=false;});
+ tscr.onclick=()=>{if(!tscr.querySelector('iframe'))start();};tplay.onclick=()=>tscr.querySelector('iframe')?stop():start();trw.onclick=()=>{off--;load();};tff.onclick=()=>{off++;load();};load();});
+// Memories
+const K='nn_memories';const get=()=>{try{return JSON.parse(localStorage.getItem(K))||[]}catch(e){return[]}};const put=a=>localStorage.setItem(K,JSON.stringify(a));
+let edit=null;const esc=v=>String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function draw(){const a=get().sort((p,q)=>q.created-p.created);mlist.innerHTML=a.length?'':'<p class="note" style="text-align:center">No memories yet — write your first one above ✨</p>';
+ a.forEach(m=>{const e=document.createElement('div');e.className='mi';e.innerHTML='<span class="act"><button data-a="e">Edit</button><button data-a="d">Delete</button></span><h3>'+esc(m.title)+(m.year?'<span class="yr">'+esc(m.year)+'</span>':'')+'</h3><p>'+esc(m.text)+'</p><small>Saved '+new Date(m.created).toLocaleDateString()+'</small>';
+  e.querySelector('[data-a=d]').onclick=()=>{if(confirm('Delete "'+m.title+'"?')){put(get().filter(z=>z.id!==m.id));draw();}};
+  e.querySelector('[data-a=e]').onclick=()=>{edit=m.id;mt.value=m.title;my.value=m.year||'';mx.value=m.text;msave.textContent='Update memory';mcancel.hidden=false;mt.focus();};
+  mlist.appendChild(e);});}
+function reset(){edit=null;mf.reset();msave.textContent='Save memory';mcancel.hidden=true;}
+mf.onsubmit=ev=>{ev.preventDefault();const a=get(),v={title:mt.value.trim(),year:my.value.trim(),text:mx.value.trim()};if(!v.title||!v.text)return;
+ if(edit){const m=a.find(z=>z.id===edit);if(m)Object.assign(m,v,{updated:Date.now()});}else a.push(Object.assign({id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),created:Date.now()},v));put(a);reset();draw();};
+mcancel.onclick=reset;
+mexp.onclick=()=>{const b=new Blob([JSON.stringify(get(),null,1)],{type:'application/json'});const a=document.createElement('a');a.href=URL.createObjectURL(b);a.download='nostalgic-nook-memories.json';a.click();};
+mimp.onchange=()=>{const f=mimp.files[0];if(!f)return;f.text().then(t=>{try{const inc=JSON.parse(t);if(!Array.isArray(inc))throw 0;const a=get(),ids=new Set(a.map(z=>z.id));
+ inc.forEach(m=>{if(m&&m.title&&m.text&&!ids.has(m.id))a.push({id:m.id||Date.now().toString(36)+Math.random().toString(36).slice(2,6),title:String(m.title),year:String(m.year||''),text:String(m.text),created:m.created||Date.now()});});put(a);draw();alert('Memories imported!');}catch(e){alert('That file is not a memories backup.');}mimp.value='';});};
+draw();})();
+</script>
 </body>
 </html>
