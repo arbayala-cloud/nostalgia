@@ -492,7 +492,7 @@ const ACC=[['Choker','choker'],['Sunglasses','shades'],['Mini bag','bag'],['Butt
 const BG=[['Sparkle','sparkle'],['Hearts','hearts'],['Stars','stars'],['Checkers','check'],['Neon glow','glow'],['Plain white','plain']];
 const K='nn_doll';const def={skin:1,eyes:0,hs:0,hc:0,top:0,bot:0,sh:0,acc:['clips'],bg:'sparkle',name:''};
 let D=Object.assign({},def,JSON.parse(localStorage.getItem(K)||'{}'));
-const cv=document.getElementById('dcv'),c=cv.getContext('2d');
+const cv=document.getElementById('dcv');if(!cv)return;const c=cv.getContext('2d');
 const dk=(h,a=0.7)=>{const n=parseInt(h.slice(1).padEnd(6,h.slice(1)),16);let r=(n>>16)&255,g=(n>>8)&255,b=n&255;if(h.length===4){r=parseInt(h[1]+h[1],16);g=parseInt(h[2]+h[2],16);b=parseInt(h[3]+h[3],16);}return'rgb('+(r*a|0)+','+(g*a|0)+','+(b*a|0)+')'};
 let ctx,sc;function p(x,y,w,h,col){ctx.fillStyle=col;ctx.fillRect(x*sc,y*sc,w*sc,h*sc);}
 function box(x,y,w,h,col){p(x,y,w,h,dk(col,.55));p(x+1,y+1,w-2,h-2,col);}
