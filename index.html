@@ -9,10 +9,29 @@ html,body{margin:0;height:100%;background:#fff;color:#000}
 body{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-family:Georgia,"Times New Roman",serif;padding:1rem;box-sizing:border-box}
 h1{font-size:clamp(2.5rem,10vw,5rem);font-weight:normal;margin:0;letter-spacing:.05em}
 p{font-size:clamp(.9rem,3vw,1.1rem);margin:.75rem 0 0;letter-spacing:.15em}
+#song{margin-top:3rem;border-top:1px solid #000;padding-top:1.5rem;max-width:30rem;width:100%}
+#song .lbl{font-size:.75rem;letter-spacing:.3em;text-transform:uppercase;margin:0}
+#song .t{font-size:clamp(1.4rem,6vw,2rem);margin:.8rem 0 .2rem;letter-spacing:0}
+#song .a{margin:.2rem 0;letter-spacing:.05em}
+#song .links{margin-top:1.2rem;font-size:.9rem;letter-spacing:.1em}
+#song a{color:#000;margin:0 .6rem}
 </style>
 </head>
 <body>
 <h1>Nostalgia</h1>
 <p>1990 – early 2000s</p>
+<section id="song" aria-live="polite">
+<p class="lbl">Song of the Day</p>
+<p class="t" id="st"></p><p class="a" id="sa"></p>
+<p class="links"><a id="yt" target="_blank" rel="noopener">Listen on YouTube</a>·<a id="sp" target="_blank" rel="noopener">Spotify</a></p>
+</section>
+<script>
+fetch('songs.json').then(r=>r.json()).then(s=>{
+const d=new Date(),doy=Math.round((new Date(d.getFullYear(),d.getMonth(),d.getDate())-new Date(d.getFullYear(),0,0))/864e5);
+const x=s[(doy-1)%s.length],q=encodeURIComponent(x.title+' '+x.artist);
+st.textContent=x.title;sa.textContent=x.artist+' · '+x.year;
+yt.href='https://www.youtube.com/results?search_query='+q;sp.href='https://open.spotify.com/search/'+q;
+});
+</script>
 </body>
 </html>
