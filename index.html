@@ -242,7 +242,7 @@ fetch('shows.json?v=1',{cache:'no-store'}).then(r=>r.json()).then(S=>{let off=0,
  function stop(){const f=tscr.querySelector('iframe');if(f)f.remove();tcard.hidden=false;tscr.classList.remove('on');on=false;tplay.textContent='▶ PLAY';}
  function start(){tcard.hidden=true;tscr.classList.add('on');on=true;tplay.textContent='■ STOP';const f=document.createElement('iframe');
   f.src='https://www.youtube-nocookie.com/embed/'+x.yt+'?autoplay=1&rel=0&playsinline=1';f.title=x.title;f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;tscr.appendChild(f);}
- function load(){x=S[((doy-1+off)%S.length+S.length)%S.length];stop();tst.textContent=x.title;tsa.textContent=x.network+' · '+x.years;tdesc.innerHTML='<b>'+x.title.replace(/[<>&]/g,'')+'</b> — '+x.desc.replace(/[<>&]/g,'');
+ function load(){x=S[((doy-1+off)%S.length+S.length)%S.length];stop();tst.textContent=x.title;tsa.textContent=x.network+' · '+x.years;tdesc.innerHTML='';const tb=document.createElement('b');tb.textContent=x.title;tdesc.append(tb,' — '+x.desc);
   tch.textContent=off?'CH '+(off<0?off:'+'+off)+' · '+(off<0?(-off)+' DAY'+(off<-1?'S':'')+' AGO':off+' DAY'+(off>1?'S':'')+' AHEAD'):'CH 1 · TODAY';}
  window.addEventListener('tvreset',()=>{on=false;});
  tscr.onclick=()=>{if(!tscr.querySelector('iframe'))start();};tplay.onclick=()=>tscr.querySelector('iframe')?stop():start();trw.onclick=()=>{off--;load();};tff.onclick=()=>{off++;load();};load();});
