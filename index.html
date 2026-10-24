@@ -253,6 +253,7 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 .scr.flip:after{content:"";position:absolute;inset:0;z-index:2;background:#888 repeating-radial-gradient(circle at 40% 60%,#fff 0 1px,#333 1px 3px);animation:fz .5s steps(4) forwards;pointer-events:none}
 @keyframes fz{0%{opacity:1;background-position:0 0}50%{opacity:1;background-position:5px 3px}100%{opacity:0;background-position:-3px 6px}}
 </style>
+<style>.cnow{text-align:center;font-size:11px;color:#444;margin:8px 4px 0;min-height:16px}.cnow b{color:#000}#cyt,.scr iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:1}</style>
 </head>
 <body>
 <header class="top"><button class="hb" id="hb" aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><span class="logo neon">Nostalgic Nook</span>
@@ -289,7 +290,7 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 <div class="cab"><div class="bez"><button class="scr" id="cscr" aria-label="Play cartoon intro"><span class="chov" id="chov"></span><span class="card" id="ccard"><small id="cnet">SATURDAY MORNING</small><b id="ctt">Pick a cartoon!</b><span id="cyr">Tap any card below</span><em>▶ PRESS PLAY</em></span></button></div>
 <div class="side"><span class="knob"></span><span class="knob sm"></span><span class="grill"></span></div></div><div class="feet"><i></i><i></i></div></div>
 </div>
-<div class="chrow" id="chrow" role="tablist" aria-label="Channels"></div><div class="chctl"><button id="chdn" aria-label="Channel down">▼ CH</button><span id="chname"></span><button id="chup" aria-label="Channel up">CH ▲</button></div><button class="surp" id="csur" style="display:block;margin:6px auto 0">🎲 Surprise me</button><p class="cinfo" id="cinfo">Pick a channel, then tap a cartoon. 🥣</p><div class="clist" id="clist"></div></div></div></section>
+<div class="chrow" id="chrow" role="tablist" aria-label="Channels"></div><div class="chctl"><button id="chdn" aria-label="Channel down">▼ CH</button><span id="chname"></span><button id="chup" aria-label="Channel up">CH ▲</button></div><div class="chctl"><button id="cnext" aria-label="Next show">Next show ⏭</button></div><button class="surp" id="csur" style="display:block;margin:8px auto 0">🎲 Surprise me</button><p class="cnow" id="cnow">Pick a channel to turn on the TV 📺</p></div></div></section>
 <section class="view" id="v-wwe" hidden><div class="box nbox" id="wwe"><h2>WWE Classics · 1990–2005</h2><div class="in">
 <div class="ctop"><div class="tv"><div class="ant"><i></i><i></i></div>
 <div class="cab"><div class="bez"><button class="scr" id="wscr" aria-label="Play clip"><span class="card" id="wcard"><small id="wgrp">RING SIDE</small><b id="wtt">Pick a clip!</b><span id="wsub">Classic entrances &amp; moments</span><em>▶ PRESS PLAY</em></span></button></div>
@@ -426,21 +427,32 @@ function nnPicker(o){/* o: scr,card,l1,l2,l3,info,sel,sur,data,group,label,infoH
  o.scr.onclick=()=>{if(!o.scr.querySelector('iframe'))play();};window.addEventListener('hashchange',stop);}
 const NNsort=t=>t.replace(/^(The|A|Disney's) /,'');
 (function(){const CH=[[3,'Nickelodeon',n=>/Nick/.test(n)],[5,'Cartoon Network',n=>/Cartoon Network|TBS/.test(n)],[7,'Disney',n=>/Disney|ABC/.test(n)],[9,'Fox Kids',n=>/Fox/.test(n)],[11,"Kids' WB",n=>/WB/.test(n)],[13,'PBS Kids',n=>/PBS/.test(n)],[15,'Saturday AM',n=>true]];
- const e=v=>String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));let A=[],ci=0,cur=null,ovT;
+ let A=[],Q=[],pos=[],ci=-1,cur=null,pl=null,ovT,api=false;
  const chOf=x=>CH.findIndex(c=>c[2](x.network));
- function stop(){const f=cscr.querySelector('iframe');if(f)f.remove();ccard.hidden=false;cscr.classList.remove('on');}
+ if(!window.YT){const s=document.createElement('script');s.src='https://www.youtube.com/iframe_api';document.head.appendChild(s);}
+ const prevReady=window.onYouTubeIframeAPIReady;window.onYouTubeIframeAPIReady=()=>{api=true;if(prevReady)prevReady();};
+ const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a};
+ function stop(){if(pl&&pl.destroy){try{pl.destroy()}catch(e){}}pl=null;cscr.querySelectorAll('iframe,#cyt').forEach(f=>f.remove());ccard.hidden=false;cscr.classList.remove('on');}
  function flash(){chov.textContent='CH '+CH[ci][0];cscr.classList.remove('flip');void cscr.offsetWidth;cscr.classList.add('flip');clearTimeout(ovT);ovT=setTimeout(()=>cscr.classList.remove('flip'),900);}
- function play(){if(!cur||!cur.yt)return;ccard.hidden=true;cscr.classList.add('on');const f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+cur.yt+'?autoplay=1&rel=0&playsinline=1';f.title=cur.title;f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;cscr.appendChild(f);}
- function tune(i,keep){ci=(i+CH.length)%CH.length;stop();if(!keep){cur=null;cnet.textContent='CH '+CH[ci][0]+' · '+CH[ci][1].toUpperCase();ctt.textContent=CH[ci][1];cyr.textContent='Tap a cartoon below';cinfo.textContent='Now tuned to CH '+CH[ci][0]+' — '+CH[ci][1]+'. Tap a cartoon!';}
-  flash();chname.textContent='CH '+CH[ci][0]+' · '+CH[ci][1];document.querySelectorAll('#chrow button').forEach((b,k)=>{b.classList.toggle('on',k===ci);b.setAttribute('aria-selected',k===ci)});
-  const L=A.filter(x=>chOf(x)===ci);clist.innerHTML='';L.forEach(x=>{const b=document.createElement('button');b.className='ci'+(x===cur?' on':'');b.innerHTML=e(x.title)+'<small>'+e(x.years)+'</small>';b.onclick=()=>{show(x);document.querySelectorAll('.ci.on').forEach(z=>z.classList.remove('on'));b.classList.add('on');};clist.appendChild(b);});}
- function show(x){stop();cur=x;cnet.textContent='CH '+CH[ci][0]+' · '+x.network.toUpperCase();ctt.textContent=x.title;cyr.textContent=x.years;cinfo.innerHTML='<b>'+e(x.title)+'</b> ('+e(x.years)+', '+e(x.network)+') — '+e(x.desc)+(x.yt?'':' <i>(No intro video found.)</i>');document.getElementById('toons').scrollIntoView({behavior:'smooth',block:'start'});play();}
- cscr.onclick=()=>{if(cur&&!cscr.querySelector('iframe'))play();};
- chup.onclick=()=>tune(ci+1);chdn.onclick=()=>tune(ci-1);
- csur.onclick=()=>{let x;do{x=A[Math.floor(Math.random()*A.length)]}while(x===cur||!x.yt);const k=chOf(x);ci=k;tune(k,true);show(x);document.querySelectorAll('.ci').forEach(b=>b.classList.toggle('on',b.firstChild.textContent===x.title));};
- window.addEventListener('hashchange',stop);
- fetch('cartoons.json?v=2').then(r=>r.json()).then(a=>{A=a.sort((p,q)=>NNsort(p.title).localeCompare(NNsort(q.title)));
-  CH.forEach((c,k)=>{const b=document.createElement('button');b.setAttribute('role','tab');b.innerHTML='<b>'+c[0]+'</b><span>'+e(c[1])+'</span>';b.onclick=()=>tune(k);chrow.appendChild(b);});tune(0);});})();
+ function play(x){cur=x;ccard.hidden=true;cscr.classList.add('on');cnet.textContent='CH '+CH[ci][0];ctt.textContent=x.title;cyr.textContent=x.years;
+  cnow.innerHTML='';const b=document.createElement('b');b.textContent='Now playing: '+x.title;cnow.append(b,' · '+x.years+(x.kind==='Episode'?' · episode':' · theme song'));
+  if((api||(window.YT&&YT.Player))&&pl&&pl.loadVideoById){pl.loadVideoById(x.yt);return;}
+  stop();ccard.hidden=true;cscr.classList.add('on');
+  if(window.YT&&YT.Player){const d=document.createElement('div');d.id='cyt';cscr.appendChild(d);
+   pl=new YT.Player('cyt',{host:'https://www.youtube-nocookie.com',videoId:x.yt,width:'100%',height:'100%',playerVars:{autoplay:1,rel:0,playsinline:1},events:{onStateChange:ev=>{if(ev.data===0)next();},onError:()=>setTimeout(next,800)}});}
+  else{const f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+x.yt+'?autoplay=1&rel=0&playsinline=1';f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;f.title=x.title;cscr.appendChild(f);}}
+ function next(){if(ci<0)return tune(0);pos[ci]=(pos[ci]+1)%Q[ci].length;play(Q[ci][pos[ci]]);}
+ function tune(i,x){ci=(i+CH.length)%CH.length;flash();chname.textContent='CH '+CH[ci][0]+' · '+CH[ci][1];
+  document.querySelectorAll('#chrow button').forEach((b,k)=>{b.classList.toggle('on',k===ci);b.setAttribute('aria-selected',k===ci)});
+  if(x){pos[ci]=Q[ci].indexOf(x);play(x);}else next();}
+ window.nnCartoonNext=next;
+ chup.onclick=()=>tune(ci+1);chdn.onclick=()=>tune(ci<0?CH.length-1:ci-1);cnext.onclick=next;
+ csur.onclick=()=>{const x=A[Math.floor(Math.random()*A.length)];tune(chOf(x),x);};
+ cscr.onclick=()=>{if(!cscr.classList.contains('on')){if(cur)play(cur);else tune(0);}};
+ window.addEventListener('hashchange',()=>{stop();});
+ fetch('cartoons.json?v=3').then(r=>r.json()).then(a=>{A=a.filter(x=>x.yt);CH.forEach((c,k)=>{Q[k]=shuf(A.filter(x=>chOf(x)===k));pos[k]=-1;
+   const b=document.createElement('button');b.setAttribute('role','tab');b.innerHTML='<b>'+c[0]+'</b><span></span>';b.querySelector('span').textContent=c[1];b.onclick=()=>tune(k);chrow.appendChild(b);});
+  chname.textContent=A.length+' cartoons on 7 channels';});})();
 fetch('wwe.json?v=1').then(r=>r.json()).then(a=>{
  nnPicker({scr:wscr,card:wcard,l1:wgrp,l2:wtt,l3:wsub,info:winfo,sel:wsel,sur:wsur,data:a,group:x=>x.group,label:x=>x.title,ph:'🤼 Pick a classic clip ('+a.length+')…',
   card3:x=>[x.group.toUpperCase(),x.title,'WWF / WWE'],infoHtml:(x,e)=>'<b>'+e(x.group)+'</b> — '+e(x.title)});});
