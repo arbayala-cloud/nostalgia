@@ -274,19 +274,6 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 .drow .sw{width:26px;height:26px;padding:0;border-radius:50%;border:2px solid #111}
 .drow .sw.on{outline:2px solid #fff;outline-offset:-5px}
 </style>
-<style>
-.dframe{background:repeating-conic-gradient(#fff 0 25%,#ffe3f3 0 50%) 0 0/16px 16px!important}
-#dcv{width:192px!important;height:576px!important;max-height:none}
-@media(max-width:600px){#dcv{width:150px!important;height:450px!important}}
-.dname{bottom:4px}
-.dtr{font-size:10px;display:flex;gap:4px;align-items:center}
-.dgh{text-align:center;font:18px 'Pacifico',cursive;margin:16px 0 6px;text-shadow:0 0 6px var(--n)}.dgh small{display:block;font:10px Verdana;color:#777}
-.dgal{display:grid;grid-template-columns:repeat(auto-fill,minmax(80px,1fr));gap:8px;background:#ffd6ec;padding:8px;border-radius:8px}
-.dgi{background:none;border:2px solid transparent;border-radius:8px;cursor:pointer;padding:2px;display:flex;flex-direction:column;align-items:center}
-.dgi canvas{width:64px;height:192px;image-rendering:pixelated}
-.dgi span{font:12px 'Pacifico',cursive;color:#c2187a}
-.dgi:hover,.dgi:focus{border-color:var(--n);box-shadow:0 0 8px var(--n)}
-</style>
 </head>
 <body>
 <header class="top"><button class="hb" id="hb" aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><span class="logo neon">Nostalgic Nook</span>
@@ -332,12 +319,9 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 <p class="cinfo" id="winfo">Entrances, promos, and iconic moments from the WWF/WWE golden years. Clips from YouTube (mostly the official WWE channels).</p>
 </div></div></section>
 <section class="view" id="v-dollz" hidden><div class="box nbox" id="dollz"><h2>Dollz · Make Your Doll</h2><div class="in"><div class="dwrap">
-<div class="dstage"><div class="dframe"><canvas id="dcv" aria-label="Your pixel doll"></canvas><div class="dname" id="dname"></div></div>
-<input id="dnm" maxlength="20" placeholder="Name your doll ✦"><label class="dtr"><input type="checkbox" id="dtr" checked> Transparent background (MySpace-ready)</label>
-<div class="dbtns"><button id="drand">🎲 Random</button><button id="dreset">↺ Reset</button><button id="dsave">💾 Save my doll</button></div></div>
-<div class="dctl" id="dctl"></div></div>
-<h3 class="dgh">✦ Doll Gallery ✦ <small>tap one to load &amp; edit</small></h3><div class="dgal" id="dgal"></div>
-<p class="note" style="font-size:10px;text-align:center;margin-top:8px">Your doll saves automatically on this device. Original pixel art made for Nostalgic Nook.</p></div></div></section>
+<div class="dstage"><div class="dframe"><canvas id="dcv" width="240" height="480" aria-label="Your pixel doll"></canvas><div class="dname" id="dname"></div></div>
+<input id="dnm" maxlength="20" placeholder="Name your doll ✦"><div class="dbtns"><button id="drand">🎲 Random</button><button id="dreset">↺ Reset</button><button id="dsave">💾 Save my doll</button></div></div>
+<div class="dctl" id="dctl"></div></div><p class="note" style="font-size:10px;text-align:center;margin-top:8px">Your doll saves automatically on this device. Original pixel art made for Nostalgic Nook.</p></div></div></section>
 <section class="view" id="v-photos" hidden><div class="box nbox" id="gal"><h2>Nostalgic Photo Gallery</h2><div class="in">
 <div class="pgrid" id="pgrid"></div>
 <p class="note pcred">Photos from Wikimedia Commons, resized. Credits are in each photo's caption. Tap a photo to see it big.</p></div></div></section>
@@ -497,166 +481,95 @@ fetch('wwe.json?v=1').then(r=>r.json()).then(a=>{
  nnPicker({scr:wscr,card:wcard,l1:wgrp,l2:wtt,l3:wsub,info:winfo,sel:wsel,sur:wsur,data:a,group:x=>x.group,label:x=>x.title,ph:'🤼 Pick a classic clip ('+a.length+')…',
   card3:x=>[x.group.toUpperCase(),x.title,'WWF / WWE'],infoHtml:(x,e)=>'<b>'+e(x.group)+'</b> — '+e(x.title)});});
 </script>
-
 <script>
 (function(){
-const W=64,H=192,CX=32;
-const hex=h=>{h=h.replace('#','');if(h.length===3)h=h.split('').map(c=>c+c).join('');const n=parseInt(h,16);return[(n>>16)&255,(n>>8)&255,n&255]};
-const mix=(h,f)=>{const[r,g,b]=hex(h);const t=f>1?255:0,a=f>1?f-1:1-f;return'rgb('+Math.round(r+(t-r)*a)+','+Math.round(g+(t-g)*a)+','+Math.round(b+(t-b)*a)+')'};
-const L=(pts,y)=>{for(let i=0;i<pts.length-1;i++){const[a,va]=pts[i],[b,vb]=pts[i+1];if(y>=a&&y<=b)return va+(vb-va)*(y-a)/(b-a||1);}return null};
-let ctx,sc;const P=(x,y,c)=>{ctx.fillStyle=c;ctx.fillRect(Math.round(x)*sc,Math.round(y)*sc,sc,sc)};
-const R=(x,y,w,h,c)=>{ctx.fillStyle=c;ctx.fillRect(Math.round(x)*sc,Math.round(y)*sc,Math.round(w)*sc,Math.round(h)*sc)};
-// shape: f(y)->[x0,x1]; fills with base, shading left, highlight, outline
-function shape(y0,y1,f,base,o={}){const out=o.out||mix(base,.55),sh=mix(base,.82),hl=mix(base,1.22);let prev=null;
- for(let y=y0;y<=y1;y++){const s=f(y);if(!s){prev=null;continue}let[a,b]=s;a=Math.round(a);b=Math.round(b);if(b<a)continue;
-  R(a,y,b-a+1,1,base);if(!o.flat){R(a+1,y,Math.max(1,Math.round((b-a)*.22)),1,sh);if(b-a>3)P(a+Math.round((b-a)*.68),y,hl);}
-  if(o.pat)for(let x=a+1;x<b;x++){const c=o.pat(x,y);if(c)P(x,y,c);}
-  if(!o.noOut){P(a,y,out);P(b,y,out);if(y===y0||!prev)R(a,y,b-a+1,1,out);else{if(a<prev[0])R(a,y,prev[0]-a,1,out);if(b>prev[1])R(prev[1]+1,y,b-prev[1],1,out);if(a>prev[0])R(prev[0],y-1,a-prev[0],1,out);if(b<prev[1])R(b+1,y-1,prev[1]-b,1,out);}}
-  prev=[a,b];}
- if(prev&&!o.noOut&&!o.openBottom)R(prev[0],y1,prev[1]-prev[0]+1,1,out);}
-const sym=(hw,dx=0)=>y=>{const h=hw(y);return h==null?null:[CX+dx-h,CX+dx+h]};
-// body geometry
-const TOR=[[38,4],[41,11],[46,10.5],[52,10],[58,8.6],[64,7.4],[70,7.2],[78,9],[86,11],[92,11.5]];
-const LEGHW=[[90,5.6],[104,5.2],[118,4],[128,3],[136,3.4],[148,3],[162,2],[172,1.8]];
-const LEGDX=[[90,5.6],[130,3.6],[172,3.2]];
-const ARMHW=[[41,2.6],[60,2.1],[72,1.9],[94,1.5]];
-const ARMDX=[[41,12],[60,13],[94,14.2]];
-const HEAD=y=>{if(y<11||y>34)return null;const t=(y-21.5)/11;let w=7.2*Math.sqrt(Math.max(0,1-t*t));if(y>27)w*=1-(y-27)*.05;return w};
-function leg(side,f){return y=>{const h=L(LEGHW,y),d=L(LEGDX,y);return h==null?null:[CX+side*d-h,CX+side*d+h]}}
-function arm(side){return y=>{const h=L(ARMHW,y),d=L(ARMDX,y);return h==null?null:[CX+side*d-h,CX+side*d+h]}}
-// palettes
-const SK=[['Fair','#f6d3bd'],['Light tan','#eab88f'],['Golden tan','#d9a06a'],['Bronze','#c08050'],['Caramel','#a86b3c'],['Deep','#7a4a2a']];
+const W=48,H=96,S=5;
+const SK=[['Porcelain','#ffe3d3'],['Peach','#f7c9a8'],['Honey','#e2a877'],['Caramel','#c08457'],['Cocoa','#8d5a3b'],['Espresso','#5e3a24']];
 const EY=[['Blue','#3a7bd5'],['Green','#3aa05a'],['Brown','#6b3e1f'],['Hazel','#9a7a2e'],['Gray','#7b8794'],['Violet','#8a4fd8']];
-const HC=[['Golden blonde','#f2c94c'],['Platinum','#f3ead2'],['Honey','#d4a24c'],['Light brown','#9b6a3c'],['Brunette','#5b3820'],['Black','#262020'],['Auburn','#a8442a'],['Pink','#ff79c6']];
-const HL=[['None',null],['Blonde streaks','#fff2a8'],['Caramel','#e0a060'],['Pink chunks','#ff6fb5'],['Blue chunks','#57c7ff'],['Black chunks','#222']];
-const HS=['Long wavy','Long sleek','Big curls','High ponytail','Half-up + clips','Pigtail braids','Side-swept bob','Messy bun'];
-const TOPS=[['Halter','#ff8ad8'],['Butterfly halter','#7de3ff'],['Lace cami','#ffffff'],['Baby tee','#ffcde8'],['Tube top','#c58bff'],['Peasant top','#fff4d6'],['Crochet poncho','#4a6cff'],['Sporty tee','#ffffff']];
-const BOT=[['Low-rise flares','#3e63b8'],['White flares','#f5f5f5'],['Cargo pants','#3d8c3d'],['Mini skirt','#2a2a2a'],['Daisy maxi skirt','#2f9e4a'],['Slip dress','#a8dcff'],['Butterfly maxi dress','#ffb3e6'],['Denim skirt','#4a78c9']];
-const SH=[['Platform sandals','#ff9fd8'],['Strappy heels','#1d1d1d'],['Chunky sneakers','#ffffff'],['Flip-flops','#ffd34f'],['Platform boots','#2a2a2a']];
-const ACC=[['Choker','choker'],['Hoop earrings','hoops'],['Butterfly clips','clips'],['Belly ring','belly'],['Shades on head','shades'],['Shoulder bag','bag'],['Studded belt','belt'],['Bangles','bangles']];
-const PETS=[['None',''],['Siamese cat','cat'],['Chihuahua','dog'],['Bunny','bunny']];
-const BL=[['None',''],['movie star','movie star'],['dreamer','dreamer'],['angel','angel'],['princess','princess'],['2 cute','2 cute'],['rockstar','rockstar'],['babygirl','babygirl']];
-// pattern helpers
-const patFlare=(c)=>(x,y)=>null;
-const daisy=(x,y)=>{const a=(x+ (y>>3)*3)%8,b=y%8;return(a===3&&b===3)?'#ffd84f':((a===3&&(b===2||b===4))||(b===3&&(a===2||a===4)))?'#ffffff':null};
-const fly=(x,y)=>{const a=(x+((y/10|0)%2)*5)%10,b=y%10;return((a===3||a===5)&&(b>=2&&b<=4))||(a===4&&b===3)?'#ffffff':((a===2||a===6)&&b===3)?'#ffe2f5':null};
-function draw(D,target,scale,transparent){ctx=target;sc=scale;ctx.clearRect(0,0,W*sc,H*sc);
- if(!transparent){const bg={pink:'#ffd6ec',sparkle:'#1b0f2e',white:'#ffffff',hearts:'#ffe6f3'}[D.bg]||'#ffd6ec';R(0,0,W,H,bg);
-  if(D.bg==='sparkle'||D.bg==='hearts')[[6,14],[54,24],[8,70],[56,96],[7,140],[55,160],[30,6],[48,60]].forEach(([x,y],i)=>{const c=D.bg==='hearts'?'#ff9fd0':['#fff','#ff9ee9','#9ef'][i%3];if(D.bg==='hearts'){R(x,y,2,1,c);R(x+3,y,2,1,c);R(x-1,y+1,7,2,c);R(x,y+3,5,1,c);R(x+1,y+4,3,1,c);P(x+2,y+5,c);}else{R(x,y-1,1,3,c);R(x-1,y,3,1,c);}});}
- const sk=SK[D.skin][1],hc=HC[D.hc][1],hl=HL[D.hl][1],hs=D.hs;
- // hair back
- const wav=(y,k)=>Math.sin(y*.45+k)*1.2;
- const backLen={0:120,1:118,2:104,3:0,4:116,5:0,6:40,7:0}[hs];
- if(backLen){shape(10,backLen,y=>{const t=(y-10);let w=y<22?L([[10,5],[16,9.5],[22,10.5]],y):L([[22,10.5],[40,12],[70,13],[100,12],[120,9]],Math.min(y,120));if(hs===2)w+=2+Math.sin(y*.7)*1.5;if(hs===6)w=Math.min(w,10.5);return[CX-w+wav(y,0),CX+w+wav(y,2)]},hc,{pat:hl?(x,y)=>((x*3+y)%11===0||(x*3+y)%11===1)?hl:null:(x,y)=>((x+y)%9===0?mix(hc,1.18):null)});}
- if(hs===3){shape(2,16,y=>[CX+7-L([[2,2],[8,4],[16,3]],y),CX+7+L([[2,2],[8,4],[16,3]],y)],hc);shape(14,70,y=>{const w=L([[14,3],[30,4],[50,3.5],[70,1.5]],y);return[CX+12-w+wav(y,1),CX+12+w+wav(y,1)]},hc,{pat:hl?(x,y)=>(y%5===0)?hl:null:null});}
- if(hs===5)[-1,1].forEach(s=>shape(24,96,y=>{const w=L([[24,3],[40,2.6],[96,1.4]],y);const c=CX+s*(9+ (y>40?1:0));return[c-w,c+w]},hc,{pat:(x,y)=>y%4===0?mix(hc,.7):null}));
- if(hs===7)shape(2,14,y=>{const w=L([[2,3],[6,6],[14,5]],y);return[CX-w,CX+w]},hc);
- // body: arms back? draw legs, torso, arms, neck, head
- [-1,1].forEach(s=>shape(88,174,leg(s),sk));
- shape(38,92,sym(y=>L(TOR,y)),sk);
- shape(31,41,sym(()=>3),sk,{noOut:false});
- // belly button
- P(CX,74,mix(sk,.6));
- [-1,1].forEach(s=>{shape(41,94,arm(s),sk);shape(94,102,y=>{const d=CX+s*14.4;const w=L([[94,1.8],[98,2.2],[102,1.4]],y);return[d-w,d+w]},sk)});
- // feet
- [-1,1].forEach(s=>shape(172,180,y=>{const d=CX+s*3.2+s*(y>176?1:0);return[d-2,d+2+(y>175?1:0)*s]},sk));
- // head
- shape(11,34,sym(HEAD),sk);
- // face
- const ey=EY[D.eyes][1];[-1,1].forEach(s=>{const x=CX+s*3.5;R(x-1.5,21,3,1,'#2a1a14');R(x-1,22,3,2,'#fff');R(x-1+(s<0?1:0),22,2,2,ey);P(x+(s<0?1:0),22,'#fff');R(x-2,20,1,1,'#2a1a14');R(x-1.5,18,3,1,mix(hc,.6));P(x-2+(s>0?4:0),23,'#d9a0a0')});
- P(CX,26,mix(sk,.75));P(CX-1,27,mix(sk,.8));
- R(CX-2,29,5,1,'#d9547a');R(CX-1,30,3,1,'#e86d93');P(CX,30,'#ffd1e0');P(CX+1,29,'#ffc0d4');
- R(CX-6,26,2,1,'rgba(255,120,150,.45)');R(CX+5,26,2,1,'rgba(255,120,150,.45)');
- // bottoms
- const [bn,bc]=BOT[D.bot];
- if(bn.includes('flares')||bn==='Cargo pants'){const pat=bn==='Cargo pants'?(x,y)=>(y>110&&y<122&&((x+1)%11<3))?mix(bc,.75):null:(x,y)=>(x%5===0&&y%7<3&&bc!=='#f5f5f5')?mix(bc,1.15):null;
-  shape(76,92,sym(y=>L(TOR,y)+.5),bc,{pat});
-  [-1,1].forEach(s=>shape(88,178,y=>{const h=L(LEGHW,y)+.7+(y>140?(y-140)*.12:0),d=L(LEGDX,Math.min(y,172));return[CX+s*d-h,CX+s*d+h]},bc,{pat}));
-  R(CX-8,77,17,1,mix(bc,.6));}
- if(bn==='Mini skirt'||bn==='Denim skirt')shape(76,106,y=>{const w=L(TOR,Math.min(y,92))+.5+(y>92?(y-92)*.25:0);return[CX-w,CX+w]},bc,{pat:bn==='Denim skirt'?(x,y)=>y===100?mix(bc,1.2):null:null});
- if(bn==='Daisy maxi skirt')shape(76,170,y=>{const w=L(TOR,Math.min(y,92))+.5+(y>92?(y-92)*.07:0);return[CX-w,CX+w]},bc,{pat:daisy});
- const dress=bn.includes('dress');
- if(dress){const pat=bn.startsWith('Butterfly')?fly:null;const len=bn.startsWith('Butterfly')?172:150;
-  shape(46,len,y=>{const w=y<=92?L(TOR,y)+.6:L(TOR,92)+.6+(y-92)*.09;return[CX-w,CX+w]},bc,{pat});[-1,1].forEach(s=>R(CX+s*5,40,1,6,mix(bc,.6)));}
- // tops
- const [tn,tc]=TOPS[D.top];
- if(!dress){const tor=(a,b,ext=.6,pat)=>shape(a,b,sym(y=>L(TOR,y)+ext),tc,{pat});
-  if(tn==='Halter'||tn==='Butterfly halter'){tor(46,64,.6,tn==='Butterfly halter'?fly:null);shape(36,46,y=>{const w=L([[36,1.5],[46,7]],y);return[CX-w,CX+w]},tc,{pat:tn==='Butterfly halter'?fly:null});}
-  if(tn==='Lace cami'){tor(46,66,.6,(x,y)=>((x+y)%4===0)?'#f0e0ff':null);[-1,1].forEach(s=>R(CX+s*6,40,1,6,mix(tc,.55)));}
-  if(tn==='Baby tee'||tn==='Sporty tee'){tor(40,66,.7,tn==='Sporty tee'?(x,y)=>(y>=50&&y<=53&&x>CX-6&&x<CX+6&&(x%2===0))?'#2f9e4a':null:null);[-1,1].forEach(s=>shape(40,50,y=>{const h=L(ARMHW,y)+1,d=L(ARMDX,y);return[CX+s*d-h,CX+s*d+h]},tc));R(CX-3,40,7,1,mix(tc,.6));}
-  if(tn==='Tube top')tor(48,62,.7,(x,y)=>y%3===0?mix(tc,1.15):null);
-  if(tn==='Peasant top'){tor(44,68,1);R(CX-11,44,23,2,mix(tc,.85));for(let x=CX-10;x<CX+11;x+=3)P(x,68,'#e8c99a');}
-  if(tn==='Crochet poncho')shape(40,80,y=>{const w=L([[40,8],[48,14],[66,16],[80,13]],y);return[CX-w,CX+w]},tc,{pat:(x,y)=>((x+y)%4===0||(x-y)%4===0)?mix(tc,1.35):null});}
- // shoes
- const [sn,scl]=SH[D.sh];[-1,1].forEach(s=>{const d=CX+s*3.2;
-  if(sn==='Platform sandals'){R(d-3,180,7,4,scl);R(d-3,183,7,1,mix(scl,.55));R(d-2,175,5,1,scl);R(d-2,178,5,1,scl);}
-  if(sn==='Strappy heels'){R(d-2,176,5,1,scl);R(d-2,179,5,1,scl);R(d+(s>0?2:-2),180,1,4,scl);R(d-2,180,5,1,scl);}
-  if(sn==='Chunky sneakers'){shape(173,184,y=>[d-3.5,d+3.5+(y>178?1:0)],scl);R(d-3,182,8,2,'#ff7ad1');}
-  if(sn==='Flip-flops'){R(d-3,180,7,2,scl);P(d,176,mix(scl,.6));P(d-1,177,mix(scl,.6));P(d+1,177,mix(scl,.6));}
-  if(sn==='Platform boots'){shape(150,184,y=>{const h=y<172?L(LEGHW,y)+.8:3.5;const dd=y<172?CX+s*L(LEGDX,y):d;return[dd-h,dd+h]},scl);R(d-4,182,8,2,'#111');}});
- // hair front
- shape(10,20,y=>{const w=L([[10,5],[13,8],[17,8.6],[20,8.8]],y);return[CX-w,CX+w]},hc,{pat:hl?(x,y)=>((x*3+y)%11<2)?hl:null:null});
- if(hs===6||hs===0||hs===1||hs===2||hs===4)[-1,1].forEach(s=>shape(16,hs===6?40:46,y=>{const x0=CX+s*7.5,w=L([[16,1.5],[30,2],[46,1.5]],y);return[x0-w-(s<0?1:0),x0+w+(s>0?1:0)]},hc,{pat:hl?(x,y)=>((x+y)%7===0)?hl:null:null}));
- // side-swept bang
- shape(14,19,y=>[CX-7+ (y-14)*.2,CX+2-(y-14)*1.2],mix(hc,1.08),{noOut:true});
- if(hs===4||D.acc.includes('clips'))[[CX-5,11,'#ff6fb5'],[CX+1,10,'#7de3ff'],[CX+5,12,'#fff066']].forEach(([x,y,c])=>{R(x,y,2,2,c);R(x+3,y,2,2,c);P(x+2,y+1,'#333')});
- if(hs===3)R(CX+5,13,3,2,'#ff4fd8');
- // accessories
- const A=D.acc;
- if(A.includes('choker')){R(CX-3,34,7,2,'#111');P(CX,36,'#ff4fd8');}
- if(A.includes('hoops'))[-1,1].forEach(s=>{const x=CX+s*7.8;R(x-1,26,3,1,'#e8c547');R(x-1,30,3,1,'#e8c547');R(x-1.5,27,1,3,'#e8c547');R(x+1.5,27,1,3,'#e8c547')});
- if(A.includes('belly')&&!dress&&!['Crochet poncho','Baby tee','Sporty tee','Peasant top'].includes(tn)){P(CX,75,'#9ef');P(CX,76,'#ff4fd8');}
- if(A.includes('shades')){R(CX-6,11,5,2,'#111');R(CX+2,11,5,2,'#111');R(CX-1,11,3,1,'#111');P(CX-5,11,'#9ef');P(CX+3,11,'#9ef')}
- if(A.includes('belt')&&!dress){R(CX-8,79,17,2,'#222');for(let x=CX-7;x<CX+8;x+=3)P(x,79,'#ddd');R(CX-1,79,3,2,'#e8c547');}
- if(A.includes('bangles')){R(CX-16,92,5,1,'#e8c547');R(CX-16,94,5,1,'#ff6fb5');}
- if(A.includes('bag')){R(CX+13,42,1,40,'#5b3820');shape(80,94,y=>[CX+12,CX+21],'#ff79c6',{pat:(x,y)=>(x+y)%5===0?'#fff':null});}
- // pet
- if(D.pet==='cat'){const x=CX+10,y=164;R(x,y,12,8,'#f2e6d0');R(x,y,4,4,'#4a3a30');R(x+9,y+6,3,10,'#4a3a30');R(x,y+8,2,8,'#e8dcc4');R(x+5,y+8,2,8,'#e8dcc4');R(x+12,y-2,2,8,'#4a3a30');R(x+13,y-5,2,4,'#4a3a30');P(x,y-1,'#4a3a30');P(x+3,y-1,'#4a3a30');P(x+1,y+1,'#3ad');P(x+3,y+1,'#3ad');R(x,y+16,3,1,'#4a3a30');R(x+5,y+16,3,1,'#4a3a30');}
- if(D.pet==='dog'){const x=CX+11,y=170;R(x,y,9,6,'#d9a066');R(x-3,y-5,6,6,'#d9a066');P(x-3,y-6,'#d9a066');P(x+2,y-6,'#d9a066');P(x-2,y-3,'#111');P(x,y-3,'#111');P(x-3,y-1,'#222');R(x,y+6,1,5,'#c48a50');R(x+7,y+6,1,5,'#c48a50');R(x+9,y-1,1,3,'#d9a066');R(x-2,y+1,5,1,'#ff4fd8');}
- if(D.pet==='bunny'){const x=CX+12,y=170;R(x,y,8,7,'#fff');R(x+1,y-6,2,7,'#fff');R(x+4,y-6,2,7,'#fff');P(x+2,y-4,'#ffc0d4');P(x+5,y-4,'#ffc0d4');P(x+2,y+2,'#111');P(x+5,y+2,'#111');P(x+3,y+4,'#ff8ab0');R(x+8,y+4,2,2,'#eee');R(x,y+7,8,1,'#ddd');}}
-// blinkie text overlay (canvas, in pixel space)
-function blinkie(target,scale,text,phase){if(!text)return;const c=target;c.save();c.imageSmoothingEnabled=false;const fs=Math.round(7*scale);c.font='bold '+fs+'px "Comic Sans MS","Verdana",sans-serif';c.textAlign='center';
- const x=W*scale*.3,y=H*scale*.62;const g=c.createLinearGradient(x-40*scale,0,x+40*scale,0);const cols=['#ff4fd8','#b026ff','#00d4ff','#ff4fd8'];cols.forEach((cc,i)=>g.addColorStop(((i/3)+phase)%1,cc));
- c.lineWidth=Math.max(2,scale*1.2);c.strokeStyle='#fff';c.strokeText(text,x,y);c.fillStyle=g;c.fillText(text,x,y);
- c.fillStyle='#fff';[[-22,-6],[20,-8],[-16,4],[24,3]].forEach(([dx,dy],i)=>{if((i+Math.floor(phase*8))%2){const s=scale;c.fillRect(x+dx*s,y+dy*s-s,s,s*3);c.fillRect(x+dx*s-s,y+dy*s,s*3,s);}});c.restore();}
-// state
-const K='nn_dollz2';const def={skin:2,eyes:0,hs:0,hc:0,hl:1,top:0,bot:0,sh:0,acc:['hoops','belly'],pet:'',bl:'',bg:'pink',name:''};
-let D=Object.assign({},def,JSON.parse(localStorage.getItem(K)||'{}'));if(!Array.isArray(D.acc))D.acc=[];
-const PRE=[
-['Malibu',{skin:2,eyes:0,hs:0,hc:0,hl:1,top:0,bot:0,sh:0,acc:['hoops','belly'],pet:'',bl:'movie star'}],
-['Daisy',{skin:1,eyes:1,hs:1,hc:1,hl:0,top:4,bot:4,sh:3,acc:['clips'],pet:'',bl:''}],
-['Skye',{skin:2,eyes:0,hs:2,hc:0,hl:0,top:6,bot:0,sh:4,acc:['hoops'],pet:'',bl:'dreamer'}],
-['Jade',{skin:3,eyes:3,hs:1,hc:4,hl:2,top:7,bot:2,sh:2,acc:['shades'],pet:'',bl:''}],
-['Bella',{skin:3,eyes:2,hs:4,hc:4,hl:0,top:2,bot:1,sh:1,acc:['clips','choker'],pet:'',bl:'angel'}],
-['Coco',{skin:2,eyes:0,hs:3,hc:0,hl:3,top:0,bot:0,sh:0,acc:['belt','belly'],pet:'',bl:'2 cute'}],
-['Luna',{skin:1,eyes:5,hs:0,hc:3,hl:0,top:2,bot:5,sh:0,acc:['choker'],pet:'cat',bl:''}],
-['Kiki',{skin:4,eyes:2,hs:5,hc:5,hl:3,top:3,bot:3,sh:4,acc:['hoops','bangles'],pet:'',bl:'babygirl'}],
-['Roxy',{skin:2,eyes:4,hs:6,hc:5,hl:4,top:4,bot:3,sh:4,acc:['choker','belt'],pet:'',bl:'rockstar'}],
-['Honey',{skin:2,eyes:3,hs:2,hc:2,hl:1,top:5,bot:7,sh:0,acc:['bag','bangles'],pet:'dog',bl:''}],
-['Star',{skin:3,eyes:2,hs:7,hc:4,hl:1,top:3,bot:6,sh:1,acc:['hoops','bag'],pet:'',bl:'princess'}],
-['Angel',{skin:0,eyes:0,hs:1,hc:1,hl:0,top:1,bot:1,sh:0,acc:['clips','belly'],pet:'bunny',bl:'angel'}]];
-const cv=document.getElementById('dcv'),c=cv.getContext('2d');const S=3;cv.width=W*S;cv.height=H*S;let ph=0;
-function render(save=true){draw(D,c,S,dtr.checked);blinkie(c,S,D.bl,ph);dname.textContent=D.name||'';if(save)localStorage.setItem(K,JSON.stringify(D));
+const HC=[['Blonde','#f4d06f'],['Brown','#7a4a24'],['Black','#222'],['Auburn','#a8442a'],['Pink','#ff6fb5'],['Blue','#4fb3ff'],['Purple','#9b5cff'],['Platinum','#f0eee4']];
+const HS=['Long & straight','Pigtails','Space buns','High ponytail','Short bob','Curly','Half-up w/ clips','Spiky'];
+const TOPS=[['Baby tee','#ff8ad8'],['Tank top','#7de3ff'],['Star crop top','#fff066'],['Tube top','#c58bff'],['Hoodie','#9be27a'],['Halter','#ff6b6b']];
+const BOT=[['Mini skirt','#222'],['Plaid skirt','#c0392b'],['Flare jeans','#4a78c9'],['Cargo pants','#9c8a5a'],['Slip dress','#ff9ed8'],['Overalls','#5d8ad6']];
+const SH=[['Platforms','#ff4fd8'],['Sneakers','#ffffff'],['Knee boots','#222'],['Flip-flops','#ffd34f'],['Mary Janes','#7a2a8a']];
+const ACC=[['Choker','choker'],['Sunglasses','shades'],['Mini bag','bag'],['Butterfly clips','clips'],['Star earrings','earrings'],['Heart necklace','heart']];
+const BG=[['Sparkle','sparkle'],['Hearts','hearts'],['Stars','stars'],['Checkers','check'],['Neon glow','glow'],['Plain white','plain']];
+const K='nn_doll';const def={skin:1,eyes:0,hs:0,hc:0,top:0,bot:0,sh:0,acc:['clips'],bg:'sparkle',name:''};
+let D=Object.assign({},def,JSON.parse(localStorage.getItem(K)||'{}'));
+const cv=document.getElementById('dcv'),c=cv.getContext('2d');
+const dk=(h,a=0.7)=>{const n=parseInt(h.slice(1).padEnd(6,h.slice(1)),16);let r=(n>>16)&255,g=(n>>8)&255,b=n&255;if(h.length===4){r=parseInt(h[1]+h[1],16);g=parseInt(h[2]+h[2],16);b=parseInt(h[3]+h[3],16);}return'rgb('+(r*a|0)+','+(g*a|0)+','+(b*a|0)+')'};
+let ctx,sc;function p(x,y,w,h,col){ctx.fillStyle=col;ctx.fillRect(x*sc,y*sc,w*sc,h*sc);}
+function box(x,y,w,h,col){p(x,y,w,h,dk(col,.55));p(x+1,y+1,w-2,h-2,col);}
+function drawBG(){const t=D.bg;const cols={sparkle:'#1a0b2e',hearts:'#ffe1f2',stars:'#0b1640',check:'#fff',glow:'#111',plain:'#fff'};p(0,0,W,H,cols[t]);
+ if(t==='check')for(let y=0;y<H;y+=4)for(let x=(y/4%2)*4;x<W;x+=8)p(x,y,4,4,'#ffd1ee');
+ if(t==='sparkle')[[4,6],[40,10],[8,40],[42,50],[6,78],[38,84],[24,4],[14,60],[34,30]].forEach(([x,y],i)=>{const col=['#fff','#ff9ee9','#9ef'][i%3];p(x,y-1,1,3,col);p(x-1,y,3,1,col);});
+ if(t==='hearts')[[5,8],[38,14],[6,50],[39,60],[10,84],[36,86]].forEach(([x,y])=>{const h='#ff6fb5';p(x,y,2,1,h);p(x+3,y,2,1,h);p(x-1,y+1,7,2,h);p(x,y+3,5,1,h);p(x+1,y+4,3,1,h);p(x+2,y+5,1,1,h);});
+ if(t==='stars')[[5,7],[40,12],[4,46],[42,58],[7,82],[37,88],[22,3]].forEach(([x,y])=>{const s='#fff066';p(x+2,y,1,1,s);p(x+1,y+1,3,1,s);p(x,y+2,5,1,s);p(x+1,y+3,3,1,s);p(x,y+4,2,1,s);p(x+3,y+4,2,1,s);});
+ if(t==='glow'){for(let r=0;r<8;r++)p(8+r*2,4+r*2,W-16-r*4,H-8-r*4,'rgba(255,46,196,'+(.06)+')');}}
+function hairBack(col){const h=D.hs;
+ if(h===0||h===6)p(14,10,20,34,col);
+ if(h===5){p(12,8,24,28,col);for(let y=10;y<36;y+=4){p(11,y,2,2,col);p(35,y,2,2,col);}}
+ if(h===1){p(9,14,6,18,col);p(33,14,6,18,col);p(10,32,4,6,col);p(34,32,4,6,col);}
+ if(h===3){p(26,2,6,6,col);p(30,6,5,22,col);p(31,28,3,6,col);}}
+function hairFront(col){const h=D.hs;const d=dk(col,.75);
+ p(15,6,18,6,col);p(14,8,3,10,col);p(31,8,3,10,col);p(17,10,14,2,col);
+ if(h===0||h===6){p(16,11,4,3,col);p(26,11,6,2,col);}
+ if(h===2){p(12,2,8,7,col);p(28,2,8,7,col);p(13,3,6,1,d);p(29,3,6,1,d);}
+ if(h===4){p(13,8,4,16,col);p(31,8,4,16,col);p(16,11,16,3,col);}
+ if(h===7){[15,19,23,27,31].forEach(x=>p(x,3,2,4,col));}
+ if(h===1){p(13,14,3,3,'#ff4fd8');p(32,14,3,3,'#ff4fd8');}
+ if(h===3){p(29,6,3,3,'#7de3ff');}
+ p(17,7,6,1,dk(col,1.15>1?1:1));}
+function body(sk){const o=dk(sk,.7);
+ box(16,8,16,18,sk);p(21,26,6,3,sk);// head,neck
+ p(15,15,1,4,o);p(32,15,1,4,o);p(14,16,2,3,sk);p(32,16,2,3,sk);// ears
+ box(16,28,16,20,sk);// torso
+ box(11,29,5,18,sk);box(32,29,5,18,sk);box(11,47,5,4,sk);box(32,47,5,4,sk);// arms hands
+ box(17,48,14,6,sk);box(17,53,6,34,sk);box(25,53,6,34,sk);}
+function face(){const e=EY[D.eyes][1];p(19,16,4,3,'#fff');p(26,16,4,3,'#fff');p(20,16,2,3,e);p(27,16,2,3,e);p(20,16,1,1,'#fff');p(27,16,1,1,'#fff');
+ p(18,15,5,1,'#333');p(25,15,5,1,'#333');p(18,20,2,1,'#ff9ab8');p(29,20,2,1,'#ff9ab8');p(23,21,3,1,'#d9446f');p(24,22,1,1,'#b8335a');}
+function bottoms(){const [n,col]=BOT[D.bot];const d=dk(col,.6);
+ if(n==='Mini skirt'){box(15,46,18,10,col);}
+ if(n==='Plaid skirt'){box(15,46,18,11,col);for(let x=16;x<32;x+=3)p(x,47,1,9,'#222');p(16,50,16,1,'#f4d06f');}
+ if(n==='Flare jeans'){box(16,46,16,8,col);box(16,53,7,32,col);box(25,53,7,32,col);p(15,80,9,6,col);p(24,80,9,6,col);p(24,47,1,6,d);}
+ if(n==='Cargo pants'){box(16,46,16,8,col);box(16,53,7,32,col);box(25,53,7,32,col);p(16,62,3,5,d);p(29,62,3,5,d);}
+ if(n==='Slip dress'){box(16,28,16,20,col);p(15,47,18,12,col);p(14,56,20,4,col);p(18,28,1,-3,'#fff');p(18,26,1,2,col);p(29,26,1,2,col);}
+ if(n==='Overalls'){box(16,40,16,14,col);box(16,53,7,32,col);box(25,53,7,32,col);p(18,28,2,12,col);p(28,28,2,12,col);p(20,40,8,5,dk(col,.85));p(18,30,2,2,'#f4d06f');p(28,30,2,2,'#f4d06f');}}
+function top(){const [n,col]=TOPS[D.top];if(BOT[D.bot][0]==='Slip dress')return;const d=dk(col,.6);
+ if(n==='Baby tee'){box(15,28,18,18,col);box(11,28,6,6,col);box(31,28,6,6,col);p(22,32,4,3,'#fff');}
+ if(n==='Tank top'){box(16,29,16,17,col);p(18,27,2,3,col);p(28,27,2,3,col);}
+ if(n==='Star crop top'){box(15,28,18,13,col);box(11,28,6,5,col);box(31,28,6,5,col);p(23,32,2,1,'#ff4fd8');p(22,33,4,1,'#ff4fd8');p(23,34,2,1,'#ff4fd8');}
+ if(n==='Tube top'){box(16,32,16,10,col);p(16,33,16,1,d);}
+ if(n==='Hoodie'){box(14,27,20,21,col);box(10,28,6,20,col);box(32,28,6,20,col);p(19,38,10,5,d);p(21,28,1,6,'#fff');p(26,28,1,6,'#fff');}
+ if(n==='Halter'){box(16,30,16,14,col);p(19,26,2,4,col);p(27,26,2,4,col);p(20,26,8,1,col);}}
+function shoes(){const [n,col]=SH[D.sh];const d=dk(col,.55);
+ if(n==='Platforms'){box(16,84,8,4,col);box(25,84,8,4,col);p(16,88,8,4,d);p(25,88,8,4,d);}
+ if(n==='Sneakers'){box(16,85,8,5,col);box(25,85,8,5,col);p(16,89,8,1,'#ff4fd8');p(25,89,8,1,'#ff4fd8');p(18,86,3,1,'#7de3ff');p(27,86,3,1,'#7de3ff');}
+ if(n==='Knee boots'){box(16,66,8,24,col);box(25,66,8,24,col);p(17,67,6,1,'#555');p(26,67,6,1,'#555');}
+ if(n==='Flip-flops'){p(16,88,8,2,col);p(25,88,8,2,col);p(19,86,2,2,d);p(28,86,2,2,d);}
+ if(n==='Mary Janes'){box(16,85,8,4,col);box(25,85,8,4,col);p(17,84,6,1,d);p(26,84,6,1,d);}}
+function acc(){const a=D.acc;
+ if(a.includes('choker')){p(21,26,6,2,'#111');p(23,27,2,2,'#ff4fd8');}
+ if(a.includes('heart')){p(20,29,1,2,'#d4af37');p(27,29,1,2,'#d4af37');p(21,31,6,1,'#d4af37');p(22,32,4,2,'#ff2e63');p(23,34,2,1,'#ff2e63');}
+ if(a.includes('earrings')){p(14,19,2,2,'#fff066');p(32,19,2,2,'#fff066');}
+ if(a.includes('shades')){p(18,15,5,4,'#111');p(25,15,5,4,'#111');p(23,16,2,1,'#111');p(19,16,1,1,'#7de3ff');p(26,16,1,1,'#7de3ff');}
+ if(a.includes('clips')){[[17,9,'#ff6fb5'],[24,8,'#7de3ff'],[29,10,'#fff066']].forEach(([x,y,c2])=>{p(x,y,2,2,c2);p(x+3,y,2,2,c2);p(x+2,y+1,1,1,'#222');});}
+ if(a.includes('bag')){p(36,38,1,8,'#222');box(34,45,8,7,'#ff4fd8');p(37,47,2,2,'#fff066');}}
+function draw(target,scale){ctx=target;sc=scale;ctx.imageSmoothingEnabled=false;ctx.clearRect(0,0,W*sc,H*sc);
+ const hc=HC[D.hc][1];drawBG();hairBack(hc);body(SK[D.skin][1]);face();bottoms();top();shoes();hairFront(hc);acc();}
+function render(){cv.width=W*S;cv.height=H*S;draw(c,S);dname.textContent=D.name||'';localStorage.setItem(K,JSON.stringify(D));
  document.querySelectorAll('#dctl [data-k]').forEach(b=>{const k=b.dataset.k,v=b.dataset.v;b.classList.toggle('on',k==='acc'?D.acc.includes(v):String(D[k])===v);});}
-setInterval(()=>{if(!document.getElementById('v-dollz').hidden&&D.bl){ph=(ph+.125)%1;render(false);}},250);
-function group(label,k,list,isColor,valIdx){const g=document.createElement('div');g.className='dg';g.innerHTML='<h4>'+label+'</h4>';const row=document.createElement('div');row.className='drow';
- list.forEach((it,i)=>{const b=document.createElement('button');b.dataset.k=k;const v=valIdx?String(i):it[1];b.dataset.v=v;b.title=Array.isArray(it)?it[0]:it;
-  if(isColor&&it[1]){b.className='sw';b.style.background=it[1];}else b.textContent=Array.isArray(it)?it[0]:it;
-  b.onclick=()=>{if(k==='acc')D.acc=D.acc.includes(v)?D.acc.filter(z=>z!==v):D.acc.concat(v);else D[k]=valIdx?+v:v;render();};row.appendChild(b);});g.appendChild(row);dctl.appendChild(g);}
-dctl.innerHTML='';
-group('Skin','skin',SK,1,1);group('Eyes','eyes',EY,1,1);group('Hairstyle','hs',HS.map(h=>[h]),0,1);group('Hair color','hc',HC,1,1);group('Highlights','hl',HL,0,1);
-group('Tops','top',TOPS,0,1);group('Bottoms & dresses','bot',BOT,0,1);group('Shoes','sh',SH,0,1);group('Accessories','acc',ACC);group('Pet','pet',PETS);group('Sparkle text','bl',BL);
-group('Background','bg',[['Pink','pink'],['Sparkle','sparkle'],['Hearts','hearts'],['White','white']]);
-// gallery
-dgal.innerHTML='';PRE.forEach(([n,p])=>{const b=document.createElement('button');b.className='dgi';const k=document.createElement('canvas');k.width=W*2;k.height=H*2;const pd=Object.assign({},def,p,{bg:'pink',name:n});draw(pd,k.getContext('2d'),2,true);blinkie(k.getContext('2d'),2,pd.bl,0);
- b.appendChild(k);const s=document.createElement('span');s.textContent=n;b.appendChild(s);b.onclick=()=>{D=Object.assign({},def,JSON.parse(JSON.stringify(p)),{bg:D.bg,name:n});dnm.value=n;render();document.getElementById('dollz').scrollIntoView({behavior:'smooth'});};dgal.appendChild(b);});
-dnm.value=D.name;dnm.oninput=()=>{D.name=dnm.value.slice(0,20);render();};dtr.onchange=()=>render(false);
-const Rn=n=>Math.floor(Math.random()*n);
-drand.onclick=()=>{D.skin=Rn(SK.length);D.eyes=Rn(EY.length);D.hs=Rn(HS.length);D.hc=Rn(HC.length);D.hl=Rn(HL.length);D.top=Rn(TOPS.length);D.bot=Rn(BOT.length);D.sh=Rn(SH.length);D.acc=ACC.map(a=>a[1]).filter(()=>Math.random()<.35);D.pet=Math.random()<.25?PETS[1+Rn(3)][1]:'';D.bl=Math.random()<.5?BL[1+Rn(BL.length-1)][1]:'';render();};
+function group(label,k,list,isColor){const g=document.createElement('div');g.className='dg';g.innerHTML='<h4>'+label+'</h4>';const row=document.createElement('div');row.className='drow';
+ list.forEach((it,i)=>{const b=document.createElement('button');b.dataset.k=k;const v=(k==='acc'||k==='bg')?it[1]:String(i);b.dataset.v=v;b.title=Array.isArray(it)?it[0]:it;
+  if(isColor){b.className='sw';b.style.background=it[1];}else b.textContent=Array.isArray(it)?it[0]:it;
+  b.onclick=()=>{if(k==='acc'){D.acc=D.acc.includes(v)?D.acc.filter(z=>z!==v):D.acc.concat(v);}else D[k]=(k==='bg')?v:+v;render();};row.appendChild(b);});g.appendChild(row);dctl.appendChild(g);}
+group('Skin','skin',SK,1);group('Eyes','eyes',EY,1);group('Hairstyle','hs',HS);group('Hair color','hc',HC,1);group('Tops','top',TOPS);group('Bottoms & dresses','bot',BOT);group('Shoes','sh',SH);group('Accessories','acc',ACC);group('Background','bg',BG);
+dnm.value=D.name;dnm.oninput=()=>{D.name=dnm.value.slice(0,20);render();};
+const R=n=>Math.floor(Math.random()*n);
+drand.onclick=()=>{D.skin=R(SK.length);D.eyes=R(EY.length);D.hs=R(HS.length);D.hc=R(HC.length);D.top=R(TOPS.length);D.bot=R(BOT.length);D.sh=R(SH.length);D.acc=ACC.map(a=>a[1]).filter(()=>Math.random()<.4);D.bg=BG[R(BG.length)][1];render();};
 dreset.onclick=()=>{D=JSON.parse(JSON.stringify(def));dnm.value='';render();};
-dsave.onclick=()=>{const k=5,o=document.createElement('canvas'),tr=dtr.checked,extra=D.name?16*k:0;o.width=W*k;o.height=H*k+extra;const x=o.getContext('2d');draw(D,x,k,tr);blinkie(x,k,D.bl,0);
- if(D.name){x.font='bold '+(9*k)+'px "Comic Sans MS",Verdana,sans-serif';x.textAlign='center';x.lineWidth=k*1.5;x.strokeStyle='#fff';x.strokeText(D.name,W*k/2,H*k+12*k);x.fillStyle='#ff2ec4';x.fillText(D.name,W*k/2,H*k+12*k);}
- const a=document.createElement('a');a.download=((D.name||'my-doll').replace(/[^\w-]+/g,'-'))+'-dollz.png';a.href=o.toDataURL('image/png');a.click();};
+dsave.onclick=()=>{const k=8,o=document.createElement('canvas');o.width=W*k;o.height=H*k+60;const x=o.getContext('2d');draw(x,k);x.fillStyle='#111';x.fillRect(0,H*k,W*k,60);
+ x.fillStyle='#ff9ee9';x.font='bold 26px Verdana';x.textAlign='center';x.fillText((D.name||'My Doll')+' ✦',W*k/2,H*k+40);
+ const a=document.createElement('a');a.download=((D.name||'my-doll').replace(/[^\w-]+/g,'-'))+'-nostalgic-nook.png';a.href=o.toDataURL('image/png');a.click();};
 window.nnDoll=()=>D;render();})();
 </script>
 </body>
