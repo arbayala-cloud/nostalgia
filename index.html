@@ -69,7 +69,7 @@ footer{text-align:center;font-size:10px;color:#555;padding:10px 0 20px}
 </div></div>
 </main></div>
 <script>
-fetch('songs.json').then(r=>r.json()).then(s=>{
+fetch('songs.json?v=3',{cache:'no-store'}).then(r=>r.json()).then(s=>{
 const d=new Date(),doy=Math.round((new Date(d.getFullYear(),d.getMonth(),d.getDate())-new Date(d.getFullYear(),0,0))/864e5);
 const x=s[(doy-1)%s.length],q=encodeURIComponent(x.title+' '+x.artist);
 st.textContent=x.title;sa.textContent=x.artist+' · '+x.year;
