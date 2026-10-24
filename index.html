@@ -274,6 +274,22 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 .drow .sw{width:26px;height:26px;padding:0;border-radius:50%;border:2px solid #111}
 .drow .sw.on{outline:2px solid #fff;outline-offset:-5px}
 </style>
+<style>
+.guide{margin:10px 0 6px;background:#0a1a6b;border:3px solid #000;box-shadow:0 0 10px var(--n);font:bold 11px/1.2 "Courier New",monospace;color:#fff;overflow:hidden;border-radius:4px}
+.grow{display:grid;grid-template-columns:34% 1fr 1fr;width:100%;border:0;border-top:2px solid #000;background:none;color:inherit;font:inherit;text-align:left;padding:0;cursor:pointer}
+.grow>span{padding:6px 6px;border-left:2px solid #000;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;background:#1d3aa8}
+.grow>span:first-child{border-left:0;background:#0f2580;color:#ffe94d;display:flex;gap:6px;align-items:center}
+.grow .gch b{display:inline-block;min-width:22px;text-align:center;background:#000;color:#fff;padding:1px 3px;border-radius:2px}
+.grow .gnext{color:#c9d6ff}
+.ghead{cursor:default;border-top:0}.ghead>span{background:#000!important;color:#ffe94d!important;font-size:12px;letter-spacing:.06em}
+.grow.on>span{background:color-mix(in srgb,var(--n) 45%,#1d3aa8);color:#fff;text-shadow:0 0 4px #000}.grow.on>span:first-child{box-shadow:inset 4px 0 0 var(--n)}
+.grow:not(.ghead):hover>span{filter:brightness(1.25)}
+@media(max-width:480px){.grow{grid-template-columns:42% 1fr}.gnext{display:none}}
+.gctl{display:flex;justify-content:center;gap:5px;flex-wrap:wrap}
+.gctl button{background:linear-gradient(#fafafa,#cfcfcf);border:1px solid #000;border-bottom-width:3px;border-radius:4px;font:bold 11px Verdana,sans-serif;padding:5px 9px;cursor:pointer;color:#000}
+.gctl button:active{border-bottom-width:1px;transform:translateY(2px)}
+.gyt{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:1}
+</style>
 </head>
 <body>
 <header class="top"><button class="hb" id="hb" aria-label="Open menu" aria-expanded="false"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button><span class="logo neon">Nostalgic Nook</span>
@@ -310,14 +326,12 @@ body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n)
 <div class="cab"><div class="bez"><button class="scr" id="cscr" aria-label="Play cartoon intro"><span class="chov" id="chov"></span><span class="card" id="ccard"><small id="cnet">SATURDAY MORNING</small><b id="ctt">Pick a cartoon!</b><span id="cyr">Tap any card below</span><em>▶ PRESS PLAY</em></span></button></div>
 <div class="side"><span class="knob"></span><span class="knob sm"></span><span class="grill"></span></div></div><div class="feet"><i></i><i></i></div></div>
 </div>
-<div class="chrow" id="chrow" role="tablist" aria-label="Channels"></div><div class="chctl"><button id="chdn" aria-label="Channel down">▼ CH</button><span id="chname"></span><button id="chup" aria-label="Channel up">CH ▲</button></div><div class="chctl"><button id="cnext" aria-label="Next show">Next show ⏭</button></div><button class="surp" id="csur" style="display:block;margin:8px auto 0">🎲 Surprise me</button><p class="cnow" id="cnow">Pick a channel to turn on the TV 📺</p></div></div></section>
+<div class="guide" id="cguide" role="listbox" aria-label="TV guide"></div><div class="gctl"><button id="cdn" aria-label="Channel down">▼ CH</button><button id="cnext" aria-label="Next show">Next ⏭</button><button id="csur">🎲 Surprise</button><button id="cup" aria-label="Channel up">CH ▲</button></div><p class="cnow" id="cnow">Tap a channel in the guide to tune in 📺</p></div></div></section>
 <section class="view" id="v-wwe" hidden><div class="box nbox" id="wwe"><h2>WWE Classics · 1990–2005</h2><div class="in">
 <div class="ctop"><div class="tv"><div class="ant"><i></i><i></i></div>
-<div class="cab"><div class="bez"><button class="scr" id="wscr" aria-label="Play clip"><span class="card" id="wcard"><small id="wgrp">RING SIDE</small><b id="wtt">Pick a clip!</b><span id="wsub">Classic entrances &amp; moments</span><em>▶ PRESS PLAY</em></span></button></div>
+<div class="cab"><div class="bez"><button class="scr" id="wscr" aria-label="Play clip"><span class="chov" id="wchov"></span><span class="card" id="wcard"><small id="wgrp">RING SIDE</small><b id="wtt">Pick a clip!</b><span id="wsub">Classic entrances &amp; moments</span><em>▶ PRESS PLAY</em></span></button></div>
 <div class="side"><span class="knob"></span><span class="knob sm"></span><span class="grill"></span></div></div><div class="feet"><i></i><i></i></div></div></div>
-<div class="pick"><select id="wsel" aria-label="Pick a wrestling clip"></select><button class="surp" id="wsur">🎲 Surprise me</button></div>
-<p class="cinfo" id="winfo">Entrances, promos, and iconic moments from the WWF/WWE golden years. Clips from YouTube (mostly the official WWE channels).</p>
-</div></div></section>
+<div class="guide" id="wguide" role="listbox" aria-label="TV guide"></div><div class="gctl"><button id="wdn" aria-label="Channel down">▼ CH</button><button id="wnext" aria-label="Next show">Next ⏭</button><button id="wsur">🎲 Surprise</button><button id="wup" aria-label="Channel up">CH ▲</button></div><p class="cnow" id="wnow">Tap a channel in the guide to tune in 📺</p></div></div></section>
 
 <section class="view" id="v-photos" hidden><div class="box nbox" id="gal"><h2>Nostalgic Photo Gallery</h2><div class="in">
 <div class="pgrid" id="pgrid"></div>
@@ -447,36 +461,39 @@ function nnPicker(o){/* o: scr,card,l1,l2,l3,info,sel,sur,data,group,label,infoH
  o.sel.onchange=()=>pick(+o.sel.value);o.sur.onclick=()=>{let i;do{i=Math.floor(Math.random()*o.data.length)}while(o.data.length>1&&o.data[i]===cur);pick(i);};
  o.scr.onclick=()=>{if(!o.scr.querySelector('iframe'))play();};window.addEventListener('hashchange',stop);}
 const NNsort=t=>t.replace(/^(The|A|Disney's) /,'');
-(function(){const CH=[[3,'Nickelodeon',n=>/Nick/.test(n)],[5,'Cartoon Network',n=>/Cartoon Network|TBS/.test(n)],[7,'Disney',n=>/Disney|ABC/.test(n)],[9,'Fox Kids',n=>/Fox/.test(n)],[11,"Kids' WB",n=>/WB/.test(n)],[13,'PBS Kids',n=>/PBS/.test(n)],[15,'Saturday AM',n=>true]];
- let A=[],Q=[],pos=[],ci=-1,cur=null,pl=null,ovT,api=false;
- const chOf=x=>CH.findIndex(c=>c[2](x.network));
- if(!window.YT){const s=document.createElement('script');s.src='https://www.youtube.com/iframe_api';document.head.appendChild(s);}
- const prevReady=window.onYouTubeIframeAPIReady;window.onYouTubeIframeAPIReady=()=>{api=true;if(prevReady)prevReady();};
+function nnGuide(o){const e=v=>String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+ const CH=o.channels,Q=[],pos=[];let ci=-1,cur=null,pl=null,ovT;const $=id=>document.getElementById(o.p+id);
  const shuf=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a};
- function stop(){if(pl&&pl.destroy){try{pl.destroy()}catch(e){}}pl=null;cscr.querySelectorAll('iframe,#cyt').forEach(f=>f.remove());ccard.hidden=false;cscr.classList.remove('on');}
- function flash(){chov.textContent='CH '+CH[ci][0];cscr.classList.remove('flip');void cscr.offsetWidth;cscr.classList.add('flip');clearTimeout(ovT);ovT=setTimeout(()=>cscr.classList.remove('flip'),900);}
- function play(x){cur=x;ccard.hidden=true;cscr.classList.add('on');cnet.textContent='CH '+CH[ci][0];ctt.textContent=x.title;cyr.textContent=x.years;
-  cnow.innerHTML='';const b=document.createElement('b');b.textContent='Now playing: '+x.title;cnow.append(b,' · '+x.years+(x.kind==='Episode'?' · episode':' · theme song'));
-  if((api||(window.YT&&YT.Player))&&pl&&pl.loadVideoById){pl.loadVideoById(x.yt);return;}
-  stop();ccard.hidden=true;cscr.classList.add('on');
-  if(window.YT&&YT.Player){const d=document.createElement('div');d.id='cyt';cscr.appendChild(d);
-   pl=new YT.Player('cyt',{host:'https://www.youtube-nocookie.com',videoId:x.yt,width:'100%',height:'100%',playerVars:{autoplay:1,rel:0,playsinline:1},events:{onStateChange:ev=>{if(ev.data===0)next();},onError:()=>setTimeout(next,800)}});}
-  else{const f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+x.yt+'?autoplay=1&rel=0&playsinline=1';f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;f.title=x.title;cscr.appendChild(f);}}
+ if(!window.YT&&!document.querySelector('script[src*="iframe_api"]')){const s=document.createElement('script');s.src='https://www.youtube.com/iframe_api';document.head.appendChild(s);}
+ CH.forEach((c,k)=>{Q[k]=shuf(c.items);pos[k]=-1;});
+ const at=k=>Q[k][(pos[k]+Q[k].length)%Q[k].length],nx=k=>Q[k][(pos[k]+1)%Q[k].length];
+ function slot(off){const d=new Date();d.setMinutes(d.getMinutes()<30?0:30,0,0);d.setMinutes(d.getMinutes()+off*30);return d.toLocaleTimeString([],{hour:'numeric',minute:'2-digit'}).replace(/\s?[AP]M/i,'')}
+ function grid(){const G=$('guide');G.innerHTML='<div class="grow ghead"><span class="gch">'+e(o.title)+'</span><span class="gnow">'+slot(0)+'</span><span class="gnext">'+slot(1)+'</span></div>';
+  CH.forEach((c,k)=>{const r=document.createElement('button');r.className='grow'+(k===ci?' on':'');r.setAttribute('role','option');r.setAttribute('aria-selected',k===ci);
+   const n=pos[k]<0?Q[k][0]:at(k),m=pos[k]<0?Q[k][1%Q[k].length]:nx(k);
+   r.innerHTML='<span class="gch"><b>'+c.num+'</b>'+e(c.name)+'</span><span class="gnow">'+e(o.label(n))+'</span><span class="gnext">'+e(o.label(m))+'</span>';r.onclick=()=>tune(k);G.appendChild(r);});}
+ function stop(){if(pl&&pl.destroy){try{pl.destroy()}catch(x){}}pl=null;o.scr.querySelectorAll('iframe,#'+o.p+'yt').forEach(f=>f.remove());o.card.hidden=false;o.scr.classList.remove('on');}
+ function flash(){o.ov.textContent='CH '+CH[ci].num;o.scr.classList.remove('flip');void o.scr.offsetWidth;o.scr.classList.add('flip');clearTimeout(ovT);ovT=setTimeout(()=>o.scr.classList.remove('flip'),900);}
+ function play(x){cur=x;o.card.hidden=true;o.scr.classList.add('on');o.l1.textContent='CH '+CH[ci].num;o.l2.textContent=o.label(x);o.l3.textContent=o.sub(x);
+  const nw=$('now');nw.innerHTML='';const b=document.createElement('b');b.textContent='CH '+CH[ci].num+' · Now: '+o.label(x);nw.append(b,' · '+o.sub(x));grid();
+  if(pl&&pl.loadVideoById){pl.loadVideoById(x.yt);return;}
+  stop();o.card.hidden=true;o.scr.classList.add('on');
+  if(window.YT&&YT.Player){const d=document.createElement('div');d.id=o.p+'yt';d.className='gyt';o.scr.appendChild(d);
+   pl=new YT.Player(o.p+'yt',{host:'https://www.youtube-nocookie.com',videoId:x.yt,width:'100%',height:'100%',playerVars:{autoplay:1,rel:0,playsinline:1},events:{onStateChange:ev=>{if(ev.data===0)next();},onError:()=>setTimeout(next,800)}});}
+  else{const f=document.createElement('iframe');f.src='https://www.youtube-nocookie.com/embed/'+x.yt+'?autoplay=1&rel=0&playsinline=1';f.allow='autoplay; encrypted-media; picture-in-picture';f.allowFullscreen=true;f.title=o.label(x);o.scr.appendChild(f);}}
  function next(){if(ci<0)return tune(0);pos[ci]=(pos[ci]+1)%Q[ci].length;play(Q[ci][pos[ci]]);}
- function tune(i,x){ci=(i+CH.length)%CH.length;flash();chname.textContent='CH '+CH[ci][0]+' · '+CH[ci][1];
-  document.querySelectorAll('#chrow button').forEach((b,k)=>{b.classList.toggle('on',k===ci);b.setAttribute('aria-selected',k===ci)});
-  if(x){pos[ci]=Q[ci].indexOf(x);play(x);}else next();}
- window.nnCartoonNext=next;
- chup.onclick=()=>tune(ci+1);chdn.onclick=()=>tune(ci<0?CH.length-1:ci-1);cnext.onclick=next;
- csur.onclick=()=>{const x=A[Math.floor(Math.random()*A.length)];tune(chOf(x),x);};
- cscr.onclick=()=>{if(!cscr.classList.contains('on')){if(cur)play(cur);else tune(0);}};
- window.addEventListener('hashchange',()=>{stop();});
- fetch('cartoons.json?v=3').then(r=>r.json()).then(a=>{A=a.filter(x=>x.yt);CH.forEach((c,k)=>{Q[k]=shuf(A.filter(x=>chOf(x)===k));pos[k]=-1;
-   const b=document.createElement('button');b.setAttribute('role','tab');b.innerHTML='<b>'+c[0]+'</b><span></span>';b.querySelector('span').textContent=c[1];b.onclick=()=>tune(k);chrow.appendChild(b);});
-  chname.textContent=A.length+' cartoons on 7 channels';});})();
-fetch('wwe.json?v=1').then(r=>r.json()).then(a=>{
- nnPicker({scr:wscr,card:wcard,l1:wgrp,l2:wtt,l3:wsub,info:winfo,sel:wsel,sur:wsur,data:a,group:x=>x.group,label:x=>x.title,ph:'🤼 Pick a classic clip ('+a.length+')…',
-  card3:x=>[x.group.toUpperCase(),x.title,'WWF / WWE'],infoHtml:(x,e)=>'<b>'+e(x.group)+'</b> — '+e(x.title)});});
+ function tune(i,x){ci=(i+CH.length)%CH.length;flash();if(x){pos[ci]=Q[ci].indexOf(x);play(x);}else next();}
+ $('up').onclick=()=>tune(ci+1);$('dn').onclick=()=>tune(ci<0?CH.length-1:ci-1);$('next').onclick=next;
+ $('sur').onclick=()=>{const k=Math.floor(Math.random()*CH.length);tune(k,Q[k][Math.floor(Math.random()*Q[k].length)]);};
+ o.scr.onclick=()=>{if(!o.scr.classList.contains('on')){if(cur)play(cur);else tune(0);}};
+ window.addEventListener('hashchange',stop);grid();setInterval(()=>{if(!document.getElementById(o.view).hidden)grid()},60000);}
+fetch('cartoons.json?v=3').then(r=>r.json()).then(a=>{a=a.filter(x=>x.yt);const D=[[3,'Nickelodeon',n=>/Nick/.test(n)],[5,'Cartoon Network',n=>/Cartoon Network|TBS/.test(n)],[7,'Disney',n=>/Disney|ABC/.test(n)],[9,'Fox Kids',n=>/Fox/.test(n)],[11,"Kids' WB",n=>/WB/.test(n)],[13,'PBS Kids',n=>/PBS/.test(n)],[15,'Saturday AM',n=>true]];
+ const chOf=x=>D.findIndex(c=>c[2](x.network));
+ nnGuide({p:'c',view:'v-cartoons',title:'CARTOONS',scr:cscr,card:ccard,ov:chov,l1:cnet,l2:ctt,l3:cyr,label:x=>x.title,sub:x=>x.years+(x.kind==='Episode'?' · episode':' · theme song'),
+  channels:D.map((c,k)=>({num:c[0],name:c[1],items:a.filter(x=>chOf(x)===k)}))});});
+fetch('wwe.json?v=2').then(r=>r.json()).then(a=>{const N=[['Legends',21],['Attitude Era',23],['Monday Night Raw',25],['WrestleMania',27],['Big Debuts',29]];
+ nnGuide({p:'w',view:'v-wwe',title:'WWF / WWE',scr:wscr,card:wcard,ov:wchov,l1:wgrp,l2:wtt,l3:wsub,label:x=>x.title,sub:x=>x.group,
+  channels:N.map(([n,num])=>({num,name:n,items:a.filter(x=>x.ch===n)})).filter(c=>c.items.length)});});
 </script>
 <script>
 (function(){
