@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Nostalgia · 1990 – early 2000s</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#e6e6e6;color:#000;font:12px/1.45 Verdana,Tahoma,Geneva,sans-serif}
+a{color:#000}
+.top{background:#000;color:#fff;padding:8px 14px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 18px}
+.top .logo{font:bold 22px Georgia,serif;letter-spacing:.04em}
+.top .sub{font-size:10px;color:#bbb;letter-spacing:.15em}
+.top nav{margin-left:auto;display:flex;gap:14px;flex-wrap:wrap}
+.top nav a{color:#fff;text-decoration:none;font-size:11px}
+.top nav a:hover{text-decoration:underline}
+.wrap{max-width:900px;margin:14px auto;padding:0 10px;display:grid;grid-template-columns:300px 1fr;gap:14px}
+.box{background:#fff;border:1px solid #000;margin-bottom:14px}
+.box h2{margin:0;background:#333;color:#fff;font-size:11px;padding:4px 8px;letter-spacing:.08em;text-transform:uppercase}
+.box .in{padding:10px}
+.name{font:bold 18px Georgia,serif;margin:0 0 8px}
+.prof{display:flex;gap:10px}
+.avatar{width:110px;height:130px;flex:none;background:repeating-linear-gradient(45deg,#ddd 0 6px,#eee 6px 12px);border:1px solid #000;display:flex;align-items:center;justify-content:center;color:#777;font-size:10px;text-align:center}
+.prof p{margin:0 0 4px;font-size:11px}
+.dot{display:inline-block;width:8px;height:8px;border-radius:50%;background:#000;margin-right:4px;animation:b 1s steps(1) infinite}
+@keyframes b{50%{opacity:0}}
+table.info{width:100%;border-collapse:collapse;font-size:11px}
+table.info td{border:1px solid #bbb;padding:3px 6px;vertical-align:top}
+table.info td:first-child{background:#eee;width:40%;font-weight:bold}
+.counter{text-align:center}
+.digits{display:inline-flex;gap:2px;margin-top:4px}
+.digits span{background:#000;color:#fff;font:bold 15px "Courier New",monospace;padding:2px 5px}
+#song{text-align:center}
+#song .t{font:bold 17px Georgia,serif;margin:2px 0}
+#song .a{margin:0 0 6px}
+#play{margin-top:6px;background:#fff;color:#000;border:1px solid #000;padding:6px 18px;font:bold 12px Verdana,sans-serif;letter-spacing:.15em;cursor:pointer}
+#play:hover,#play:focus{background:#000;color:#fff}
+#vid{margin-top:8px;width:100%;aspect-ratio:16/9;display:none}
+#vid iframe{width:100%;height:100%;border:1px solid #000}
+.links{font-size:11px;margin:8px 0 0}
+.links a{margin:0 6px}
+.friends{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;text-align:center;font-size:10px}
+.friends div div{aspect-ratio:1;background:#ddd;border:1px solid #000;margin-bottom:3px}
+.cm{display:flex;gap:8px;border-top:1px solid #ccc;padding:8px 0}
+.cm:first-child{border-top:0;padding-top:0}
+.cm .av{width:48px;height:48px;flex:none;background:#ddd;border:1px solid #000}
+.cm b{font-size:11px}.cm small{color:#666}
+.cm p{margin:3px 0 0}
+footer{text-align:center;font-size:10px;color:#555;padding:10px 0 20px}
+@media(max-width:700px){.wrap{grid-template-columns:1fr}.top nav{margin-left:0}}
+.wrap{display:block!important;max-width:640px;margin-left:auto;margin-right:auto}.row{display:flex;gap:8px;align-items:flex-start;border-top:1px solid #ccc;padding:6px 0;flex-wrap:wrap}
+.row:first-child{border-top:0}
+.row .dt{width:78px;flex:none;color:#555;font-size:11px}
+.row .info{flex:1;min-width:0}
+.row .info b{font-weight:bold}
+.row .pb{flex:none;background:#fff;border:1px solid #000;font:11px Verdana,sans-serif;padding:1px 7px;cursor:pointer;color:#000;text-decoration:none}
+.row .pb:hover{background:#000;color:#fff}
+.row .rv{width:100%;aspect-ratio:16/9}
+.row .rv iframe{width:100%;height:100%;border:1px solid #000}
+.note{color:#555;margin:0}
+#tog{margin-top:10px;background:#fff;border:1px solid #000;font:11px Verdana,sans-serif;padding:4px 10px;cursor:pointer}
+#tog:hover{background:#000;color:#fff}
+#all{margin-top:8px}
+</style>
+</head>
+<body>
+<header class="top"><span class="logo">Nostalgia</span><span class="sub">1990 – EARLY 2000s</span>
+</header>
+<div class="wrap">
+<main>
+<div class="box" id="song"><h2>Now Playing · Song of the Day</h2><div class="in">
+<p class="t" id="st">Loading…</p><p class="a" id="sa"></p>
+<button id="play" hidden>▶ Play</button><div id="vid"></div>
+<p class="links"><a id="yt" target="_blank" rel="noopener">Listen on YouTube</a>·<a id="sp" target="_blank" rel="noopener">Spotify</a></p>
+</div></div>
+<div class="box" id="archive"><h2>Song Archive</h2><div class="in">
+<div id="past"></div>
+<button id="tog" aria-expanded="false">Show all songs</button>
+<div id="all" hidden></div>
+</div></div>
+</main></div>
+<script>
+fetch('songs.json?v=4',{cache:'no-store'}).then(r=>r.json()).then(s=>{
+const d=new Date(),doy=Math.round((new Date(d.getFullYear(),d.getMonth(),d.getDate())-new Date(d.getFullYear(),0,0))/864e5);
+const x=s[(doy-1)%s.length],q=encodeURIComponent(x.title+' '+x.artist);
+st.textContent=x.title;sa.textContent=x.artist+' · '+x.year;
+yt.href='https://www.youtube.com/results?search_query='+q;sp.href='https://open.spotify.com/search/'+q;
+if(x.yt){play.hidden=false;play.onclick=()=>{vid.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+x.yt+'?autoplay=1&rel=0" title="'+x.title.replace(/"/g,'&quot;')+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';vid.style.display='block';play.hidden=true;stopRows();};}
+const LAUNCH=new Date(2026,9,23),day=864e5;
+const dayOf=t=>Math.round((new Date(t.getFullYear(),t.getMonth(),t.getDate())-new Date(t.getFullYear(),0,0))/day);
+const songFor=t=>s[(dayOf(t)-1)%s.length];
+const esc=v=>String(v).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function stopRows(){document.querySelectorAll('.rv').forEach(e=>e.remove());}
+function stopMain(){if(x.yt){vid.innerHTML='';vid.style.display='none';play.hidden=false;}}
+function row(song,label){
+  const q=encodeURIComponent(song.title+' '+song.artist),r=document.createElement('div');r.className='row';
+  r.innerHTML='<span class="dt">'+esc(label)+'</span><span class="info"><b>'+esc(song.title)+'</b><br>'+esc(song.artist)+' · '+song.year+'</span>'+
+    (song.yt?'<button class="pb" aria-label="Play '+esc(song.title)+'">▶</button>':'<a class="pb" target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query='+q+'">▶</a>');
+  if(song.yt)r.querySelector('button').onclick=()=>{const open=r.querySelector('.rv');stopRows();stopMain();if(open)return;
+    const v=document.createElement('div');v.className='rv';v.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+song.yt+'?autoplay=1&rel=0" title="'+esc(song.title)+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';r.appendChild(v);};
+  return r;}
+const today=new Date(d.getFullYear(),d.getMonth(),d.getDate());
+let n=0;
+for(let t=new Date(today.getFullYear(),today.getMonth(),today.getDate()-1);t>=LAUNCH&&n<365;t=new Date(t.getFullYear(),t.getMonth(),t.getDate()-1),n++)
+  past.appendChild(row(songFor(t),t.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})));
+if(!n)past.innerHTML='<p class="note">Check back tomorrow — past songs will appear here.</p>';
+tog.onclick=()=>{const show=all.hidden;all.hidden=!show;tog.textContent=show?'Hide all songs':'Show all songs';tog.setAttribute('aria-expanded',show);
+  if(show&&!all.childNodes.length)s.forEach((song,i)=>all.appendChild(row(song,'#'+(i+1))));};
+});
+</script>
+</body>
+</html>
