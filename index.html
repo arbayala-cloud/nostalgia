@@ -310,9 +310,9 @@ url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' hei
 .thint{position:absolute;top:8px;left:0;right:0;text-align:center;color:#fff;font:12px Verdana,sans-serif;margin:0;opacity:.85;pointer-events:none}
 .toy{position:absolute;left:0;top:0;width:76px;display:flex;flex-direction:column;align-items:center;gap:2px;touch-action:none;user-select:none;-webkit-user-select:none;cursor:grab;z-index:2;transition:transform .55s cubic-bezier(.3,1.6,.5,1),opacity .4s}
 .toy.drag{cursor:grabbing;transition:none;z-index:50}.toy.drag .te{transform:scale(1.15) rotate(-6deg)}
-.toy .te{font-size:38px;line-height:1;filter:drop-shadow(2px 3px 0 #000a);transition:transform .15s}
+.toy .te{width:54px;height:54px;pointer-events:none;filter:drop-shadow(2px 3px 0 #000a);transition:transform .15s}
 .toy .tl{background:#fff;color:#000;border:2px solid #000;border-radius:4px;font:bold 10px/1.15 Verdana,sans-serif;padding:2px 4px;text-align:center;box-shadow:2px 2px 0 var(--n);max-width:76px}
-@media(max-width:480px){.tmat{height:400px}.toy{width:64px}.toy .te{font-size:32px}.toy .tl{font-size:9px;max-width:64px}}
+@media(max-width:480px){.tmat{height:400px}.toy{width:64px}.toy .te{width:46px;height:46px}.toy .tl{font-size:9px;max-width:64px}}
 </style>
 <link rel="manifest" href="manifest.json"><meta name="theme-color" content="#2b0a6b"><link rel="apple-touch-icon" href="icons/cat-180.png"><link rel="icon" type="image/png" sizes="192x192" href="icons/cat-192.png"><meta name="apple-mobile-web-app-capable" content="yes"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-title" content="Nostalgic Nook"><meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 </head>
@@ -366,7 +366,7 @@ url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='90' hei
 <section class="view" id="v-toybox" hidden><div class="box nbox" id="toy"><h2>Toy Box · 1990–2005</h2><div class="in">
 <div class="tbar"><button id="tout" type="button">Take one out</button><span id="tcount">0 / 0</span><button id="tclean" type="button">Clean Up</button></div>
 <div id="tmat" class="tmat"><button id="tchest" class="tchest" type="button" aria-label="Toy chest — tap to take out a toy"><span class="tlid"></span><span class="tbody"><b>TOYS</b></span></button><p class="thint">Tap the toy chest to take out a toy, then drag it anywhere.</p></div>
-</div></div></section>
+<p class="note">Toy drawings are original illustrations made for Nostalgic Nook (not product photos); toy names belong to their owners.</p></div></div></section>
 <section class="view" id="v-memories" hidden><div class="box nbox" id="mem"><h2>My Memories · Private Journal</h2><div class="in">
 <form id="mf"><input id="mt" placeholder="Title (e.g. First Tamagotchi)" required maxlength="120"><input id="my" placeholder="Year (optional)" inputmode="numeric" maxlength="4">
 <textarea id="mx" placeholder="Write your throwback memory…" rows="4" required></textarea>
@@ -641,11 +641,11 @@ const d=1.3,n=R*d,b=A.createBuffer(1,n,R),c=b.getChannelData(0);let last=0;for(l
 const s=A.createBufferSource();s.buffer=b;const hp=A.createBiquadFilter();hp.type='highpass';hp.frequency.value=300;const g=A.createGain(),st=t+(pw?.08:0);g.gain.setValueAtTime(0,st);g.gain.linearRampToValueAtTime(.45,st+.03);g.gain.setValueAtTime(.45,st+d-.35);g.gain.linearRampToValueAtTime(0,st+d);s.connect(hp).connect(g).connect(A.destination);s.start(st)}catch(e){}}})();
 document.addEventListener('click',e=>{const b=e.target.closest('#play,#tplay,#rw,#ff,#trw,#tff');if(b)nnStatic(/play/.test(b.id))},true);
 </script>
-<script>(()=>{const T=[["🥚","Tamagotchi"],["🦉","Furby"],["🎮","Game Boy"],["💗","Polly Pocket"],["🧸","Beanie Babies"],["🐬","Lisa Frank Folder"],["🪙","Pogs"],["🔴","Tickle Me Elmo"],["🧁","Easy-Bake Oven"],["📢","Bop It"],["🪀","Yo-Yo"],["🌈","Slap Bracelet"],["🖊️","Gel Pens"],["🦶","Skip-It"],["💡","Lite-Brite"],["👱‍♀️","Barbie"],["🏎️","Hot Wheels"],["🔫","Super Soaker"],["🫧","Lava Lamp"],["🎱","Magic 8 Ball"],["⚡","Pokémon Cards"],["🐶","Giga Pet"],["🌀","Spirograph"],["🟢","Koosh Ball"],["🌙","Moon Shoes"],["📼","Talkboy"],["📞","Dream Phone"],["🦸","Mighty Max"],["🧌","Troll Doll"],["🎤","Spice Girls Dolls"],["💄","Bratz"],["✏️","Etch A Sketch"],["🧊","Rubik's Cube"],["🕹️","Nintendo 64"],["💿","Discman"],["🛹","Tech Deck"],["🧩","Tetris"],["🐉","Digimon"],["🪐","Glow Stars"],["🚲","BMX Bike"]];
+<script>(()=>{const T=[["tamagotchi","Tamagotchi"],["furby","Furby"],["gameboy","Game Boy"],["pollypocket","Polly Pocket"],["beanie","Beanie Babies"],["lisafolder","Lisa Frank Folder"],["pogs","Pogs"],["elmo","Tickle Me Elmo"],["easybake","Easy-Bake Oven"],["bopit","Bop It"],["yoyo","Yo-Yo"],["slap","Slap Bracelet"],["gelpens","Gel Pens"],["skipit","Skip-It"],["litebrite","Lite-Brite"],["barbie","Barbie"],["hotwheels","Hot Wheels"],["supersoaker","Super Soaker"],["lavalamp","Lava Lamp"],["eightball","Magic 8 Ball"],["pokecards","Pok\u00e9mon Cards"],["gigapet","Giga Pet"],["spirograph","Spirograph"],["koosh","Koosh Ball"],["moonshoes","Moon Shoes"],["talkboy","Talkboy"],["dreamphone","Dream Phone"],["mightymax","Mighty Max"],["troll","Troll Doll"],["spicegirls","Spice Girls Dolls"],["bratz","Bratz"],["etch","Etch A Sketch"],["rubik","Rubik's Cube"],["n64","Nintendo 64"],["discman","Discman"],["techdeck","Tech Deck"],["tetris","Tetris"],["digimon","Digimon"],["glowstars","Glow Stars"],["bmx","BMX Bike"]];
 const $=id=>document.getElementById(id),M=$('tmat'),C=$('tchest'),K='nn_toybox';let st;try{st=JSON.parse(localStorage.getItem(K))||{n:0,p:{}}}catch(e){st={n:0,p:{}}}
 const save=()=>localStorage.setItem(K,JSON.stringify(st)),cnt=()=>{$('tcount').textContent=st.n+' / '+T.length;$('tout').disabled=st.n>=T.length};
 function home(){const r=M.getBoundingClientRect(),c=C.getBoundingClientRect();return[c.left-r.left+c.width/2-38,c.top-r.top+10]}
-function mk(i,anim){const [e,l]=T[i],d=document.createElement('div');d.className='toy';d.dataset.i=i;d.innerHTML='<span class="te"></span><span class="tl"></span>';d.firstChild.textContent=e;d.lastChild.textContent=l;M.appendChild(d);
+function mk(i,anim){const [e,l]=T[i],d=document.createElement('div');d.className='toy';d.dataset.i=i;d.innerHTML='<img class="te" draggable="false" alt=""><span class="tl"></span>';d.firstChild.src='toys/'+e+'.svg';d.lastChild.textContent=l;M.appendChild(d);
  const W=M.clientWidth,H=M.clientHeight;let p=st.p[i];
  if(!p){p=[(.06+Math.random()*.74),(.1+Math.random()*.5)];st.p[i]=p;save()}
  const go=()=>d.style.transform=`translate(${p[0]*W}px,${p[1]*H}px)`;
