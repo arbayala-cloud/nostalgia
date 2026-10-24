@@ -86,6 +86,24 @@ footer{text-align:center;font-size:10px;color:#555;padding:10px 0 20px}
 .deck button:disabled{opacity:.4;cursor:default}
 .deck small{display:block;font-size:8px;letter-spacing:.1em;font-weight:normal}
 #cnt{font:11px "Courier New",monospace;color:#555;margin:2px 0 0}
+
+@font-face{font-family:"PM";src:url(fonts/PermanentMarker.ttf) format("truetype");font-display:swap}
+.cas{max-width:300px!important;border-radius:11px}
+@media(max-width:500px){.cas{max-width:250px!important}.deck button{min-width:46px;height:34px}}
+.lab .hw{font:16px/1.1 "PM",Verdana,sans-serif!important;white-space:normal!important;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;color:#111!important;letter-spacing:.02em}
+.lab .hw2{font:13px/1.3 "PM",Verdana,sans-serif!important;color:#333!important}
+.lab{padding:3px 9px!important}
+.tick{overflow:hidden;background:#000;color:#fff;border-top:2px solid #fff;border-bottom:2px solid #fff;outline:1px solid #000;white-space:nowrap;padding:6px 0;margin-bottom:10px}
+.tick div{display:inline-block;padding-left:100%;animation:tk 60s linear infinite;font:16px "PM",Verdana,sans-serif;letter-spacing:.05em}
+.tick span{margin:0 14px}.tick span:after{content:"★";margin-left:28px;font-size:11px;color:#aaa}
+@keyframes tk{to{transform:translateX(-100%)}}
+.bands{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+.bd{font:15px "PM",Verdana,sans-serif;background:#fff;color:#000;border:2px solid #000;padding:5px 10px;box-shadow:3px 3px 0 #000;cursor:pointer;transition:transform .1s}
+.bd:nth-child(3n){transform:rotate(-2deg)}.bd:nth-child(3n+1){transform:rotate(1.5deg)}
+.bd:nth-child(4n){background:#000;color:#fff;box-shadow:3px 3px 0 #888}
+.bd:hover,.bd.on{transform:rotate(0) scale(1.08);background:#000;color:#fff}
+#bsongs{margin-top:12px}#bsongs h3{font:18px "PM",Verdana,sans-serif;margin:0 0 4px}
+@media(prefers-reduced-motion:reduce){.tick div{animation:none;padding-left:0}}
 </style>
 </head>
 <body>
@@ -101,6 +119,11 @@ footer{text-align:center;font-size:10px;color:#555;padding:10px 0 20px}
 <div class="deck"><button id="rw" aria-label="Previous day's song">◀◀<small>REW</small></button><button id="play" aria-label="Play">▶<small>PLAY</small></button><button id="pz" aria-label="Pause">❚❚<small>PAUSE</small></button><button id="ff" aria-label="Next day's song">▶▶<small>FF</small></button></div>
 <p id="cnt"></p><div id="vid"></div>
 <p class="links"><a id="yt" target="_blank" rel="noopener">Listen on YouTube</a>·<a id="sp" target="_blank" rel="noopener">Spotify</a></p>
+</div></div>
+<div class="box" id="bandbox"><h2>Rad Bands · 90s &amp; 00s</h2><div class="in">
+<div class="tick" aria-hidden="true"><div id="tk"></div></div>
+<div class="bands" id="bands"></div><div id="bsongs"></div>
+<p class="note" style="font-size:10px;margin-top:8px;text-align:center">Tap a band to see their songs on the Nostalgia list.</p>
 </div></div>
 <div class="box" id="archive"><h2>Song Archive</h2><div class="in">
 <div id="past"></div>
@@ -142,6 +165,16 @@ function row(song,label){
   if(song.yt)r.querySelector('button').onclick=()=>{const open=r.querySelector('.rv');stopRows();stopMain();if(open)return;
     const v=document.createElement('div');v.className='rv';v.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+song.yt+'?autoplay=1&rel=0" title="'+esc(song.title)+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';r.appendChild(v);};
   return r;}
+
+const BANDS=["Nirvana","Pearl Jam","Green Day","No Doubt","Backstreet Boys","NSYNC","Spice Girls","TLC","Destiny's Child","Oasis","Red Hot Chili Peppers","Foo Fighters","Blink-182","Linkin Park","Matchbox Twenty","Goo Goo Dolls","Third Eye Blind","Smash Mouth","Hootie & the Blowfish","Boyz II Men","The Cranberries","R.E.M.","Counting Crows","Ace of Base","Savage Garden","Hanson","Weezer","Sugar Ray","Creed","3 Doors Down","dc Talk","Jars of Clay","Newsboys","Coldplay","Nickelback","Maroon 5","En Vogue","All-4-One"];
+tk.innerHTML=BANDS.map(b=>'<span>'+esc(b)+'</span>').join('');
+BANDS.forEach(b=>{const e=document.createElement('button');e.className='bd';e.textContent=b;e.onclick=()=>{
+ const was=e.classList.contains('on');document.querySelectorAll('.bd.on').forEach(z=>z.classList.remove('on'));bsongs.innerHTML='';stopRows();if(was)return;e.classList.add('on');
+ const m=s.filter(z=>z.artist.toLowerCase()===b.toLowerCase());
+ bsongs.innerHTML='<h3>'+esc(b)+'</h3>';
+ if(m.length)m.forEach(z=>bsongs.appendChild(row(z,'#'+(s.indexOf(z)+1))));
+ else{const q=encodeURIComponent(b+' greatest hits');bsongs.innerHTML+='<p class="note">Not on our song list yet — <a target="_blank" rel="noopener" href="https://www.youtube.com/results?search_query='+q+'">hear them on YouTube</a>.</p>';}
+};bands.appendChild(e);});
 const today=new Date(d.getFullYear(),d.getMonth(),d.getDate());
 let n=0;
 for(let t=new Date(today.getFullYear(),today.getMonth(),today.getDate()-1);t>=LAUNCH&&n<365;t=new Date(t.getFullYear(),t.getMonth(),t.getDate()-1),n++)
