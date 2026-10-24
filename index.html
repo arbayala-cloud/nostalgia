@@ -94,6 +94,10 @@ footer{text-align:center;font-size:10px;color:#555;padding:10px 0 20px}
 .lab .hw2{font:13px/1.3 "PM",Verdana,sans-serif!important;color:#333!important}
 .lab{padding:3px 9px!important}
 
+#vid{display:block!important;position:fixed;left:0;bottom:0;width:1px!important;height:1px;overflow:hidden;opacity:.01;pointer-events:none;margin:0;aspect-ratio:auto}
+#vid.show{position:static;width:100%!important;max-width:300px;height:170px;opacity:1;pointer-events:auto;margin:6px auto 0}
+#vid.show iframe{width:100%;height:100%}
+#tt{font:bold 12px "Courier New",monospace;margin:0;min-height:15px}
 </style>
 </head>
 <body>
@@ -107,7 +111,7 @@ footer{text-align:center;font-size:10px;color:#555;padding:10px 0 20px}
 <div class="win"><span class="tape"></span><span class="reel"><i></i></span><span class="reel"><i></i></span></div>
 <div class="trap"><b style="left:10%"></b><b style="right:10%"></b></div></div>
 <div class="deck"><button id="rw" aria-label="Previous day's song">◀◀<small>REW</small></button><button id="play" aria-label="Play">▶<small>PLAY</small></button><button id="pz" aria-label="Pause">❚❚<small>PAUSE</small></button><button id="ff" aria-label="Next day's song">▶▶<small>FF</small></button></div>
-<p id="cnt"></p><div id="vid"></div>
+<p id="cnt"></p><p id="tt"></p><div id="vid" aria-hidden="true"></div>
 <p class="links"><a id="yt" target="_blank" rel="noopener">Listen on YouTube</a>·<a id="sp" target="_blank" rel="noopener">Spotify</a></p>
 </div></div>
 <div class="box" id="archive"><h2>Song Archive</h2><div class="in">
@@ -119,23 +123,22 @@ footer{text-align:center;font-size:10px;color:#555;padding:10px 0 20px}
 <script>
 fetch('songs.json?v=5',{cache:'no-store'}).then(r=>r.json()).then(s=>{
 const d=new Date(),doy=Math.round((new Date(d.getFullYear(),d.getMonth(),d.getDate())-new Date(d.getFullYear(),0,0))/864e5);
-let off=0,x,pl=null,ytOk=false;
+let off=0,x,pl=null,ready=false,tm=null;
+const spin=on=>{cas.classList.toggle('spin',on);play.classList.toggle('on',on);};
+const fmt=t=>{t=Math.max(0,Math.floor(t||0));return Math.floor(t/60)+':'+String(t%60).padStart(2,'0')};
+function tick(){if(ready&&pl.getCurrentTime){const c=pl.getCurrentTime(),d=pl.getDuration();tt.textContent=d?fmt(c)+' / '+fmt(d):'';}}
 const tag=document.createElement('script');tag.src='https://www.youtube.com/iframe_api';document.head.appendChild(tag);
-window.onYouTubeIframeAPIReady=()=>{ytOk=true};
-const spin=on=>cas.classList.toggle('spin',on);
+window.onYouTubeIframeAPIReady=()=>{vid.innerHTML='<div id="ytp"></div>';
+ pl=new YT.Player('ytp',{host:'https://www.youtube-nocookie.com',width:200,height:120,videoId:x.yt||'',playerVars:{rel:0,playsinline:1,controls:0},
+ events:{onReady:()=>{ready=true;window._pl=pl;play.disabled=!x.yt;},onStateChange:e=>{if(e.data===1)vid.classList.remove('show');spin(e.data===1||e.data===3);clearInterval(tm);if(e.data===1)tm=setInterval(tick,500);tick();}}});};
 function load(){x=s[((doy-1+off)%s.length+s.length)%s.length];const q=encodeURIComponent(x.title+' '+x.artist);
 st.textContent=x.title;st.style.fontSize=x.title.length>24?'12px':x.title.length>16?'14px':'';sa.textContent=x.artist+' · '+x.year;
 cnt.textContent=off?(off<0?'⏪ '+(-off)+' day'+(off<-1?'s':'')+' back':'⏩ '+off+' day'+(off>1?'s':'')+' ahead'):'Today\'s tape';
 yt.href='https://www.youtube.com/results?search_query='+q;sp.href='https://open.spotify.com/search/'+q;
-stopMain();play.disabled=!x.yt;}
-function stopMain(){if(pl&&pl.destroy)try{pl.destroy()}catch(e){}pl=null;vid.innerHTML='';vid.style.display='none';spin(false);}
-play.onclick=()=>{if(!x.yt)return;stopRows();
- if(pl&&pl.playVideo){pl.playVideo();return;}
- vid.style.display='block';
- if(ytOk&&window.YT&&YT.Player){vid.innerHTML='<div id="ytp"></div>';
-  pl=new YT.Player('ytp',{host:'https://www.youtube-nocookie.com',videoId:x.yt,playerVars:{autoplay:1,rel:0,playsinline:1},events:{onStateChange:e=>spin(e.data===1||e.data===3)}});}
- else{vid.innerHTML='<iframe src="https://www.youtube-nocookie.com/embed/'+x.yt+'?autoplay=1&rel=0&playsinline=1" title="'+x.title.replace(/"/g,'&quot;')+'" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>';pl={};spin(true);}};
-pz.onclick=()=>{if(pl&&pl.pauseVideo)pl.pauseVideo();else stopMain();spin(false);};
+tt.textContent='';spin(false);if(ready&&x.yt)pl.cueVideoById(x.yt);play.disabled=!(ready&&x.yt);}
+function stopMain(){if(ready)pl.pauseVideo();spin(false);}
+play.onclick=()=>{if(!ready||!x.yt)return;stopRows();vid.classList.remove('show');pl.playVideo();setTimeout(()=>{const st_=pl.getPlayerState();if(st_!==1&&st_!==3){vid.classList.add('show');cnt.textContent='Tap the video once to start the tape';}},2500);};
+pz.onclick=()=>{stopMain();};
 rw.onclick=()=>{off--;load();};ff.onclick=()=>{off++;load();};
 load();
 const LAUNCH=new Date(2026,9,23),day=864e5;
