@@ -119,6 +119,18 @@ linear-gradient(115deg,#ff4fd8,#fff,#b4b4ff,#ffd6f5,#ff4fd8,#fff,#c0c0c0,#ff4fd8
 #song h2{background:#222 url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='20'%3E%3Ccircle cx='5' cy='5' r='.8' fill='%23ff9ee9'/%3E%3Ccircle cx='25' cy='14' r='.7' fill='%23fff'/%3E%3Ccircle cx='34' cy='4' r='.6' fill='%23ffd6f5'/%3E%3Ccircle cx='15' cy='16' r='.5' fill='%23fff'/%3E%3C/svg%3E");animation:hs 3s linear infinite}
 @keyframes hs{to{background-position:40px 0}}
 </style>
+<style>
+@property --n{syntax:'<color>';inherits:true;initial-value:#ff2ec4}
+:root{animation:neoncyc 9s linear infinite}
+@keyframes neoncyc{0%{--n:#ff2ec4}16%{--n:#00f0ff}33%{--n:#39ff14}50%{--n:#fff01f}66%{--n:#ff7a00}83%{--n:#b026ff}100%{--n:#ff2ec4}}
+#song{background:linear-gradient(#fff,#fff) padding-box,linear-gradient(115deg,var(--n),#fff,var(--n),#fff,var(--n)) border-box;background-size:100% 100%,300% 300%;box-shadow:0 0 12px var(--n)}
+#song h2{color:#fff;text-shadow:0 0 6px var(--n),0 0 12px var(--n)}
+#song .deck button{border-color:var(--n);box-shadow:0 0 6px var(--n),0 3px 0 #000}
+#song .links a{color:#000;text-decoration-color:var(--n);text-decoration-thickness:2px}
+.spark{box-shadow:0 0 6px 2px var(--n)!important}
+.tv .cab{box-shadow:0 0 14px var(--n)}
+body{background-image:radial-gradient(circle at 50% 0,color-mix(in srgb,var(--n) 18%,transparent),transparent 60%)}
+</style>
 </head>
 <body>
 <header class="top"><span class="logo neon">Nostalgic Nook</span>
